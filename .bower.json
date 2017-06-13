@@ -1,0 +1,20 @@
+{
+  "name": "docster",
+  "description": "A fullstack document management system, complete with roles and priviledges.",
+  "main": "server.js",
+  "authors": [
+    "Esther Falayi"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "materialize": "^0.98.2"
+  }
+}
