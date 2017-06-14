@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon --watch server --exec babel-node -- server/server.js",
+    "reset:db": "sequelize db:migrate:undo:all",
     "lint": "node_modules/.bin/esw webpack.* client server"
   },
   "author": "Esther Falayi",

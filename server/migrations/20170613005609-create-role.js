@@ -1,14 +1,15 @@
 module.exports = {
   up(queryInterface, Sequelize) {
-    return queryInterface.createTable('documents', {
+    return queryInterface.createTable('Roles', {
       id: {
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        primaryKey: true
       },
-      title: {
-        type: Sequelize.STRING
+      label: {
+        type: Sequelize.ENUM('admin', 'author'),
+        defaultValue: 'author'
       },
       createdAt: {
         allowNull: false,
@@ -20,7 +21,7 @@ module.exports = {
       }
     });
   },
-  down(queryInterface, Sequelize) {
-    return queryInterface.dropTable('documents');
+  down(queryInterface) {
+    return queryInterface.dropTable('Roles');
   }
 };
