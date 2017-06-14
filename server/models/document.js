@@ -1,13 +1,29 @@
 
 module.exports = (sequelize, DataTypes) => {
-  const document = sequelize.define('document', {
-    title: DataTypes.STRING
+  const Document = sequelize.define('Document', {
+    title: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false
+    },
+    content: {
+      type: DataTypes.TEXT
+    },
+    docType: {
+      type: DataTypes.STRING
+    },
+    access: {
+      type: DataTypes.ENUM('private', 'public', 'role'),
+      defaultValue: 'public'
+    }
   }, {
     classMethods: {
       associate(models) {
-        // associations can be defined here
+        Document.belongsTo(models.User, {
+          foreignKey: 'userId'
+        });
       }
     }
   });
-  return document;
+  return Document;
 };
