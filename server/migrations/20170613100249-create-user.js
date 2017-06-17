@@ -1,17 +1,18 @@
 module.exports = {
   up(queryInterface, Sequelize) {
-    return queryInterface.createTable('Users', {
+    return queryInterface
+    .createTable('Users', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      fullName: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      username: {
+      userName: {
         type: Sequelize.STRING,
         unique: true,
         allowNull: false
@@ -34,9 +35,7 @@ module.exports = {
           model: 'Roles',
           key: 'id',
           as: 'roleId'
-        },
-        onUpdate: 'cascade',
-        onDelete: 'cascade'
+        }
       },
       createdAt: {
         allowNull: false,
@@ -52,3 +51,4 @@ module.exports = {
     return queryInterface.dropTable('Users');
   }
 };
+

@@ -12,11 +12,16 @@ module.exports = {
         unique: true,
         allowNull: false
       },
+      slug: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false,
+        set(value) {
+          this.setDataValue('slug', value.replace(/[" "]/g, '-'));
+        }
+      },
       content: {
         type: Sequelize.TEXT
-      },
-      docType: {
-        type: Sequelize.STRING
       },
       access: {
         type: Sequelize.ENUM('private', 'public', 'role'),
@@ -27,9 +32,7 @@ module.exports = {
         references: {
           model: 'Users',
           key: 'id'
-        },
-        onUpdate: 'cascade',
-        onDelete: 'cascade'
+        }
       },
       createdAt: {
         allowNull: false,

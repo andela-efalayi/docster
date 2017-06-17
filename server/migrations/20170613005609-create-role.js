@@ -2,14 +2,15 @@ module.exports = {
   up(queryInterface, Sequelize) {
     return queryInterface.createTable('Roles', {
       id: {
-        allowNull: false,
-        autoIncrement: true,
         type: Sequelize.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
         primaryKey: true
       },
-      label: {
-        type: Sequelize.ENUM('admin', 'author'),
-        defaultValue: 'author'
+      roleType: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
       },
       createdAt: {
         allowNull: false,
