@@ -6,21 +6,33 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false
     },
+    slug: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      set(value) {
+        this.setDataValue('slug', value.replace(/[" "]/g, '-'));
+      }
+    },
     content: {
       type: DataTypes.TEXT
-    },
-    docType: {
-      type: DataTypes.STRING
     },
     access: {
       type: DataTypes.ENUM('private', 'public', 'role'),
       defaultValue: 'public'
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'User',
+        key: 'id'
+      }
     }
   }, {
     classMethods: {
       associate(models) {
         Document.belongsTo(models.User, {
-          foreignKey: 'userId'
+          as: 'owner'
         });
       }
     }

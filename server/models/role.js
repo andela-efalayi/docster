@@ -1,8 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
   const Role = sequelize.define('Role', {
-    label: {
-      type: DataTypes.ENUM('admin', 'author'),
-      defaultValue: 'author'
+    roleType: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
     }
   }, {
     classMethods: {
