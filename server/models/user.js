@@ -1,12 +1,60 @@
+import bcrypt from 'bcrypt';
+
+const salt = bcrypt.genSaltSync(10);
+
 module.exports = (sequelize, DataTypes) => {
-  const user = sequelize.define('user', {
-    name: DataTypes.STRING
+  const User = sequelize.define('User', {
+    fullName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    userName: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false
+    },
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        isEmail: true
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    roleId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Role',
+        key: 'id',
+        as: 'roleId'
+      }
+    },
   }, {
     classMethods: {
       associate(models) {
-        // associations can be defined here
+        User.belongsTo(models.Role, {
+          foreignKey: 'roleId'
+        });
+        User.hasMany(models.Document, {
+          as: 'documents',
+          foreignKey: 'userId'
+        });
+      }
+    },
+    instanceMethods: {
+      passwordIsValid(password) {
+        return bcrypt.compareSync(password, this.password);
+      }
+    },
+    hooks: {
+      beforeCreate(user) {
+        user.password = bcrypt.hashSync(user.password, salt);
       }
     }
   });
-  return user;
+  return User;
 };
