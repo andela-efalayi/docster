@@ -1,6 +1,7 @@
 import rolesController from '../controllers/role';
 import userController from '../controllers/user';
 import documentController from '../controllers/document';
+import searchController from '../controllers/search';
 
 module.exports = (app) => {
   app.get('/', (req, res) => {
@@ -10,22 +11,27 @@ module.exports = (app) => {
     });
   });
 
-  // Routes for roles
-  app.post('/roles', rolesController.createRole);
-  app.get('/roles', rolesController.getAllRoles);
-  app.get('/roles/:roleId', rolesController.getRoleById);
-
-  // Routes for users
-  app.post('/users', userController.createUser);
-  app.get('/users', userController.getAllUsers);
-  app.get('/users/:userId', userController.getUserById);
-  app.put('/users/:userId', userController.updateUser);
-  app.delete('/users/:userId', userController.deleteUser);
-
-  // Routes for documents
-  app.post('/documents', documentController.createDocument);
+  // Document routes
+  app.delete('/documents/:documentId', documentController.deleteDocument);
   app.get('/documents', documentController.getAllDocuments);
   app.get('/documents/:documentId', documentController.getDocumentById);
+  app.post('/documents', documentController.createDocument);
   app.put('/documents/:documentId', documentController.updateDocument);
-  app.delete('/documents/:documentId', documentController.deleteDocument);
+
+  // Role routes
+  app.get('/roles', rolesController.getAllRoles);
+  app.get('/roles/:roleId', rolesController.getRoleById);
+  app.post('/roles', rolesController.createRole);
+
+  // Search routes
+  app.get('/search/documents', searchController.searchDocuments);
+  app.get('/search/users', searchController.searchUsers);
+
+  // User routes
+  app.delete('/users/:userId', userController.deleteUser);
+  app.get('/users', userController.getAllUsers);
+  app.get('/users/:userId', userController.getUserById);
+  app.get('/users/:userId/documents', userController.getUserDocuments);
+  app.post('/users', userController.createUser);
+  app.put('/users/:userId', userController.updateUser);
 };

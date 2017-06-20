@@ -1,19 +1,19 @@
 /* eslint-disable no-console*/
-
 import colors from 'colors';
 import Models from '../models';
 
 const Role = Models.Role;
-// const User = Models.User;
 
 module.exports = {
   createRole(req, res) {
     console.log(colors.blue('Creating user role...'));
     return Role
-      .create(req.body.roleType)
+      .create({
+        roleType: req.body.roleType
+      })
       .then(role => res.status(201).send({
         role,
-        message: 'User role created.'
+        message: 'User role created'
       }))
       .catch(error => res.status(400).send({
         error,
@@ -23,7 +23,7 @@ module.exports = {
   getAllRoles(req, res) {
     return Role
       .findAll()
-      .then(roles => res.status(201).send(roles))
+      .then(roles => res.status(200).send(roles))
       .catch(error => res.status(400).send(error));
   },
   getRoleById(req, res) {
@@ -31,11 +31,11 @@ module.exports = {
       .findById(req.params.roleId)
       .then((role) => {
         if (!role) {
-          res.status(404).send({
+          return res.status(404).send({
             message: 'Role not found.'
           });
         }
-        res.status(200).send({
+        return res.status(200).send({
           role,
           message: 'Users retrieved successfully.'
         });

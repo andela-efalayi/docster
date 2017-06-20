@@ -23,24 +23,6 @@ module.exports = {
       roleId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
-    },
-    {
-      fullName: 'Jane Doe',
-      userName: '@jane',
-      email: 'janedoe@gmail.com',
-      password: 'janepassword',
-      roleId: 3,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      fullName: 'John Doe',
-      userName: '@john',
-      email: 'johndoe@gmail.com',
-      password: 'tosin123',
-      roleId: 3,
-      createdAt: new Date(),
-      updatedAt: new Date()
     }
     ], {});
   },

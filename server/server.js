@@ -17,10 +17,13 @@ const webpackCompiler = webpack(webpackConfig);
 
 app.use(webpackMiddleware(webpackCompiler, {
   hot: true,
+  colors: true,
   publicPath: webpackConfig.output.publicPath,
   noInfo: true
 }));
-app.use(webpackHotMiddleware(webpackCompiler));
+app.use(webpackHotMiddleware(webpackCompiler, {
+  log: false
+}));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
