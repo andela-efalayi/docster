@@ -4,7 +4,6 @@ import Models from '../models';
 import QueryConstants from '../../constants/QueryConstants';
 
 const Document = Models.Document;
-// const User = Models.User;
 
 module.exports = {
   createDocument(req, res) {
@@ -41,7 +40,7 @@ module.exports = {
         }
         res.send({
           documents,
-          message: 'Retrieved all docuemnts successfully.'
+          message: 'Retrieved all documents successfully'
         });
       })
       .catch(error => res.status(400).send({
@@ -51,15 +50,16 @@ module.exports = {
   },
   getDocumentById(req, res) {
     console.log(colors.yellow('Fetching documents from database...'));
-    return Document
+    if (isNaN(req.params.documentId) === false) {
+      return Document
       .findById(req.params.documentId)
       .then((document) => {
         if (!document) {
-          res.status(404).send({
-            message: 'Document not found.'
+          return res.status(404).send({
+            message: 'Document not found'
           });
         }
-        res.status(200).send({
+        return res.status(200).send({
           document,
           message: 'Document was retrieved successfully'
         });
@@ -68,6 +68,10 @@ module.exports = {
         error,
         message: `An error occurred while retrieving this document: ${req.params.option}`
       }));
+    }
+    return res.status(400).send({
+      message: 'Invalid parameter detected'
+    });
   },
   updateDocument(req, res) {
     console.log(colors.yellow('Updating dodcument...'));
@@ -75,7 +79,7 @@ module.exports = {
       .findById(req.params.documentId)
       .then((document) => {
         if (!document) {
-          res.status(404).send({
+          return res.status(404).send({
             message: 'Document not found'
           });
         }
@@ -84,30 +88,27 @@ module.exports = {
           .then(documentWithUpdate => res.status(201).send({
             documentWithUpdate,
             message: `Document: ${documentWithUpdate.title} was updated successfully`
-          }))
-          .catch(() => res.status(400).send({
-            message: `An error occurred while updating document: ${document.id}`
           }));
       })
       .catch(error => res.status(400).send({
         error,
-        message: 'An while fetching document'
+        message: 'An error occurred while fetching document'
       }));
   },
   deleteDocument(req, res) {
-    console.log(colors.red(`Deleting document: ${req.body.documentId}...`));
+    console.log(colors.red(`Deleting document: ${req.params.documentId}...`));
     return Document
       .findById(req.params.documentId)
       .then((document) => {
         if (!document) {
-          res.status(404).send({
-            message: 'Document not found.'
+          return res.status(404).send({
+            message: 'Document not found'
           });
         }
         return document
           .destroy()
           .then(() => res.status(200).send({
-            message: `Document: ${req.params.documentId} was deleted successfully.`
+            message: 'Document was deleted successfully'
           }));
       })
       .catch(error => res.status(400).send({
