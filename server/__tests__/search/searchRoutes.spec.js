@@ -20,7 +20,8 @@ describe(colors.green('SearchRoutes Demo test'), () => {
         done();
       });
     });
-    it("should fetch users whose fullnames or usernames begin with 'esther'", (done) => {
+    it('should fetch users whose fullnames or usernames begin' +
+    "with 'esther'", (done) => {
       chai.request(server)
       .get('/search/users/?q=esther')
       .end((err, res) => {

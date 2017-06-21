@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for docster/server/models/document.js</title>
+    <title>Code coverage report for server/models/user.js</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../prettify.css" />
-    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../sort-arrow-sprite.png);
+            background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -16,13 +16,13 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../../../index.html">All files</a> / <a href="index.html">docster/server/models</a> document.js
+      <a href="../../index.html">All files</a> / <a href="index.html">server/models</a> user.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">80% </span>
+        <span class="strong">62.5% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>4/5</span>
+        <span class='fraction'>5/8</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -35,13 +35,13 @@
         <span class='fraction'>1/1</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">80% </span>
+        <span class="strong">62.5% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>4/5</span>
+        <span class='fraction'>5/8</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -84,7 +84,29 @@
 39
 40
 41
-42</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -97,7 +119,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -120,51 +144,84 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import bcrypt from 'bcrypt';
+&nbsp;
+const salt = bcrypt.genSaltSync(10);
+&nbsp;
 module.exports = (sequelize, DataTypes) =&gt; {
-  const Document = sequelize.define('Document', {
-    title: {
+  const User = sequelize.define('User', {
+    fullName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    userName: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false
     },
-    slug: {
+    email: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
-      set(value) {
-        this.setDataValue('slug', value.replace(/[" "]/g, '-'));
+      validate: {
+        isEmail: true
       }
     },
-    content: {
-      type: DataTypes.TEXT
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
-    access: {
-      type: DataTypes.ENUM('private', 'public', 'role'),
-      defaultValue: 'public'
-    },
-    userId: {
+    roleId: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'User',
-        key: 'id'
+        model: 'Role',
+        key: 'id',
+        as: 'roleId'
       }
-    }
+    },
   }, {
     classMethods: {
       associate(models) {
-<span class="cstat-no" title="statement not covered" >        Document.belongsTo(models.User, {</span>
-          as: 'owner'
+<span class="cstat-no" title="statement not covered" >        User.belongsTo(models.Role, {</span>
+          foreignKey: 'roleId'
         });
+<span class="cstat-no" title="statement not covered" >        User.hasMany(models.Document, {</span>
+          as: 'documents',
+          foreignKey: 'userId'
+        });
+      }
+    },
+    instanceMethods: {
+      passwordIsValid(password) {
+<span class="cstat-no" title="statement not covered" >        return bcrypt.compareSync(password, this.password);</span>
+      }
+    },
+    hooks: {
+      beforeCreate(user) {
+        user.password = bcrypt.hashSync(user.password, salt);
       }
     }
   });
-  return Document;
+  return User;
 };
 &nbsp;</pre></td></tr>
 </table></pre>
@@ -172,10 +229,10 @@ module.exports = (sequelize, DataTypes) =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Jun 20 2017 04:57:41 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Jun 21 2017 21:07:26 GMT+0100 (WAT)
 </div>
 </div>
-<script src="../../../prettify.js"></script>
+<script src="../../prettify.js"></script>
 <script>
 window.onload = function () {
         if (typeof prettyPrint === 'function') {
@@ -183,6 +240,6 @@ window.onload = function () {
         }
 };
 </script>
-<script src="../../../sorter.js"></script>
+<script src="../../sorter.js"></script>
 </body>
 </html>

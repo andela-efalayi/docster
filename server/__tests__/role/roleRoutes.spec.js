@@ -19,7 +19,7 @@ describe(colors.green('RoleRoutes'), () => {
       .post('/roles')
       .send(newRole)
       .end((err, res) => {
-        createdRole = res.body.role;        
+        createdRole = res.body.role;
         expect(res.status).to.equal(201);
         expect(createdRole).to.be.a('object');
         done();

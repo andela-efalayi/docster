@@ -1,30 +1,69 @@
 import React, { Component } from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Tabs, Tab } from 'material-ui/Tabs';
+import SignUpForm from './forms/SignUpForm.jsx';
+import SignInForm from './forms/SignInForm.jsx';
+import muiTheme from '../muiTheme';
 
 /**
  * @class Index
  * @extends {Component}
+ * @param {string} tab
  */
 class Index extends Component {
 
   /**
    * @memberof Index
+   * @param {object} props
    */
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      message: 'This is a fullstack document management system'
+      message: 'a fullstack document management system.',
+      tab: 'signup'
     };
   }
 
+  changeTab = (tab) => {
+    this.setState({
+      tab
+    });
+  }
   /**
    * @memberof Index
    * @returns {object} react-element
    */
   render() {
     return (
-      <div className="container">
-        <h2 className="blue-text center">Docster</h2>
-        <h6 className="center">{this.state.message}</h6>
+      <div className="index-page container">
+        <div className="intro">
+          <h2>Docster</h2>
+          <h6>{this.state.message}</h6>
+        </div>
+        <MuiThemeProvider muiTheme={muiTheme}>
+          <Tabs
+            className="form-tabs"
+            value={this.state.tab}
+            onChange={this.changeTab}
+          >
+            <Tab
+              label="Sign Up"
+              value="signup"
+            >
+              <div className="form">
+                <SignUpForm />
+              </div>
+            </Tab>
+            <Tab
+              label="Sign In"
+              value="signin"
+            >
+              <div className="form">
+                <SignInForm />
+              </div>
+            </Tab>
+          </Tabs>
+        </MuiThemeProvider>
       </div>
     );
   }

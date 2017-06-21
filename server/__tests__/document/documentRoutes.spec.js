@@ -43,7 +43,8 @@ describe(colors.green('DocumentRoutes'), () => {
       .send(newDocument)
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.message).to.equal('An error occurred while creating document');
+        expect(res.body.message).to
+        .equal('An error occurred while creating document');
         done();
       });
     });
@@ -85,7 +86,8 @@ describe(colors.green('DocumentRoutes'), () => {
       .send({ content })
       .end((err, res) => {
         expect(res.status).to.equal(201);
-        expect(res.body.message).to.equal(`Document: ${createdDocument.title} was updated successfully`);
+        expect(res.body.message).to
+        .equal(`Document: ${createdDocument.title} was updated successfully`);
         done();
       });
     });

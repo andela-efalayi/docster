@@ -25,7 +25,7 @@ module.exports = {
       }))
       .catch(error => res.status(400).send({
         error,
-        message: colors.red(`An error occurred while creating ${req.body.fullName}.`)
+        message: `An error occurred while creating ${req.body.fullName}`
       }));
   },
   getAllUsers(req, res) {
@@ -72,7 +72,8 @@ module.exports = {
       })
       .catch(error => res.status(400).send({
         error,
-        message: `An error occurred while fetching user with id: ${req.params.userId}`
+        message:
+        `An error occurred while fetching user with id: ${req.params.userId}`
       }));
   },
   getUserDocuments(req, res) {
@@ -111,7 +112,8 @@ module.exports = {
           })
           .then(userWithUpdate => res.status(200).send({
             userWithUpdate,
-            message: `Username: ${userWithUpdate.userName} was updated successfully`
+            message:
+            `Username: ${userWithUpdate.userName} was updated successfully`
           }))
           .catch(error => res.status(400).send({
             error,

@@ -4,12 +4,12 @@ import documentController from '../controllers/document';
 import searchController from '../controllers/search';
 
 module.exports = (app) => {
-  app.get('/', (req, res) => {
-    res.status(200)
-    .send({
-      message: 'Welcome to Docster Document Management System.'
-    });
-  });
+  // app.get('/', (req, res) => {
+  //   res.status(200)
+  //   .send({
+  //     message: 'Welcome to Docster Document Management System.'
+  //   });
+  // });
 
   // Document routes
   app.delete('/documents/:documentId', documentController.deleteDocument);

@@ -1,0 +1,26 @@
+.index-page {
+  max-width: 350px;
+  padding-top: 5.2em;
+}
+.intro{
+  text-align: center;
+  margin-bottom: 2.3em;
+}
+.intro h2{
+  color: #ff9800;
+  margin-bottom: 0px;
+}
+.intro h6{
+  margin-bottom: 0px;
+}
+.form {
+  margin-top: 1.3em;
+}
+.form-tabs > div:first-child{
+  background-color: #fff !important;
+  border: 2px solid #000013;
+}
+.form-tabs > div:first-child > button:first-child{
+  border-right: 2px solid #000013 !important;
+  border-radius: 0px;
+}
