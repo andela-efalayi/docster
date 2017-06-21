@@ -72,7 +72,8 @@ describe(colors.green('UserModel'), () => {
           roleId: newUser.roleId
         })
           .catch((error) => {
-            expect(/SequelizeUniqueConstraintError/.test(error.name)).to.equal(true);
+            expect(/SequelizeUniqueConstraintError/.test(error.name))
+            .to.equal(true);
             done();
           });
       });

@@ -28,7 +28,8 @@ describe(colors.green('RoleModel'), () => {
     it('should reject a null roleType', (done) => {
       Role.create({})
       .catch((error) => {
-        assert.equal(error.message, 'notNull Violation: roleType cannot be null');
+        assert.equal(error.message,
+        'notNull Violation: roleType cannot be null');
         done();
       });
     });

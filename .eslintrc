@@ -1,6 +1,16 @@
 {
   "root": true,
-  "extends": "airbnb",
+  "extends": [ "airbnb", "eslint:recommended" ],
+  "plugins": [
+    "react"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "env": {
     "browser": true,
     "node": true,
@@ -8,10 +18,9 @@
     "jest": true,
     "jquery": true
   },
-  "plugins": [
-    "react"
-  ],
+  "parser": "babel-eslint",
   "rules": {
+    "max-len": [1, 80, 2],
     "one-var": 0,
     "one-var-declaration-per-line": 0,
     "new-cap": 0,
@@ -19,7 +28,10 @@
     "no-param-reassign": 0,
     "comma-dangle": 0,
     "curly": ["error", "multi-line"],
-    "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
+    "no-shadow": ["error", { "allow": ["req", "res", "err", "before"] }],
+    "import/extensions": 0,
+    "react/react-in-jsx-scope": 1,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "valid-jsdoc": ["error", {
       "requireReturn": true,
       "requireReturnType": true,

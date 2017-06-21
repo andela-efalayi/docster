@@ -53,7 +53,8 @@ describe(colors.green('DocumentModel'), () => {
     it('should require a title field to create a document', (done) => {
       Document.create(testData.newDocumentWithoutTitle)
       .catch((error) => {
-        expect(/notNull Violation: title cannot be null/.test(error.message)).to.equal(true);
+        expect(/notNull Violation: title cannot be null/
+        .test(error.message)).to.equal(true);
         done();
       });
     });

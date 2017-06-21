@@ -66,7 +66,8 @@ module.exports = {
       })
       .catch(error => res.status(400).send({
         error,
-        message: `An error occurred while retrieving this document: ${req.params.option}`
+        message:
+        `An error occurred while retrieving this document: ${req.params.option}`
       }));
     }
     return res.status(400).send({
@@ -87,7 +88,8 @@ module.exports = {
           .update(req.body)
           .then(documentWithUpdate => res.status(201).send({
             documentWithUpdate,
-            message: `Document: ${documentWithUpdate.title} was updated successfully`
+            message:
+            `Document: ${documentWithUpdate.title} was updated successfully`
           }));
       })
       .catch(error => res.status(400).send({
@@ -113,7 +115,8 @@ module.exports = {
       })
       .catch(error => res.status(400).send({
         error,
-        message: `An error occurred while fetching document: ${req.params.documentId}`
+        message:
+        `An error occurred while fetching document: ${req.params.documentId}`
       }));
   }
 };

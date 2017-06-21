@@ -68,7 +68,8 @@ describe(colors.green('UserRoutes'), () => {
       .send({ fullName })
       .end((err, res) => {
         expect(res.status).to.equal(200);
-        expect(res.body.message).to.equal(`Username: ${createdUser.userName} was updated successfully`);
+        expect(res.body.message)
+        .to.equal(`Username: ${createdUser.userName} was updated successfully`);
         done();
       });
     });
