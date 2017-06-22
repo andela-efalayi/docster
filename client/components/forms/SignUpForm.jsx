@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import muiTheme from '../../muiTheme';
-
+import  * as createNewUser from '../../actions/CreateNewUser';
 
 /**
  * @class SignUpForm
@@ -24,7 +27,7 @@ class SignUpForm extends Component {
       password: ''
     };
     this.onInputChange = this.onInputChange.bind(this);
-    this.sendFormData = this.sendFormData.bind(this);
+    this.createNewUser = this.createNewUser.bind(this);
   }
 
   /**
@@ -43,15 +46,15 @@ class SignUpForm extends Component {
    * @memberof SignUpForm
    * @return {void}
    */
-  sendFormData() {
-    console.log(this.state);
+  createNewUser() {
+    this.props.actions.createNewUser(this.state);
   }
 
   /**
    * @memberof SignUpForm
    * @return {object} react-component
    */
-  render() {
+  render() {  
     return (
       <div>
         <h5>New Here? Signup for free.</h5>
@@ -104,7 +107,7 @@ class SignUpForm extends Component {
             label="Sign Up"
             fullWidth
             primary
-            onClick={this.sendFormData}
+            onClick={this.createNewUser}
           />
         </MuiThemeProvider>
       </div>
@@ -112,4 +115,24 @@ class SignUpForm extends Component {
   }
 }
 
-export default SignUpForm;
+SignUpForm.propTypes = {
+  actions: PropTypes.object.isRequired,
+  // users: PropTypes.array.isRequired
+};
+
+const mapStateToProps = (state /*, ownProps*/) => {
+  return {
+    users: state.users
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(createNewUser, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignUpForm);

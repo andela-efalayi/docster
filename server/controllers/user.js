@@ -20,7 +20,8 @@ module.exports = {
         roleId: 3
       })
       .then(user => res.status(201).send({
-        user,
+        userName: user.userName,
+        token: 1,
         message: 'User created successfully'
       }))
       .catch(error => res.status(400).send({
