@@ -21,7 +21,7 @@ class SignInForm extends Component {
       password: ''
     };
     this.onInputChange = this.onInputChange.bind(this);
-    this.sendFormData = this.sendFormData.bind(this);
+    this.authenticateUser = this.authenticateUser.bind(this);
   }
 
   /**
@@ -40,7 +40,7 @@ class SignInForm extends Component {
    * @memberof SignInForm
    * @returns {void}
    */
-  sendFormData() {
+  authenticateUser() {
     console.log(this.state);
   }
 
@@ -81,7 +81,7 @@ class SignInForm extends Component {
             label="Sign In"
             fullWidth
             primary
-            onClick={this.sendFormData}
+            onClick={this.authenticateUser}
           />
         </MuiThemeProvider>
       </div>
