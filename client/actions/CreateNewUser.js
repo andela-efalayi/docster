@@ -25,6 +25,6 @@ export function createNewUser(newUser) {
       })
       .catch(error => {
         throw(error);
-      })
+      });
   }
 }

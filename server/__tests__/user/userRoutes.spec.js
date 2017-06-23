@@ -31,7 +31,7 @@ describe(colors.green('UserRoutes'), () => {
       .send(serverData.newUser)
       .end((err, res) => {
         expect(res.status).to.equal(201);
-        expect(res.body.message).to.equal('User created successfully');
+        expect(res.body.message).to.equal('User was created successfully');
         done();
       });
     });
