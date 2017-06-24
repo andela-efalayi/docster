@@ -40,6 +40,8 @@ module.exports = (app) => {
 
   app.post('/users/login', userController.authenticateUser);
 
+  app.post('/users/logout', userController.logoutUser);
+
   app.post('/users', userController.createUser);
 
   app.put('/users/:userId', userController.updateUser);

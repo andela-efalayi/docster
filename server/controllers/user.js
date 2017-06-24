@@ -210,5 +210,10 @@ module.exports = {
             message: 'User was successfully deleted'
           }));
       });
+  },
+  logoutUser(req, res) {
+    return res.status(200).send({
+      message: 'User is logged out'
+    });
   }
 };
