@@ -1,17 +1,57 @@
 /* eslint-disable no-console*/
-import jwt from 'jsonwebtoken';
 import colors from 'colors';
-
+import bcrypt from 'bcrypt';
 import Models from '../models';
 import QueryConstants from '../../constants/QueryConstants';
 import ServerConstants from '../../constants/ServerConstants';
+import * as auth from '../auth/token';
 
 const User = Models.User;
 const Document = Models.Document;
 const attributes = ServerConstants.USER_ATTRIBUTES;
-const secret = process.env.API_SECRET || 'temporarysecret';
 
 module.exports = {
+  authenticateUser(req, res){
+    console.log(colors.yellow('Checking user...'));
+    return User
+      .find({
+        attributes: [...ServerConstants.USER_ATTRIBUTES, 'password' ],
+        where: {
+          $or: {
+            userName: {
+              $iLike: `%${req.body.user}%`
+            },
+            email: {
+              $iLike: `%${req.body.user}%`
+            }
+          }
+        }
+      })
+      .then((user) => {
+        if(!user) {
+          return res.status(401).send({
+            message: 'Invalid credentials'
+          });
+        }
+        if (bcrypt.compareSync(req.body.password, user.password)) {
+          user.password = undefined; // remove password from user attributes
+          const token = auth.generateToken(user);
+          return res.status(201).send({
+            user,
+            token,
+            message: 'User was logged in successfully'
+          });
+        } else {
+          return res.status(401).send({
+            message: 'Invalid password'
+          })
+        }
+      })
+      .catch(error => res.status(500).send({
+        error,
+        message: 'Internal server error'
+      }));
+  },
   createUser(req, res) {
     console.log(colors.yellow('Creating user...')); 
 
@@ -42,19 +82,8 @@ module.exports = {
             message: 'This user already exists'
           });
         }
-        const token = jwt.sign({
-          data: {
-            id: user.id,
-            fullName: user.userName,
-            userName: user.userName,
-            email: user.email
-          }
-        },
-        secret,
-        {
-          expiresIn: '24h'
-        });
-
+        const token = auth.generateToken(user); 
+        user.password = undefined;       
         return res.status(201).send({
           user,
           token,

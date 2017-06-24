@@ -4,8 +4,7 @@ import rootReducer from '../reducers/RootReducer';
 
 
 /**
- * @export
- * @param {any} initialState 
+ * @param {object} initialState 
  * @returns {func} createStore
  */
 export default function configureStore(initialState) {

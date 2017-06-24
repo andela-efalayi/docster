@@ -14,12 +14,13 @@ import  * as createNewUser from '../../actions/CreateNewUser';
 class SignUpForm extends Component {
 
   /**
-   * Creates an instance of SignUpForm.
+   * Create an instance of SignUpForm
    * @param {any} props
+   * @param {object} context
    * @memberof SignUpForm
    */
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {
       fullName: '',
       userName: '',
@@ -31,6 +32,7 @@ class SignUpForm extends Component {
   }
 
   /**
+   * Get user details from form fields
    * @memberof SignUpForm
    * @param {object} event
    * @return {void}
@@ -42,19 +44,23 @@ class SignUpForm extends Component {
   }
 
   /**
-   * Posts user data to the server
+   * Create a new user in the database and automatically sign in the user
    * @memberof SignUpForm
    * @return {void}
    */
   createNewUser() {
-    this.props.actions.createNewUser(this.state);
+    this.props.actions.createNewUser(this.state)
+      .then(() => {
+        this.context.router.history.push('/home');
+      });
   }
 
   /**
+   * Render SignUpForm in the DOM
    * @memberof SignUpForm
    * @return {object} react-component
    */
-  render() {  
+  render() { 
     return (
       <div>
         <h5>New Here? Signup for free.</h5>
@@ -115,23 +121,31 @@ class SignUpForm extends Component {
   }
 }
 
+// Set SignUpForm proptypes
 SignUpForm.propTypes = {
   actions: PropTypes.object.isRequired,
-  // users: PropTypes.array.isRequired
 };
 
+// Set SignUpForm contexttypes
+SignUpForm.contextTypes = {
+  router: PropTypes.object.isRequired
+}
+
+// Maps state to this.props
 const mapStateToProps = (state /*, ownProps*/) => {
   return {
-    users: state.users
+    payload: state.auth
   };
 }
 
+// Map dispatched action {createNewUser} to this.props
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(createNewUser, dispatch)
   };
 }
 
+// Connect SignUpForm to store
 export default connect(
   mapStateToProps,
   mapDispatchToProps
