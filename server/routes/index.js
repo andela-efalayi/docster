@@ -2,6 +2,7 @@ import rolesController from '../controllers/role';
 import userController from '../controllers/user';
 import documentController from '../controllers/document';
 import searchController from '../controllers/search';
+import authenticate from '../auth/authenticate';
 
 module.exports = (app) => {
   // app.get('/', (req, res) => {
@@ -29,9 +30,17 @@ module.exports = (app) => {
 
   // User routes
   app.delete('/users/:userId', userController.deleteUser);
-  app.get('/users', userController.getAllUsers);
-  app.get('/users/:userId', userController.getUserById);
-  app.get('/users/:userId/documents', userController.getUserDocuments);
+
+  app.get('/users', authenticate, userController.getAllUsers);
+
+  app.get('/users/:userId', authenticate, userController.getUserById);
+
+  app.get('/users/:userId/documents',
+    authenticate, userController.getUserDocuments);
+
+  app.post('/users/login', userController.authenticateUser);
+
   app.post('/users', userController.createUser);
+
   app.put('/users/:userId', userController.updateUser);
 };

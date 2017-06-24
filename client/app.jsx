@@ -10,10 +10,18 @@ import './css/skeleton.css';
 import './css/main.css';
 
 import Routes from './routes';
+import setAuthorisationToken from './utils/SetAuthorisationToken';
+import { loginUserSuccess } from './actions/Authenticate';
 
 injectTapEventPlugin();
 
 const store = configureStore();
+
+if (localStorage.docsterToken) {
+  setAuthorisationToken(localStorage.docsterToken);
+  store.dispatch(loginUserSuccess(JSON
+    .parse(localStorage.getItem('currentUser'))));
+}
 
 ReactDOM.render(
   <Provider store={store} >

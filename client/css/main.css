@@ -24,3 +24,16 @@
   border-right: 2px solid #000013 !important;
   border-radius: 0px;
 }
+.header-item > div {
+  line-height: 0px !important;
+}
+.user-avatar {
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
+.bg-purple, .user-letter{
+  background-color: #1e1b38 !important;
+}
+.bg-purple{
+  height: 20px;
+}

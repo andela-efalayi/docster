@@ -13,6 +13,7 @@ import muiTheme from '../muiTheme';
 class Index extends Component {
 
   /**
+   * Create an instance of Index
    * @memberof Index
    * @param {object} props
    */
@@ -22,14 +23,24 @@ class Index extends Component {
       message: 'a fullstack document management system.',
       tab: 'signup'
     };
+    this.changeTab = this.changeTab.bind(this);
   }
 
-  changeTab = (tab) => {
+
+  /**
+   * Set selected tab
+   * @param {any} tab 
+   * @memberof Index
+   * @returns {void}
+   */
+  changeTab(tab) {
     this.setState({
       tab
     });
   }
+  
   /**
+   * Render Index in the DOM
    * @memberof Index
    * @returns {object} react-element
    */

@@ -37,6 +37,10 @@ export default {
     }),
     dotEnvPlugin
   ],
+  node: {
+    net: 'empty',
+    dns: 'empty'
+  },
   module: {
     loaders: [
       {
