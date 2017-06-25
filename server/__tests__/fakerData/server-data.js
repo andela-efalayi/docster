@@ -1,19 +1,12 @@
 import faker from 'faker';
 
 const serverData = {
-  newUser: {
-    fullName: faker.name.findName(),
-    userName: faker.internet.userName(),
-    email: faker.internet.email(),
-    password: faker.internet.password(),
-    roleId: 3
-  },
   appUser: {
     fullName: faker.name.findName(),
     userName: faker.internet.userName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
-    roleId: 4
+    roleId: 3
   },
   documentOwner: {
     fullName: faker.name.findName(),
@@ -21,6 +14,27 @@ const serverData = {
     email: faker.internet.email(),
     password: faker.internet.password(),
     roleId: 4
+  },
+  newUser: {
+    fullName: faker.name.findName(),
+    userName: faker.internet.userName(),
+    email: faker.internet.email(),
+    password: faker.internet.password(),
+    roleId: 3
+  },
+  regularUser: {
+    fullName: faker.name.findName(),
+    userName: faker.internet.userName(),
+    email: faker.internet.email(),
+    password: faker.internet.password(),
+    roleId: 2
+  },
+  administrator: {
+    fullName: faker.name.findName(),
+    userName: faker.internet.userName(),
+    email: faker.internet.email(),
+    password: faker.internet.password(),
+    roleId: 1
   },
   newDocumentContent: faker.lorem.paragraph(),
   newFullName: faker.name.findName(),

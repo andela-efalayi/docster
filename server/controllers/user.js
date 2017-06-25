@@ -73,7 +73,7 @@ module.exports = {
           userName: req.body.userName,
           email: req.body.email,
           password: req.body.password,
-          roleId: 3
+          roleId: req.body.roleId || 3
         }
       })
       .spread((user, created) => {

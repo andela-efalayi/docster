@@ -45,7 +45,7 @@ describe(colors.green('UserRoutes'), () => {
     });
   });
   describe(colors.underline('POST /users/logout'), () => {
-    it('should check if user exists in the database', (done) => {
+    it('should log user out ot app', (done) => {
       chai.request(server)
       .post('/users/logout')
       .end((err, res) => {
@@ -82,8 +82,9 @@ describe(colors.green('UserRoutes'), () => {
     chai.request(server)
     .get(`/users/${createdUser.id}`)
     .end((err, res) => {
-      expect(res.status).to.equal(403);
-      done();
+        expect(res.status).to.equal(403);
+        done();
+      });
     });
   });
   describe(colors.underline('PUT /users/:userId'), () => {
@@ -92,6 +93,7 @@ describe(colors.green('UserRoutes'), () => {
       chai.request(server)
       .put(`/users/${createdUser.id}`)
       .send({ fullName })
+      .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.message)
@@ -103,6 +105,7 @@ describe(colors.green('UserRoutes'), () => {
       chai.request(server)
       .put('/users/-1')
       .send({ userName: 'invalidUserId' })
+      .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(404);
         expect(res.body.message).to.equal('User not found');
@@ -130,5 +133,4 @@ describe(colors.green('UserRoutes'), () => {
       });
     });
   });
-});
 });
