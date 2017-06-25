@@ -10,6 +10,7 @@ const newDocument = serverData.newPublicDocument;
 
 let createdDocument;
 let createdUser;
+let serverResponse;
 
 process.env.NODE_ENV = 'test';
 chai.use(chaiHttp);
@@ -20,7 +21,8 @@ describe(colors.green('DocumentRoutes'), () => {
     .post('/users')
     .send(documentOwner)
     .end((err, res) => {
-      createdUser = res.body.user;
+      serverResponse = res.body;
+      createdUser = serverResponse.user;
       newDocument.userId = createdUser.id;
       done();
     });
@@ -30,6 +32,7 @@ describe(colors.green('DocumentRoutes'), () => {
       chai.request(server)
       .post('/documents')
       .send(newDocument)
+      .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         createdDocument = res.body.newDocument;
         expect(res.status).to.equal(200);
@@ -41,6 +44,31 @@ describe(colors.green('DocumentRoutes'), () => {
       chai.request(server)
       .post('/documents')
       .send(newDocument)
+      .set('authorisation', 'Bearer '+serverResponse.token)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.message).to
+        .equal('An error occurred while creating document');
+        done();
+      });
+    });
+  });
+  describe(colors.underline('GET /documents'), () => {
+    it('should return an error if user is not an admin', (done) => {
+      chai.request(server)
+      .get('/documents')
+      .set('authorisation', 'Bearer '+serverResponse.token)
+      .end((err, res) => {
+        expect(res.status).to.equal(403);
+        expect(res.body.message).to.equal('User is not a docster app admin');
+        done();
+      });
+    });
+    it('should not create a document twice', (done) => {
+      chai.request(server)
+      .post('/documents')
+      .send(newDocument)
+      .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(400);
         expect(res.body.message).to
@@ -53,6 +81,7 @@ describe(colors.green('DocumentRoutes'), () => {
     it('should get all documents from the database', (done) => {
       chai.request(server)
       .get(`/documents/${createdDocument.id}`)
+      .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.document.id).to.equal(createdDocument.id);
@@ -62,6 +91,7 @@ describe(colors.green('DocumentRoutes'), () => {
     it('should send an error if documentId does not exist', (done) => {
       chai.request(server)
       .get('/documents/-1')
+      .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(404);
         expect(res.body.message).to.equal('Document not found');
@@ -71,6 +101,7 @@ describe(colors.green('DocumentRoutes'), () => {
     it('should send an error if documentId is not an number', (done) => {
       chai.request(server)
       .get('/documents/esther')
+      .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(400);
         expect(res.body.message).to.equal('Invalid parameter detected');
@@ -84,6 +115,7 @@ describe(colors.green('DocumentRoutes'), () => {
       chai.request(server)
       .put(`/documents/${createdDocument.id}`)
       .send({ content })
+      .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(201);
         expect(res.body.message).to
@@ -95,6 +127,7 @@ describe(colors.green('DocumentRoutes'), () => {
       chai.request(server)
       .put('/documents/-1')
       .send({ content: 'content for an invalid document id' })
+      .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(404);
         expect(res.body.message).to.equal('Document not found');
@@ -106,6 +139,7 @@ describe(colors.green('DocumentRoutes'), () => {
     it('should delete a user with the id specified', (done) => {
       chai.request(server)
       .delete(`/documents/${createdDocument.id}`)
+      .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.message).to.equal('Document was deleted successfully');
@@ -115,6 +149,7 @@ describe(colors.green('DocumentRoutes'), () => {
     it('should give an error if document does not exist', (done) => {
       chai.request(server)
       .delete('/documents/-1')
+      .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(404);
         expect(res.body.message).to.equal('Document not found');

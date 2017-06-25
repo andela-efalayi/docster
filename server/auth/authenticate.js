@@ -7,7 +7,7 @@ import * as auth from './token';
  * @param {func} next 
  * @returns {void}
  */
-export default function authenticate(req, res, next) {
+export function authenticate(req, res, next) {
   let token;
   const authorisationHeader = req.headers['authorisation'];
 
@@ -25,4 +25,23 @@ export default function authenticate(req, res, next) {
       message: 'No token provided'
     });
   }
+}
+
+
+/**
+ * Check if a user is an admin
+ * @param {object} req 
+ * @param {object} res 
+ * @param {func} next 
+ * @returns {void}
+ */
+export function isAdmin (req, res, next) {
+  if (req.currentUser.roleId === 1) {
+    next();
+  } else {
+    res.status(403).send({
+      message: 'User is not a docster app admin'
+    });
+  }
+  
 }

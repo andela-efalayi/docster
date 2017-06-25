@@ -10,7 +10,8 @@ export function generateToken(user) {
   return jwt.sign({
     data: {
       id: user.id,
-      userName: user.userName
+      userName: user.userName,
+      roleId: user.roleId
     }
   },
   secret,
