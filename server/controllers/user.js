@@ -180,11 +180,14 @@ module.exports = {
             email: req.body.email || user.email,
             password: req.body.password || user.password
           })
-          .then(userWithUpdate => res.status(200).send({
-            userWithUpdate,
-            message:
-            `Username: ${userWithUpdate.userName} was updated successfully`
-          }))
+          .then(userWithUpdate => {
+              userWithUpdate.password = undefined;
+              res.status(200).send({
+              userWithUpdate,
+              message:
+              `Username: ${userWithUpdate.userName} was updated successfully`
+            });
+          })
           .catch(error => res.status(400).send({
             error,
             message: 'An error occurred while updating'

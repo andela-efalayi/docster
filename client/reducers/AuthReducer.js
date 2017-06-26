@@ -1,17 +1,14 @@
 import isEmpty from 'lodash/isEmpty';
 import ActionTypes from '../../constants/ActionTypes';
-
-const initialState = {
-  isAuthenticated: false,
-  userDetails: {}
-}
+import initialState from '../reducers/InitialState';
 
 /**
  * @param {object} state 
  * @param {object} action 
  * @returns {object} state
  */
-export default function AuthReducer(state=initialState, action) {
+export default function AuthReducer(
+  state=initialState.isAuthenticated, action) {
   switch(action.type) {
     case ActionTypes.SET_CURRENT_USER:
       return { 

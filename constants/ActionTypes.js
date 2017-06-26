@@ -7,7 +7,8 @@ const ActionTypes = keyMirror({
   GET_USER_DETAILS: null,
   LOAD_USER_DOCUMENTS: null,
   SET_CURRENT_USER: null,
-  UPDATE_DOCUMENT: null
+  UPDATE_DOCUMENT: null,
+  UPDATE_PROFILE: null
 });
 
 export default ActionTypes;

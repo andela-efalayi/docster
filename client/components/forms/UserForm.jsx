@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { muiTheme2 } from '../../muiTheme';
 
-const UserForm = ({ userDetails }) => {
+const UserForm = ({ onInputChange, userDetails, updateUser }) => {
   return(
     <div className="container">
       <form action="">
@@ -15,7 +15,9 @@ const UserForm = ({ userDetails }) => {
               type="text" 
               className="u-full-width"
               name="fullName"
-              placeholder={userDetails.fullName || ''}
+              value={userDetails.fullName || ''}
+              placeholder='Full Name'
+              onChange={onInputChange}
             />
           </div>
           <div className="twelve columns">
@@ -24,7 +26,9 @@ const UserForm = ({ userDetails }) => {
               type="text" 
               className="u-full-width"
               name="userName"
-              placeholder={userDetails.userName || ''}
+              value={userDetails.userName || ''}
+              placeholder='UserName'
+              onChange={onInputChange}
             />
           </div>
           <div className="twelve columns">
@@ -33,7 +37,9 @@ const UserForm = ({ userDetails }) => {
               type="email" 
               className="u-full-width"
               name="email"
-              placeholder={userDetails.email || ''}
+              value={userDetails.email || ''}
+              placeholder='Email'
+              onChange={onInputChange}
             />
           </div>
           <div className="twelve columns">
@@ -43,6 +49,7 @@ const UserForm = ({ userDetails }) => {
               className="u-full-width"
               name="password"
               placeholder="password"
+              onChange={onInputChange}
             />
           </div>
         </div>
@@ -53,6 +60,7 @@ const UserForm = ({ userDetails }) => {
             label="update"
             primary
             fullWidth
+            onClick={updateUser}
           />
         </MuiThemeProvider>
       </div>
@@ -61,6 +69,8 @@ const UserForm = ({ userDetails }) => {
 };
 
 UserForm.propTypes = {
+  onInputChange: PropTypes.func.isRequired,
+  updateUser: PropTypes.func.isRequired,
   userDetails: PropTypes.object.isRequired
 };
 
