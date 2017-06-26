@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DocumentAccessOptions from '../common/DocumentAccessOptions.jsx';
 
-const DocumentForm = ({ onInputChange }) => (
+const DocumentForm = ({ document, onInputChange }) => (
   <form action="">
     <div className="row">
       <div className="twelve columns">
@@ -11,6 +11,7 @@ const DocumentForm = ({ onInputChange }) => (
           type="text" 
           className="u-full-width"
           name="title"
+          value={document.title || ""}
           placeholder="Enter title"
           onChange={onInputChange}
         />
@@ -20,6 +21,7 @@ const DocumentForm = ({ onInputChange }) => (
         <textarea 
           className="u-full-width"
           name="content"
+          value={document.content || ""}
           placeholder="Enter content"
           onChange={onInputChange}
         />
@@ -33,6 +35,7 @@ const DocumentForm = ({ onInputChange }) => (
 );
 
 DocumentForm.propTypes = {
+  document: PropTypes.object.isRequired,
   onInputChange: PropTypes.func.isRequired
 }
 

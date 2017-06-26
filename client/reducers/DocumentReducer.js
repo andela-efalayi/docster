@@ -13,8 +13,15 @@ export default function DocumentReducer(state=InitialState.documents, action) {
         ...state,
         Object.assign({}, action.document)
       ];
+    case ActionTypes.DELETE_DOCUMENT:
+      return state.filter(document => document.id !== action.document.id);
     case ActionTypes.LOAD_USER_DOCUMENTS:
       return action.documents;
+    case ActionTypes.UPDATE_DOCUMENT:
+      return [
+        ...state.filter(document => document.id !== action.document.id),
+        Object.assign({}, action.document)
+      ];
     default:
       return state;
   }

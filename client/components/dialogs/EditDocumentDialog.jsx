@@ -6,15 +6,17 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
+import ModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 import { muiTheme1, muiTheme2 } from '../../muiTheme';
 import DocumentForm from '../forms/DocumentForm.jsx';
-import { createDocument } from '../../actions/CreateDocument';
+import { updateDocument } from '../../actions/UpdateDocument';
 
 /**
  * @class CreateDocumentDialog
  * @extends {React.Component}
  */
-class CreateDocumentDialog extends Component {
+class EditDocumentDialog extends Component {
 
   /**
    * Creates an instance of CreateDocumentDialog.
@@ -25,15 +27,15 @@ class CreateDocumentDialog extends Component {
     super(props);
     this.state = {
       open: false,
-      title: '',
-      content: '',
-      access: '',
-      userId: this.props.user.id
+      title: this.props.document.title,
+      content: this.props.document.content,
+      access: this.props.document.access,
+      id: this.props.document.id
     };
     this.openDialog = this.openDialog.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
-    this.createDocument = this.createDocument.bind(this);
+    this.updateDocument = this.updateDocument.bind(this);
   }
 
   /**
@@ -51,8 +53,9 @@ class CreateDocumentDialog extends Component {
    * @memberof CreateDocumentDialog
    * @returns {void}
    */
-  createDocument() {
-    this.props.createDocument(this.state).then(() => {
+  updateDocument() {
+    this.props.updateDocument(this.state)
+    .then(() => {
       this.setState({
         open: false
       });
@@ -87,26 +90,25 @@ class CreateDocumentDialog extends Component {
         onTouchTap={this.closeDialog}
       />,
       <RaisedButton
-        label="Create document"
+        label="update document"
         primary
         keyboardFocused
-        onTouchTap={this.createDocument}
+        onTouchTap={this.updateDocument}
       />,
     ];
     return (
       <div>
         <MuiThemeProvider muiTheme={muiTheme1}>
-          <RaisedButton 
-            label="create a document" 
-            onTouchTap={this.openDialog} 
-            primary
-            fullWidth
-          />
+          <IconButton
+            onClick={this.openDialog}
+          >
+            <ModeEdit />
+          </IconButton>
         </MuiThemeProvider>
         <MuiThemeProvider muiTheme={muiTheme2}>
           <div className="container">
             <Dialog
-              title="Create New Document"
+              title={`Editing document: ${this.state.title}`}
               actions={actions}
               modal={false}
               open={this.state.open}
@@ -114,8 +116,8 @@ class CreateDocumentDialog extends Component {
               autoScrollBodyContent
             >
               <DocumentForm 
-                onInputChange={this.onInputChange} 
-                document={this.state} 
+                onInputChange={this.onInputChange}
+                document={this.state}
               />
             </Dialog>
           </div>
@@ -125,20 +127,21 @@ class CreateDocumentDialog extends Component {
   }
 }
 
-CreateDocumentDialog.propTypes = {
-  user: PropTypes.object.isRequired,
-  createDocument: PropTypes.func.isRequired
+EditDocumentDialog.propTypes = {
+  document: PropTypes.object.isRequired,
+  updateDocument: PropTypes.func.isRequired
 }
+
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.currentUser
+    documents: state.documents
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createDocument: bindActionCreators(createDocument, dispatch)
+    updateDocument: bindActionCreators(updateDocument, dispatch)
   };
 }
 export default 
-  connect(mapStateToProps, mapDispatchToProps)(CreateDocumentDialog);
+  connect(mapStateToProps, mapDispatchToProps)(EditDocumentDialog);
