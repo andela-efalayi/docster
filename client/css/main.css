@@ -1,3 +1,4 @@
+/* Index page */
 .index-page {
   max-width: 350px;
   padding-top: 5.2em;
@@ -24,6 +25,8 @@
   border-right: 2px solid #000013 !important;
   border-radius: 0px;
 }
+
+/* Header */
 .header-item > div {
   line-height: 0px !important;
 }
@@ -36,4 +39,107 @@
 }
 .bg-purple{
   height: 20px;
+}
+
+/* Home tabs*/
+.home-tabs {
+  background-color: #E1E2E1;
+  padding: 15px 20px;
+}
+.home-tabs .columns {
+  margin-bottom: 6px;
+}
+.home-tabs form, .home-tabs form input {
+  margin-bottom: 0px;
+}
+
+/* Document */
+.document-length p{
+  margin-bottom: 0px;
+  margin-top: -15px;
+}
+.document-length span {
+  font-size: 2.5em;
+}
+.documents{
+  padding: 20px 20px;
+}
+.documents .three.columns{
+  margin-bottom: 1em;
+}
+.document {
+  height: 300px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: rgba(30, 27, 56, 0.8);
+}
+.document:hover {
+  background-color: #1e1b38; 
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow:         3px 3px 5px 6px #ccc;
+}
+.document .document-details, .document .document-content{
+  background-color: #fff;
+  padding: 10px;
+}
+.document-details{
+  height: 30px;
+  margin-bottom: 5px;
+}
+.document-id {
+  color: #1e1b38;
+}
+.document-content{
+  height: 225px;
+  width: inherit;
+}
+.document-actions {
+  color: red;
+}
+.document-access h6{
+  margin-bottom: 0px;
+  font-weight: 800;
+}
+.document-access-options{
+  padding-top: 15px;
+}
+.document-access-options > div {
+  width: 10% !important;
+  float: left;
+  margin-right: 35px;
+}
+
+/* Profile */
+.profile-body {
+  padding-top: 20px;
+}
+.profile-body .back{
+  margin-bottom: 20px;
+}
+.center-btn {
+  width: 150px;
+  margin: 0 auto;
+}
+
+@media (max-width: 480px) {
+  .document-access-options > div {
+    width: 100% !important;
+    margin-bottom: 8px;
+  }
+}
+@media (min-width: 600px) {
+  .home-tabs {
+    padding-left: 6.8%;
+    padding-right: 0px;
+  }
+  .home-tabs .columns {
+    margin-bottom: 0px;
+  }
+  .search-form{
+    padding-left: 24.5%;
+  }
+  .documents{
+    margin-left: 5%;
+  }
 }

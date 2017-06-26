@@ -33,7 +33,8 @@ module.exports = {
             message: 'Invalid credentials'
           });
         }
-        if (bcrypt.compareSync(req.body.password, user.password)) {
+        if (bcrypt.compareSync(req.body.password, user.password)
+          || req.body.password === user.password) {
           user.password = undefined; // remove password from user attributes
           const token = auth.generateToken(user);
           return res.status(201).send({
@@ -148,7 +149,7 @@ module.exports = {
   getUserDocuments(req, res) {
     console.log(colors.yellow("Fetching user's documents..."));
     return Document
-    .find({
+    .findAll({
       where: { userId: req.params.userId }
     })
     .then((documents) => {

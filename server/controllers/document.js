@@ -11,7 +11,7 @@ module.exports = {
     return Document
       .create({
         title: req.body.title,
-        slug: req.body.title,
+        slug: req.body.slug || req.body.title,
         content: req.body.content,
         access: req.body.access,
         userId: req.body.userId

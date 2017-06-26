@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../common/Header.jsx';
+import HomeTab from '../common/HomeTab.jsx';
+import Documents from './Documents.jsx';
 import { logoutUser } from '../../actions/Authenticate';
+import { loadUserDocuments } from '../../actions/LoadUserDocuments';
 /**
  * @class UserPage
  * @extends {Component}
@@ -18,9 +21,17 @@ class UserPage extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      user: this.props.payload.currentUser
+      user: this.props.auth.currentUser,
     };
     this.logoutUser = this.logoutUser.bind(this);
+  }
+
+  /**
+   * @memberof UserPage
+   * @return {void}
+   */
+  componentWillMount() {
+    this.props.loadUserDocuments(this.state.user.id);
   }
 
   /**
@@ -31,8 +42,8 @@ class UserPage extends Component {
    */
   logoutUser(event) {
     event.preventDefault();
-    this.props.logoutUser()
-      this.context.router.history.push('/');
+    this.props.logoutUser();
+    this.context.router.history.push('/');
   }
   /**
    * Render UserPage in the DOM
@@ -40,16 +51,25 @@ class UserPage extends Component {
    * @returns {object} react-component
    */
   render() {
+    const documents = this.props.documents;
     return(
-      <Header currentUser={this.state.user} logoutUser={this.logoutUser} />
+      <div>
+        <Header currentUser={this.state.user} logoutUser={this.logoutUser} />
+        <HomeTab numberOfDocuments={documents.length || 0} />
+        <div className="documents">
+          <Documents documents={documents} />
+        </div>
+      </div>
     );
   }
 }
 
 // Set UserPage proptypes
 UserPage.propTypes = {
-  payload: PropTypes.object.isRequired,
-  logoutUser: PropTypes.func.isRequired
+  auth: PropTypes.object.isRequired,
+  logoutUser: PropTypes.func.isRequired,
+  loadUserDocuments: PropTypes.func.isRequired,
+  documents: PropTypes.array.isRequired
 }
 
 // Set UserPage contexttypes
@@ -60,9 +80,11 @@ UserPage.contextTypes = {
 // Map state to this. props
 const matchStateToProps = (state) => {
   return{
-    payload: state.auth
+    auth: state.auth,
+    documents: state.documents
   }
 }
 
 // Connect UserPage to store
-export default connect(matchStateToProps, { logoutUser })(UserPage);
+export default 
+  connect(matchStateToProps, { logoutUser, loadUserDocuments })(UserPage);

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-import muiTheme from '../../muiTheme';
+import { muiTheme1 } from '../../muiTheme';
 import  * as authenticate from '../../actions/Authenticate';
 
 /**
@@ -86,7 +86,7 @@ class SignInForm extends Component {
             </div>
           </div>
         </form>
-        <MuiThemeProvider muiTheme={muiTheme}>
+        <MuiThemeProvider muiTheme={muiTheme1}>
           <RaisedButton
             label="Sign In"
             fullWidth

@@ -29,7 +29,7 @@
     "comma-dangle": 0,
     "curly": ["error", "multi-line"],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
-    "no-undef": [1, { "before": true }],
+    // "no-undef": [1, { "before": true }],
     "import/extensions": 0,
     "react/forbid-prop-types": [1, {"forbid": ["any"]}],
     "react/react-in-jsx-scope": 1,

@@ -26,10 +26,10 @@ export function createNewUser(newUser) {
       .then(response => {
         const user = response.data.user;
         if (user.roleId !== 1) {
-          const token = response.token;
+          const token = response.data.token;
           localStorage.setItem('docsterToken', token);
           localStorage.setItem('currentUser', JSON.stringify(user));
-          setAuthorisationToken(response.token);
+          setAuthorisationToken(token);
           dispatch(loginUserSuccess(user));
         }
         // dispatch(createNewUserSuccess(user));
