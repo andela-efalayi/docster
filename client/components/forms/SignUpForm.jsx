@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-import muiTheme from '../../muiTheme';
+import { muiTheme1 } from '../../muiTheme';
 import  * as createNewUser from '../../actions/CreateNewUser';
 
 /**
@@ -108,7 +108,7 @@ class SignUpForm extends Component {
             </div>
           </div>
         </form>
-        <MuiThemeProvider muiTheme={muiTheme}>
+        <MuiThemeProvider muiTheme={muiTheme1}>
           <RaisedButton
             label="Sign Up"
             fullWidth

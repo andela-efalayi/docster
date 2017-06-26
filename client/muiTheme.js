@@ -1,6 +1,6 @@
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-const muiTheme = getMuiTheme({
+export const muiTheme1 = getMuiTheme({
   palette: {
     accent1Color: '#ff9800', // selected tab
     accent2Color: '#000013',
@@ -19,4 +19,19 @@ const muiTheme = getMuiTheme({
   }
 });
 
-export default muiTheme;
+export const muiTheme2 = getMuiTheme({
+    palette: {
+    accent1Color: '#D50000', // cancel button
+    accent2Color: '#ffffff',
+    accent3Color: '#ffffff',
+    primary1Color: '#ff9800', // primary button
+    primary2Color: '#ffffff',
+    primary3Color: '#ffffff',
+    textColor: '#000013', // text color
+    alternateTextColor: '#ffffff', // tabs
+    borderColor: '#ffffff',
+    shadowColor: '#000013',
+  }
+});
+
+

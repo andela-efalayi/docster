@@ -3,7 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import SignUpForm from './forms/SignUpForm.jsx';
 import SignInForm from './forms/SignInForm.jsx';
-import muiTheme from '../muiTheme';
+import { muiTheme1 } from '../muiTheme';
 
 /**
  * @class Index
@@ -51,7 +51,7 @@ class Index extends Component {
           <h2>Docster</h2>
           <h6>{this.state.message}</h6>
         </div>
-        <MuiThemeProvider muiTheme={muiTheme}>
+        <MuiThemeProvider muiTheme={muiTheme1}>
           <Tabs
             className="form-tabs"
             value={this.state.tab}

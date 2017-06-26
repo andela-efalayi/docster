@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -17,7 +18,10 @@ const HeaderNavList = (props) => {
       targetOrigin={{horizontal: 'right', vertical: 'top'}}
       anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
     >
-      <MenuItem primaryText="View Profile" />
+      <MenuItem 
+        primaryText="Profile"
+        containerElement={<Link to='/profile' />}
+      />
       <MenuItem primaryText="Log out" onClick={logoutUser} />
     </IconMenu>
   );
