@@ -6,15 +6,17 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
+import ActionDelete from 'material-ui/svg-icons/action/delete';
+import {red500} from 'material-ui/styles/colors';
 import { muiTheme1, muiTheme2 } from '../../muiTheme';
-import DocumentForm from '../forms/DocumentForm.jsx';
-import { createDocument } from '../../actions/CreateDocument';
+import { deleteDocument } from '../../actions/DeleteDocument';
 
 /**
  * @class CreateDocumentDialog
  * @extends {React.Component}
  */
-class CreateDocumentDialog extends Component {
+class DeleteDocumentAlert extends Component {
 
   /**
    * Creates an instance of CreateDocumentDialog.
@@ -25,37 +27,21 @@ class CreateDocumentDialog extends Component {
     super(props);
     this.state = {
       open: false,
-      title: '',
-      content: '',
-      access: '',
-      userId: this.props.user.id
+      document: this.props.document
     };
     this.openDialog = this.openDialog.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
-    this.createDocument = this.createDocument.bind(this);
+    this.deleteDocument = this.deleteDocument.bind(this);
   }
 
   /**
-   * @param {any} event 
    * @memberof CreateDocumentDialog
    * @returns {void}
    */
-  onInputChange(event) {
+  deleteDocument() {
+    this.props.deleteDocument(this.state.document);
     this.setState({
-      [event.target.name]: event.target.value
-    });
-  }
-
-  /**
-   * @memberof CreateDocumentDialog
-   * @returns {void}
-   */
-  createDocument() {
-    this.props.createDocument(this.state).then(() => {
-      this.setState({
-        open: false
-      });
+      open: false
     });
   }
 
@@ -83,40 +69,36 @@ class CreateDocumentDialog extends Component {
     const actions = [
       <FlatButton
         label="Cancel"
-        secondary
+        primary
         onTouchTap={this.closeDialog}
       />,
       <RaisedButton
-        label="Create document"
-        primary
+        label="delete document"
+        secondary
         keyboardFocused
-        onTouchTap={this.createDocument}
+        onTouchTap={this.deleteDocument}
       />,
     ];
     return (
       <div>
         <MuiThemeProvider muiTheme={muiTheme1}>
-          <RaisedButton 
-            label="create a document" 
-            onTouchTap={this.openDialog} 
-            primary
-            fullWidth
-          />
+          <IconButton
+            onClick={this.openDialog}
+          >
+            <ActionDelete color={red500} />
+          </IconButton>
         </MuiThemeProvider>
         <MuiThemeProvider muiTheme={muiTheme2}>
           <div className="container">
             <Dialog
-              title="Create New Document"
+              title={`Delete document: ${this.state.document.title}`}
               actions={actions}
               modal={false}
               open={this.state.open}
               onRequestClose={this.handleClose}
               autoScrollBodyContent
             >
-              <DocumentForm 
-                onInputChange={this.onInputChange} 
-                document={this.state} 
-              />
+              <h5>Are you sure you want to delete this document?</h5>
             </Dialog>
           </div>
         </MuiThemeProvider>
@@ -125,20 +107,21 @@ class CreateDocumentDialog extends Component {
   }
 }
 
-CreateDocumentDialog.propTypes = {
-  user: PropTypes.object.isRequired,
-  createDocument: PropTypes.func.isRequired
+DeleteDocumentAlert.propTypes = {
+  document: PropTypes.object.isRequired,
+  deleteDocument: PropTypes.func.isRequired
 }
+
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.currentUser
+    documents: state.documents
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createDocument: bindActionCreators(createDocument, dispatch)
+    deleteDocument: bindActionCreators(deleteDocument, dispatch)
   };
 }
 export default 
-  connect(mapStateToProps, mapDispatchToProps)(CreateDocumentDialog);
+  connect(mapStateToProps, mapDispatchToProps)(DeleteDocumentAlert);
