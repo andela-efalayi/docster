@@ -8,7 +8,7 @@ import Header from '../common/Header.jsx';
 import UserForm from '../forms/UserForm.jsx';
 import { logoutUser } from '../../actions/Authenticate';
 import { muiTheme1 } from '../../muiTheme';
-
+import updateProfile from '../../actions/UpdateProfile';
 /**
  * @class ProfilePage
  * @extends {Component}
@@ -23,10 +23,21 @@ class ProfilePage extends Component {
    */
   constructor(props, context){
     super(props, context);
-    this.state = {
-      userDetails: this.props.payload.currentUser
-    };
+    this.state = this.props.auth.currentUser;
     this.logoutUser = this.logoutUser.bind(this);
+    this.updateUser = this.updateUser.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+  }
+
+  /**
+   * @param {object} event 
+   * @memberof ProfilePage
+   * @returns {void}
+   */
+  onInputChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   }
 
   /**
@@ -43,13 +54,22 @@ class ProfilePage extends Component {
 
   /**
    * @memberof ProfilePage
+   * @returns {void}
+   */
+  updateUser() {
+    this.props.updateProfile(this.state);
+    this.state = this.props.auth.currentUser;
+  }
+
+  /**
+   * @memberof ProfilePage
    * @returns {object} react-component
    */
   render() {
     return(
       <div>
         <Header 
-          currentUser={this.state.userDetails}
+          currentUser={this.state}
           logoutUser={this.logoutUser} 
         />
         <div className="profile-body">
@@ -62,7 +82,11 @@ class ProfilePage extends Component {
               />
             </MuiThemeProvider>
           </div>
-          <UserForm userDetails={this.state.userDetails} />
+          <UserForm 
+            userDetails={this.state} 
+            updateUser={this.updateUser}
+            onInputChange={this.onInputChange}
+          />
         </div>
       </div>
     );
@@ -71,8 +95,9 @@ class ProfilePage extends Component {
 
 // Set UserPage proptypes
 ProfilePage.propTypes = {
-  payload: PropTypes.object.isRequired,
-  logoutUser: PropTypes.func.isRequired
+  auth: PropTypes.object.isRequired,
+  logoutUser: PropTypes.func.isRequired,
+  updateProfile: PropTypes.func.isRequired
 }
 
 // Set UserPage contexttypes
@@ -83,8 +108,9 @@ ProfilePage.contextTypes = {
 // Map state to this. props
 const matchStateToProps = (state) => {
   return{
-    payload: state.auth
+    auth: state.auth
   }
 }
 
-export default connect(matchStateToProps, { logoutUser })(ProfilePage);
+export default 
+  connect(matchStateToProps, { logoutUser, updateProfile })(ProfilePage);
