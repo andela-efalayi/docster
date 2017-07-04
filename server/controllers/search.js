@@ -10,27 +10,30 @@ const attributes = ServerConstants.USER_ATTRIBUTES;
 module.exports = {
   searchDocuments(req, res) {
     console.log(colors.yellow('Searching for document...'));
+  
+    // const queryString = req.query.q;
     return Document
       .findAll({
         where: {
-          $or: {
-            title: {
+            $or: {
+              title: {
+                $iLike: `%${req.query.q}%`
+              },
+            content: {
               $iLike: `%${req.query.q}%`
-            },
-            access: req.query.q
+            }
           }
         }
-      })
-      .then((documents) => {
-        if (!documents) {
-          return res.status(404).send({
+      }).then(documents => {
+      if(!documents) {
+        return res.status(404).send({
             message: 'Not found'
           });
-        }
-        return res.status(200).send({
+      } 
+      return res.status(200).send({
           documents
         });
-      });
+    })
   },
   searchUsers(req, res) {
     console.log(colors.yellow('Searching for users...'));

@@ -19,7 +19,7 @@ module.exports = {
       fullName: 'Esther Falayi',
       userName: '@estherfalayi',
       email: 'admin@docster.com',
-      password: 'admin123@docster',
+      password: 'docster',
       roleId: 1,
       createdAt: new Date(),
       updatedAt: new Date()

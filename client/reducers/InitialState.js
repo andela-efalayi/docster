@@ -1,4 +1,6 @@
 export default {
   documents: [],
-  isAuthenticated: false
+  searchResult: [],
+  users: [],
+  roles: []
 };

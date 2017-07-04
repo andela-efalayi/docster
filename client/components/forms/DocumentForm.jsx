@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DocumentAccessOptions from '../common/DocumentAccessOptions.jsx';
+import AccessRadioButtons from '../common/AccessRadioButtons.jsx';
 
 const DocumentForm = ({ document, onInputChange }) => (
   <form action="">
@@ -28,7 +28,7 @@ const DocumentForm = ({ document, onInputChange }) => (
       </div>
       <div className="document-access">
         <h6>Access</h6>
-        <DocumentAccessOptions onOptionChange={onInputChange} />
+        <AccessRadioButtons onOptionChange={onInputChange} />
       </div>
     </div>
   </form>

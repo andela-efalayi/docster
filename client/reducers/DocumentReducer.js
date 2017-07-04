@@ -15,7 +15,9 @@ export default function DocumentReducer(state=InitialState.documents, action) {
       ];
     case ActionTypes.DELETE_DOCUMENT:
       return state.filter(document => document.id !== action.document.id);
-    case ActionTypes.LOAD_USER_DOCUMENTS:
+    case ActionTypes.GET_PUBLIC_DOCUMENTS:
+    case ActionTypes.GET_ROLE_DOCUMENTS:
+    case ActionTypes.GET_USER_DOCUMENTS:
       return action.documents;
     case ActionTypes.UPDATE_DOCUMENT:
       return [

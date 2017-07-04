@@ -3,6 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { blue600 } from 'material-ui/styles/colors';
+
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -30,7 +32,8 @@ class EditDocumentDialog extends Component {
       title: this.props.document.title,
       content: this.props.document.content,
       access: this.props.document.access,
-      id: this.props.document.id
+      id: this.props.document.id,
+      slug: this.props.document.slug
     };
     this.openDialog = this.openDialog.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
@@ -76,6 +79,8 @@ class EditDocumentDialog extends Component {
    */
   openDialog() {
     this.setState({open: true});
+    // window.history
+    //   .pushState(null, null, `/home/documents/${this.state.slug}`);   
   }
 
   /**
@@ -102,7 +107,7 @@ class EditDocumentDialog extends Component {
           <IconButton
             onClick={this.openDialog}
           >
-            <ModeEdit />
+            <ModeEdit color={blue600} />
           </IconButton>
         </MuiThemeProvider>
         <MuiThemeProvider muiTheme={muiTheme2}>

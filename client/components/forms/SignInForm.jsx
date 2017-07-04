@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import { muiTheme1 } from '../../muiTheme';
+import TextInputField from '../common/TextInputField.jsx';
+import { formIsValid } from '../../utils/Validate';
 import  * as authenticate from '../../actions/Authenticate';
 
 /**
@@ -24,10 +26,11 @@ class SignInForm extends Component {
     super(props, context);
     this.state = {
       user: '',
-      password: ''
+      password: '',
+      errors: {}
     };
     this.onInputChange = this.onInputChange.bind(this);
-    this.authenticateUser = this.authenticateUser.bind(this);
+    this.authenticateUser = this.authenticateUser.bind(this); 
   }
 
   /**
@@ -42,15 +45,40 @@ class SignInForm extends Component {
     });
   }
 
+
+  /**
+   * @memberof SignInForm
+   * @returns {bool} hasData
+   */
+  validateForm() {
+    const { errors, isValid } = formIsValid(this.state);
+    if(isValid === false) {
+      this.setState({
+        errors
+      });
+    }
+    return isValid;
+  }
+
   /**
    * Post user data to the server and verify details
    * @memberof SignInForm
    * @returns {void}
    */
   authenticateUser() {
-    this.props.actions.loginUser(this.state).then(() => {
-      this.context.router.history.push('/home');
-    });
+    if(this.validateForm() === true) {
+      this.props.actions.loginUser(this.state)
+      .then(
+        () => {
+        this.context.router.history.push('/app');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+      this.setState({
+        errors: {}
+      }); 
+    }
   }
 
   /**
@@ -61,29 +89,25 @@ class SignInForm extends Component {
   render() {
     return (
       <div>
-        <h5>Existing User.</h5>
-        <form action="">
+        <h5 className="center">Existing User</h5>
+        <form>
           <div className="row">
-            <div className="twelve columns">
-              <input
-                className="u-full-width"
-                type="text"
-                name="user"
-                value={this.state.user}
-                placeholder="Username or Email"
-                onChange={this.onInputChange}
-              />
-            </div>
-            <div className="twelve columns">
-              <input
-                className="u-full-width"
-                type="password"
-                name="password"
-                value={this.state.password}
-                placeholder="Password"
-                onChange={this.onInputChange}
-              />
-            </div>
+            <TextInputField
+              error={this.state.errors.user}
+              type="text"
+              name="user"
+              value={this.state.user}
+              placeholder="Username or Email"
+              onInputChange={this.onInputChange}
+            />
+            <TextInputField
+              error={this.state.errors.password}
+              type="password"
+              name="password"
+              value={this.state.password}
+              placeholder="Password"
+              onInputChange={this.onInputChange}
+            />
           </div>
         </form>
         <MuiThemeProvider muiTheme={muiTheme1}>

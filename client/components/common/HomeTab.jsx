@@ -3,25 +3,34 @@ import PropTypes from 'prop-types';
 import CreateDocumentDialog from '../dialogs/CreateDocumentDialog.jsx';
 import SearchForm from '../forms/SearchForm.jsx';
 
-const HomeTabs = ({ numberOfDocuments }) => (
-  <div className="home-tabs">
-    <div className="row">
-      <div className="five columns">
-        <div className="five columns document-length">
-          <p>No of Documents: <span>{numberOfDocuments}</span></p>
+const HomeTab = ({ numberOfDocuments, onInputChange,
+  placeholder, searchString }) => (
+    <div className="home-tabs">
+      <div className="row">
+        <div className="four columns">
+          <SearchForm 
+            onInputChange={onInputChange}
+            searchString={searchString}
+            placeholder={placeholder}
+          />
         </div>
-        <div className="seven columns">
-          <CreateDocumentDialog />
+        <div className="eight columns">
+          <div className="four columns document-length">
+            <p className="center">My Documents:
+              <span>{numberOfDocuments}</span></p>
+          </div>
+          <div className="four columns">
+            <CreateDocumentDialog />
+          </div>
         </div>
-      </div>
-      <div className="search-form seven columns">
-        <SearchForm />
       </div>
     </div>
-  </div>
-);
+  );
 
-HomeTabs.propTypes = {
-  numberOfDocuments: PropTypes.number.isRequired
+HomeTab.propTypes = {
+  numberOfDocuments: PropTypes.number.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  searchString: PropTypes.string.isRequired
 }
-export default HomeTabs;
+export default HomeTab;

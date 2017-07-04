@@ -1,25 +1,23 @@
 import React from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { muiTheme1 } from '../../muiTheme';
+import PropTypes from 'prop-types';
 
-const SearchForm = () => (
-  <form action="">
-    <div className="row">
-      <div className="six columns">
-        <input 
-          type="text" 
-          className="u-full-width" 
-          placeholder="Document name or title" 
-        />
-      </div>
-      <div className="three columns">
-        <MuiThemeProvider muiTheme={muiTheme1}> 
-          <RaisedButton label="Search" primary />
-        </MuiThemeProvider>
-      </div>
-    </div>
-  </form>
-);
+const SearchForm = ( { onInputChange, searchString, placeholder } ) => {
+  return(
+    <input 
+      type="text" 
+      className="u-full-width"
+      value={searchString}
+      name="searchString"
+      placeholder={placeholder} 
+      onChange={onInputChange}
+    />
+  );
+};
+
+SearchForm.propTypes = {
+  onInputChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  searchString: PropTypes.string.isRequired
+}
 
 export default SearchForm;

@@ -12,6 +12,10 @@ module.exports = (app) => {
     isAdmin, documentController.getAllDocuments);
   app.get('/documents/:documentId',
     authenticate, documentController.getDocumentById);
+  app.get('/public-documents',
+    authenticate, documentController.getPublicDocuments);
+  app.get('/role-documents', authenticate, documentController.getRoleDocuments);
+
   app.post('/documents', authenticate, documentController.createDocument);
   app.put('/documents/:documentId',
     authenticate, documentController.updateDocument);

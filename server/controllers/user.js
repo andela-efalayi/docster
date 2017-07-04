@@ -44,7 +44,7 @@ module.exports = {
           });
         } else {
           return res.status(401).send({
-            message: 'Invalid password'
+            message: 'Invalid credentials'
           })
         }
       })

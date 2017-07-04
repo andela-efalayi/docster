@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from '../common/Header.jsx';
-import UserForm from '../forms/UserForm.jsx';
+import RolesTable from '../tables/RolesTable.jsx';
 import { logoutUser } from '../../actions/Authenticate';
-import updateProfile from '../../actions/UpdateProfile';
+import { muiTheme1 } from '../../muiTheme';
+import { getAllRoles } from '../../actions/GetAllRoles';
 import BackButton from '../common/BackButton.jsx';
-import { checkIfEmpty } from '../../utils/Validate';
+
 /**
  * @class ProfilePage
  * @extends {Component}
  */
-class ProfilePage extends Component {
+class RolesPage extends Component {
 
   /**
    * Creates an instance of ProfilePage.
@@ -21,43 +23,29 @@ class ProfilePage extends Component {
    */
   constructor(props, context){
     super(props, context);
-    this.state = {
-      user: this.props.auth.currentUser,
-      typedPassord: ''
-    };
+    this.state = this.props.auth.currentUser;
     this.logoutUser = this.logoutUser.bind(this);
-    this.updateUser = this.updateUser.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
-    this.onPasswordFieldChange = this.onPasswordFieldChange.bind(this);
   }
 
+
+  /**
+   * @memberof RolesPage
+   * @returns {void}
+   */
+  componentWillMount() {
+    this.props.getAllRoles();
+  }
   /**
    * @param {object} event 
    * @memberof ProfilePage
    * @returns {void}
    */
   onInputChange(event) {
-    const field = event.target.name;
-    const user = this.state.user;
-    user[field] = event.target.value;
     this.setState({
-      user
+      [event.target.name]: event.target.value
     });
   }
-  
-
-  /**
-   * @param {object} event 
-   * @memberof ProfilePage
-   * @returns {void}
-   */
-  onPasswordFieldChange(event) {
-    const typedPassord = event.target.value;
-    this.setState({
-      typedPassord
-    });
-  }
-
 
   /**
    * Log user out of app and redirect to index page
@@ -73,38 +61,26 @@ class ProfilePage extends Component {
 
   /**
    * @memberof ProfilePage
-   * @returns {void}
-   */
-  updateUser() {
-    console.log(this.state.typedPassord);
-    // this.props.updateProfile(this.state);
-    // this.setState({
-    //   state: this.props.auth.currentUser
-    // });
-  }
-
-  /**
-   * @memberof ProfilePage
    * @returns {object} react-component
    */
   render() {
+    const roles = this.props.roles;
     return(
       <div>
         <Header 
-          currentUser={this.state.user}
+          currentUser={this.state}
           logoutUser={this.logoutUser} 
         />
         <div className="profile-body">
           <div className="back container">
             <BackButton />
           </div>
-          <UserForm 
-            userDetails={this.state.user} 
-            updateUser={this.updateUser}
-            onInputChange={this.onInputChange}
-            onPasswordFieldChange={this.onPasswordFieldChange}
-            disabled={checkIfEmpty(this.state.typedPassord)}
-          />
+          <div className="container">
+            <h3 className="center">Docster Roles</h3>
+            <MuiThemeProvider muiTheme={muiTheme1}> 
+              <RolesTable roles={roles} />
+            </MuiThemeProvider>
+          </div>
         </div>
       </div>
     );
@@ -112,23 +88,25 @@ class ProfilePage extends Component {
 }
 
 // Set UserPage proptypes
-ProfilePage.propTypes = {
+RolesPage.propTypes = {
   auth: PropTypes.object.isRequired,
+  getAllRoles: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  updateProfile: PropTypes.func.isRequired
+  roles: PropTypes.array.isRequired
 }
 
 // Set UserPage contexttypes
-ProfilePage.contextTypes = {
+RolesPage.contextTypes = {
   router: PropTypes.object.isRequired
 }
 
 // Map state to this. props
 const matchStateToProps = (state) => {
   return{
-    auth: state.auth
+    auth: state.auth,
+    roles: state.roles
   }
 }
 
 export default 
-  connect(matchStateToProps, { logoutUser, updateProfile })(ProfilePage);
+  connect(matchStateToProps, { logoutUser, getAllRoles })(RolesPage);

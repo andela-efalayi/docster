@@ -284,7 +284,12 @@ label > .label-body {
   margin-left: .5rem;
   font-weight: normal; }
 
-
+input::-webkit-input-placeholder {
+  color: #CFD8DC;
+}
+input::-moz-placeholder {
+  color: #CFD8DC;
+}
 /* Lists
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 ul {

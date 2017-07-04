@@ -6,12 +6,10 @@ import InitialState from '../reducers/InitialState';
  * @param {object} action 
  * @returns {array} state
  */
-export default function UserReducer(state=InitialState.users, action) {
+export default function RoleReducer(state=InitialState.roles, action) {
   switch(action.type) {
-    case ActionTypes.CREATE_NEW_USER_SUCCESS:
-      return action.newUser
-    case ActionTypes.GET_ALL_USERS:
-      return action.users
+    case ActionTypes.GET_ALL_ROLES:
+      return action.roles
     default:
       return state;
   }

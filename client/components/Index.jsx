@@ -21,7 +21,7 @@ class Index extends Component {
     super(props);
     this.state = {
       message: 'a fullstack document management system.',
-      tab: 'signup'
+      tab: 'signin'
     };
     this.changeTab = this.changeTab.bind(this);
   }

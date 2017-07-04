@@ -4,11 +4,11 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import LockOutline from 'material-ui/svg-icons/action/lock-outline';
 import Lock from 'material-ui/svg-icons/action/lock';
 import Public from 'material-ui/svg-icons/social/public';
-import PersonOutline from 'material-ui/svg-icons/social/person-outline';
-import Person from 'material-ui/svg-icons/social/person';
+import PeopleOutline from 'material-ui/svg-icons/social/people-outline';
+import People from 'material-ui/svg-icons/social/people';
 
-// Document access options
-const DocumentAccessOptions = ({ onOptionChange }) => (
+// Document access radio buttons
+const AccessRadioButtons = ({ onOptionChange }) => (
   <div>
     <RadioButtonGroup
       className="document-access-options"
@@ -31,15 +31,15 @@ const DocumentAccessOptions = ({ onOptionChange }) => (
       <RadioButton
         value="role"
         label="Role"
-        checkedIcon={<Person style={{color: '#F44336'}} />}
-        uncheckedIcon={<PersonOutline />}
+        checkedIcon={<People style={{color: '#F44336'}} />}
+        uncheckedIcon={<PeopleOutline />}
       />
     </RadioButtonGroup>
   </div>
 );
 
-DocumentAccessOptions.propTypes = {
+AccessRadioButtons.propTypes = {
   onOptionChange: PropTypes.func.isRequired
 }
 
-export default DocumentAccessOptions;
+export default AccessRadioButtons;
