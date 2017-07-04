@@ -8,7 +8,7 @@ import initialState from '../reducers/InitialState';
  * @returns {object} state
  */
 export default function AuthReducer(
-  state=initialState.isAuthenticated, action) {
+  state=initialState, action) {
   switch(action.type) {
     case ActionTypes.SET_CURRENT_USER:
       return { 

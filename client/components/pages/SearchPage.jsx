@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../common/Header.jsx';
-import UserForm from '../forms/UserForm.jsx';
+import Documents from '../common/Documents.jsx';
+
 import { logoutUser } from '../../actions/Authenticate';
-import updateProfile from '../../actions/UpdateProfile';
+import { searchDocument } from '../../actions/SearchDocuments';
 import BackButton from '../common/BackButton.jsx';
-import { checkIfEmpty } from '../../utils/Validate';
+
 /**
  * @class ProfilePage
  * @extends {Component}
  */
-class ProfilePage extends Component {
+class SearchPage extends Component {
 
   /**
    * Creates an instance of ProfilePage.
@@ -23,12 +24,41 @@ class ProfilePage extends Component {
     super(props, context);
     this.state = {
       user: this.props.auth.currentUser,
-      typedPassord: ''
+      queryString: ''
     };
     this.logoutUser = this.logoutUser.bind(this);
-    this.updateUser = this.updateUser.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
-    this.onPasswordFieldChange = this.onPasswordFieldChange.bind(this);
+  }
+
+
+  /**
+   * @memberof SearchPage
+   * @returns {void}
+   */
+  componentWillMount() {
+    this.setState({
+      queryString: (this.context.router.route.location.search).split('?q=')[1]
+    });
+  }
+
+  /** 
+   * @memberof SearchPage
+   * @returns {void}
+   */
+  componentDidMount() {
+    this.props.searchDocument(this.state.queryString);
+  }
+
+  /**
+   * @memberof SearchPage 
+   * @param {any} nextProps 
+   * @returns {void}
+   */
+  componentWillUpdate(nextProps) {
+    const newQueryString = nextProps.location.search.split('?q=')[1];
+    if(newQueryString !== this.state.queryString){
+      this.props.searchDocument(newQueryString);
+    }
   }
 
   /**
@@ -37,27 +67,10 @@ class ProfilePage extends Component {
    * @returns {void}
    */
   onInputChange(event) {
-    const field = event.target.name;
-    const user = this.state.user;
-    user[field] = event.target.value;
     this.setState({
-      user
+      [event.target.name]: event.target.value
     });
   }
-  
-
-  /**
-   * @param {object} event 
-   * @memberof ProfilePage
-   * @returns {void}
-   */
-  onPasswordFieldChange(event) {
-    const typedPassord = event.target.value;
-    this.setState({
-      typedPassord
-    });
-  }
-
 
   /**
    * Log user out of app and redirect to index page
@@ -73,21 +86,11 @@ class ProfilePage extends Component {
 
   /**
    * @memberof ProfilePage
-   * @returns {void}
-   */
-  updateUser() {
-    console.log(this.state.typedPassord);
-    // this.props.updateProfile(this.state);
-    // this.setState({
-    //   state: this.props.auth.currentUser
-    // });
-  }
-
-  /**
-   * @memberof ProfilePage
    * @returns {object} react-component
    */
   render() {
+    const documents = this.props.searchResult;
+    const searchLength = Object.keys(documents).length;
     return(
       <div>
         <Header 
@@ -98,13 +101,13 @@ class ProfilePage extends Component {
           <div className="back container">
             <BackButton />
           </div>
-          <UserForm 
-            userDetails={this.state.user} 
-            updateUser={this.updateUser}
-            onInputChange={this.onInputChange}
-            onPasswordFieldChange={this.onPasswordFieldChange}
-            disabled={checkIfEmpty(this.state.typedPassord)}
-          />
+          <div className="container">
+            <h5>Documents found: 
+              <span className="search">
+                {searchLength}</span>
+            </h5>
+            <Documents documents={documents} />
+          </div>
         </div>
       </div>
     );
@@ -112,23 +115,25 @@ class ProfilePage extends Component {
 }
 
 // Set UserPage proptypes
-ProfilePage.propTypes = {
+SearchPage.propTypes = {
   auth: PropTypes.object.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  updateProfile: PropTypes.func.isRequired
+  searchResult: PropTypes.array.isRequired,
+  searchDocument: PropTypes.func.isRequired
 }
 
 // Set UserPage contexttypes
-ProfilePage.contextTypes = {
+SearchPage.contextTypes = {
   router: PropTypes.object.isRequired
 }
 
 // Map state to this. props
 const matchStateToProps = (state) => {
   return{
-    auth: state.auth
+    auth: state.auth,
+    searchResult: state.search
   }
 }
 
 export default 
-  connect(matchStateToProps, { logoutUser, updateProfile })(ProfilePage);
+  connect(matchStateToProps, { logoutUser, searchDocument })(SearchPage);

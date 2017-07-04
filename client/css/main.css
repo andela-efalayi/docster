@@ -1,3 +1,20 @@
+/* common sstyles*/
+.center {
+  text-align: center;
+}
+.error span {
+  color: #F44336;
+}
+.error input{
+  border: 1px solid #E53935;
+}
+.search {
+  color: #ff9800;
+}
+span.search {
+  margin-left: 0.5em;
+  font-size: 1.2em;
+}
 /* Index page */
 .index-page {
   max-width: 350px;
@@ -56,10 +73,11 @@
 /* Document */
 .document-length p{
   margin-bottom: 0px;
-  margin-top: -15px;
+  margin-top: -10px;
 }
 .document-length span {
-  font-size: 2.5em;
+  font-size: 2em;
+  margin-left: 8px;
 }
 .documents{
   padding: 20px 20px;
@@ -69,7 +87,7 @@
 }
 .document {
   height: 300px;
-  padding: 15px;
+  padding: 5px;
   margin-bottom: 15px;
   background-color: rgba(30, 27, 56, 0.8);
 }
@@ -80,19 +98,25 @@
   box-shadow:         3px 3px 5px 6px #ccc;
 }
 .document .document-details, .document .document-content{
-  background-color: #fff;
   padding: 10px;
 }
 .document-details{
   height: 30px;
   margin-bottom: 5px;
 }
-.document-id {
-  color: #1e1b38;
+.document-details, .document-id {
+  color: #fff;
+}
+.document-content {
+  background-color: #fff;
 }
 .document-content{
   height: 225px;
   width: inherit;
+}
+.document-content p{
+  height: 165px;
+  text-align: justify;
 }
 .document-actions {
   color: red;
@@ -122,10 +146,45 @@
   margin: 0 auto;
 }
 
+/* tables */
+.table-head th {
+  font-size: 1em !important;
+  font-weight: 800 !important;
+}
+
+/* AppToolbar */
+.app-toolbar {
+  padding: 0px 24px;
+  background-color: #E1E2E1;
+}
+.app-toolbar .columns {
+  margin-bottom: 15px;
+}
+.app-toolbar input {
+  margin-bottom: 0px;
+}
+.toolbar-nav {
+  padding: 0px !important;
+  background-color: transparent !important;
+  color: black !important;
+}
+.app-toolbar .document-count{
+  font-size: 24px;
+}
 @media (max-width: 480px) {
   .document-access-options > div {
     width: 100% !important;
     margin-bottom: 8px;
+  }
+}
+@media (min-width: 550px) {
+  .app-toolbar .columns:nth-child(2),
+  .app-toolbar .columns:nth-child(3) {
+    margin-top: 17px;
+  }
+  .toolbar-nav{
+    margin-top: 5px;
+    margin-bottom: 0px;
   }
 }
 @media (min-width: 600px) {
@@ -135,9 +194,6 @@
   }
   .home-tabs .columns {
     margin-bottom: 0px;
-  }
-  .search-form{
-    padding-left: 24.5%;
   }
   .documents{
     margin-left: 5%;

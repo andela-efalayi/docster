@@ -37,9 +37,9 @@ app.get('*', (req, res) => {
 });
 app.set('superSecret', secret);
 
-app.listen(3000, () => {
+app.listen(1193, () => {
   console.log(colors
-  .bgGreen('Docster is running on localhost:3000'));
+  .bgGreen('Docster is running on localhost:1193'));
   // console.log(colors.blue(Role.createRole()));
 });
 

@@ -54,7 +54,10 @@ class CreateDocumentDialog extends Component {
   createDocument() {
     this.props.createDocument(this.state).then(() => {
       this.setState({
-        open: false
+        open: false,
+        title: '',
+        content: '',
+        access: ''
       });
     });
   }
@@ -97,7 +100,7 @@ class CreateDocumentDialog extends Component {
       <div>
         <MuiThemeProvider muiTheme={muiTheme1}>
           <RaisedButton 
-            label="create a document" 
+            label="create document" 
             onTouchTap={this.openDialog} 
             primary
             fullWidth

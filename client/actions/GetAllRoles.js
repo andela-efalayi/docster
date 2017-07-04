@@ -4,13 +4,13 @@ import ActionTypes from '../../constants/ActionTypes';
 
 /**
  * Set user if getUserDetails is successful
- * @param {any} user 
+ * @param {any} roles
  * @returns {object} action
  */
-export function getUserDetailsSuccess(user) {
+export function getAllRolesSuccess(roles) {
   return {
-    type: ActionTypes.GET_USER_DETAILS,
-    user
+    type: ActionTypes.GET_ALL_ROLES,
+    roles
   }
 }
 
@@ -18,12 +18,12 @@ export function getUserDetailsSuccess(user) {
  * Get all users from database
  * @returns {func} dispatch
  */
-export function getUserDetails() {
+export function getAllRoles() {
   return function(dispatch) {
-    return axios.get('/users')
+    return axios.get('/roles')
       .then(response => {
-        const users = response.data;
-        dispatch(getUserDetailsSuccess(users));
+        const roles = response.data.roles;
+        dispatch(getAllRolesSuccess(roles));
       })
       .catch(error => {
         throw(error);

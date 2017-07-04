@@ -1,31 +1,29 @@
 import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
 
-
 /**
  * @param {object} documents
  * @returns {object} action
  */
-export function loadUserDocumentsSuccess(documents) {
+export function getRoleDocumentsSuccess(documents) {
   return {
-    type: ActionTypes.LOAD_USER_DOCUMENTS,
+    type: ActionTypes.GET_ROLE_DOCUMENTS,
     documents
   }
 }
-
 
 /**
  * @param {number} userId 
  * @returns {func} dispatch
  */
-export function loadUserDocuments(userId) {
+export function getRoleDocuments() {
   return function(dispatch) {
-    return axios.get(`/users/${userId}/documents`)
+    return axios.get(`/role-documents`)
       .then(response => {
-        dispatch(loadUserDocumentsSuccess(response.data.documents));
+        dispatch(getRoleDocumentsSuccess(response.data.documents));
       })
       .catch(error => {
-        throw(error.data);
+        throw(error);
       });
   }
 }

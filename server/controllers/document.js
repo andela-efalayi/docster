@@ -48,6 +48,56 @@ module.exports = {
         message: 'An error occurred while retrieving documents.'
       }));
   },
+  getPublicDocuments(req, res) {
+    console.log(colors.yellow('Fetching public documents...'));
+    return Document
+      .findAll({ 
+        where: {
+          access: 'public'
+        }
+      })
+      .then((documents) => {
+        res.status(200);
+        if (documents.length === 0) {
+          res.send({
+            message: 'No documents available'
+          });
+        }
+        res.send({
+          documents,
+          message: 'Retrieved all documents successfully'
+        });
+      })
+      .catch(error => res.status(400).send({
+        error,
+        message: 'An error occurred while retrieving documents.'
+      }));
+  },
+  getRoleDocuments(req, res) {
+    console.log(colors.yellow('Fetching public documents...'));
+    return Document
+      .findAll({ 
+        where: {
+          access: 'role'
+        }
+      })
+      .then((documents) => {
+        res.status(200);
+        if (documents.length === 0) {
+          res.send({
+            message: 'No documents available'
+          });
+        }
+        res.send({
+          documents,
+          message: 'Retrieved all documents successfully'
+        });
+      })
+      .catch(error => res.status(400).send({
+        error,
+        message: 'An error occurred while retrieving documents.'
+      }));
+  },
   getDocumentById(req, res) {
     console.log(colors.yellow('Fetching documents from database...'));
     if (isNaN(req.params.documentId) === false) {
@@ -75,7 +125,7 @@ module.exports = {
     });
   },
   updateDocument(req, res) {
-    console.log(colors.yellow('Updating dodcument...'));
+    console.log(colors.yellow('Updating document...'));
     return Document
       .findById(req.params.documentId)
       .then((document) => {

@@ -18,7 +18,7 @@ injectTapEventPlugin();
 const store = configureStore();
 
 if (localStorage.docsterToken) {
-  setAuthorisationToken(localStorage.docsterToken);
+  setAuthorisationToken(localStorage.getItem('docsterToken'));
   store.dispatch(loginUserSuccess(JSON
     .parse(localStorage.getItem('currentUser'))));
 }

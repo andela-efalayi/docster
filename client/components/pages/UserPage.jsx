@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../common/Header.jsx';
 import HomeTab from '../common/HomeTab.jsx';
-import Documents from './Documents.jsx';
+import Documents from '../common/Documents.jsx';
 import { logoutUser } from '../../actions/Authenticate';
-import { loadUserDocuments } from '../../actions/LoadUserDocuments';
+import { getUserDocuments } from '../../actions/GetUserDocuments';
+
 /**
  * @class UserPage
  * @extends {Component}
@@ -22,8 +23,10 @@ class UserPage extends Component {
     super(props, context);
     this.state = {
       user: this.props.auth.currentUser,
+      searchString: ''
     };
     this.logoutUser = this.logoutUser.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
   }
 
   /**
@@ -31,7 +34,19 @@ class UserPage extends Component {
    * @return {void}
    */
   componentWillMount() {
-    this.props.loadUserDocuments(this.state.user.id);
+    this.props.getUserDocuments(this.state.user.id);
+  }
+
+  /**
+   * @param {object} event 
+   * @memberof UserPage
+   * @returns {void}
+   */
+  onInputChange(event) {
+    const searchString = event.target.value;
+    this.setState({
+      searchString
+    });
   }
 
   /**
@@ -45,17 +60,28 @@ class UserPage extends Component {
     this.props.logoutUser();
     this.context.router.history.push('/');
   }
+
   /**
    * Render UserPage in the DOM
    * @memberof UserPage
    * @returns {object} react-component
    */
   render() {
-    const documents = this.props.documents;
+    let documents = this.props.documents.filter(
+      (document) => {
+        return document.title.toLowerCase()
+          .indexOf(this.state.searchString) !== -1
+      }
+    );
     return(
       <div>
         <Header currentUser={this.state.user} logoutUser={this.logoutUser} />
-        <HomeTab numberOfDocuments={documents.length || 0} />
+        <HomeTab
+          numberOfDocuments={documents.length || 0}
+          onInputChange={this.onInputChange}
+          searchString={this.state.searchString}
+          placeholder="Search My Documents"
+        />
         <div className="documents">
           <Documents documents={documents} />
         </div>
@@ -68,7 +94,7 @@ class UserPage extends Component {
 UserPage.propTypes = {
   auth: PropTypes.object.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  loadUserDocuments: PropTypes.func.isRequired,
+  getUserDocuments: PropTypes.func.isRequired,
   documents: PropTypes.array.isRequired
 }
 
@@ -87,4 +113,4 @@ const matchStateToProps = (state) => {
 
 // Connect UserPage to store
 export default 
-  connect(matchStateToProps, { logoutUser, loadUserDocuments })(UserPage);
+  connect(matchStateToProps, { logoutUser, getUserDocuments })(UserPage);

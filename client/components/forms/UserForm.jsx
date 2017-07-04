@@ -4,7 +4,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { muiTheme2 } from '../../muiTheme';
 
-const UserForm = ({ onInputChange, userDetails, updateUser }) => {
+const UserForm = (
+  { disabled, onInputChange, onPasswordFieldChange,
+    userDetails, updateUser }) => {
   return(
     <div className="container">
       <form action="">
@@ -47,9 +49,9 @@ const UserForm = ({ onInputChange, userDetails, updateUser }) => {
             <input 
               type="password" 
               className="u-full-width"
-              name="password"
-              placeholder="password"
-              onChange={onInputChange}
+              name="typedPassword"
+              placeholder="Password"
+              onChange={onPasswordFieldChange}
             />
           </div>
         </div>
@@ -61,6 +63,7 @@ const UserForm = ({ onInputChange, userDetails, updateUser }) => {
             primary
             fullWidth
             onClick={updateUser}
+            disabled={disabled}
           />
         </MuiThemeProvider>
       </div>
@@ -69,7 +72,9 @@ const UserForm = ({ onInputChange, userDetails, updateUser }) => {
 };
 
 UserForm.propTypes = {
+  disabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
+  onPasswordFieldChange: PropTypes.func.isRequired,
   updateUser: PropTypes.func.isRequired,
   userDetails: PropTypes.object.isRequired
 };

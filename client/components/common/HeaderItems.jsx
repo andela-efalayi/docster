@@ -13,7 +13,10 @@ const HeaderItems = ({ currentUser, logoutUser }) => (
         user={[currentUser.fullName, currentUser.userName]}
       />
     }
-    rightIcon={<HeaderNavList logoutUser={logoutUser} />}
+    rightIcon={<HeaderNavList 
+      roleId={currentUser.roleId}
+      logoutUser={logoutUser} 
+    />}
   />
 );
 
