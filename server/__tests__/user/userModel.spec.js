@@ -1,7 +1,6 @@
 import chai from 'chai';
 import colors from 'colors';
 import bcrypt from 'bcrypt';
-
 import Models from '../../models';
 import testData from '../fakerData/model-data';
 
@@ -11,12 +10,16 @@ const User = Models.User;
 
 process.env.NODE_ENV = 'test';
 
+/*
+  Test User Model
+*/
 describe(colors.green('UserModel'), () => {
   let newUser; // user with complete fields.
 
   // variable to confirm password hashing
   const newUserPassword = testData.newUser.password;
 
+  // Test that model does not accept undefined user details
   describe(colors.underline('Create function'), () => {
     it('should reject an empty username field', (done) => {
       User.create(testData.newUserWithNoUsername)
@@ -48,6 +51,8 @@ describe(colors.green('UserModel'), () => {
         done();
       });
     });
+
+    // Test that a user can be created
     describe(colors.underline('Successfully created user'), () => {
       it('should have an email', () => {
         assert.exists(newUser.email);
@@ -62,6 +67,8 @@ describe(colors.green('UserModel'), () => {
         assert.isDefined(newUser.roleId);
       });
     });
+
+    //  Test that a user cannot be created twice
     describe(colors.underline('Existing user'), () => {
       it('should not be created twice', (done) => {
         User.create({

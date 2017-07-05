@@ -1,12 +1,15 @@
-/* eslint-disable no-console*/
-import colors from 'colors';
 import Models from '../models';
 
 const Role = Models.Role;
 
 module.exports = {
+  /**
+   * Create a new role
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   createRole(req, res) {
-    console.log(colors.blue('Creating user role...'));
     return Role
       .create({
         roleType: req.body.roleType
@@ -20,6 +23,13 @@ module.exports = {
         message: 'An error occurred while creating this role.'
       }));
   },
+
+  /**
+   * Get all role from database
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   getAllRoles(req, res) {
     return Role
       .findAll()
@@ -28,6 +38,13 @@ module.exports = {
       }))
       .catch(error => res.status(400).send(error));
   },
+
+  /**
+   * Get a role by Id
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   getRoleById(req, res) {
     return Role
       .findById(req.params.roleId)

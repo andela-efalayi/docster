@@ -1,5 +1,3 @@
-/* eslint-disable no-console*/
-import colors from 'colors';
 import bcrypt from 'bcrypt';
 import Models from '../models';
 import QueryConstants from '../../constants/QueryConstants';
@@ -11,8 +9,13 @@ const Document = Models.Document;
 const attributes = ServerConstants.USER_ATTRIBUTES;
 
 module.exports = {
+  /**
+   * Authenticate user
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   authenticateUser(req, res){
-    console.log(colors.yellow('Checking user...'));
     return User
       .find({
         attributes: [...ServerConstants.USER_ATTRIBUTES, 'password' ],
@@ -53,9 +56,14 @@ module.exports = {
         message: 'Internal server error'
       }));
   },
-  createUser(req, res) {
-    console.log(colors.yellow('Creating user...')); 
 
+  /**
+   * Create a new user
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
+  createUser(req, res) {
     // check if user exists in database else create a new user
     return User
       .findOrCreate({ 
@@ -98,8 +106,14 @@ module.exports = {
         });
       });
   },
+
+  /**
+   * Get all users from database
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   getAllUsers(req, res) {
-    console.log(colors.yellow('Fetching users from database...'));
     const limit = req.query.limit || QueryConstants.DEFAULT_LIMIT,
       offset = req.query.offset || QueryConstants.DEFAULT_OFFSET;
 
@@ -125,8 +139,14 @@ module.exports = {
         message: 'An error occurred while getting users from database.'
       }));
   },
+
+  /**
+   * Get a user by Id
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   getUserById(req, res) {
-    console.log(colors.yellow('Fetching user from database...'));
     return User
       .find({
         where: { id: req.params.userId },
@@ -146,8 +166,14 @@ module.exports = {
         `An error occurred while fetching user with id: ${req.params.userId}`
       }));
   },
+
+  /**
+   * Get all documents that belong to a user
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   getUserDocuments(req, res) {
-    console.log(colors.yellow("Fetching user's documents..."));
     return Document
     .findAll({
       where: { userId: req.params.userId }
@@ -163,8 +189,14 @@ module.exports = {
       });
     });
   },
+
+  /**
+   * Update a user
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   updateUser(req, res) {
-    console.log(colors.yellow('Updating user data...'));
     return User
       .findById(req.params.userId)
       .then((user) => {
@@ -198,8 +230,14 @@ module.exports = {
         message: 'An error occurred while getting user'
       }));
   },
+
+  /**
+   * Delete a user
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   deleteUser(req, res) {
-    console.log(colors.yellow('Deleting user from database...'));
     return User
       .findById(req.params.userId)
       .then((user) => {
@@ -215,6 +253,13 @@ module.exports = {
           }));
       });
   },
+
+  /**
+   * Logout a user
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   logoutUser(req, res) {
     return res.status(200).send({
       message: 'User is logged out'

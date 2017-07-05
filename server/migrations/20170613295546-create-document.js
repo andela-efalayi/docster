@@ -1,3 +1,6 @@
+/*
+  Document migration
+*/
 module.exports = {
   up(queryInterface, Sequelize) {
     return queryInterface.createTable('Documents', {

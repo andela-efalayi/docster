@@ -5,10 +5,7 @@ import UserPage from './components/pages/UserPage.jsx';
 import ProfilePage from './components/pages/ProfilePage.jsx';
 import AccessPage from './components//pages/AccessPage.jsx';
 import UsersPage from './components//pages/UsersPage.jsx';
-// import SearchPage from './components/pages/SearchPage.jsx';
 import RolesPage from './components/pages/RolesPage.jsx';
-
-// import requireAuth from './RequireAuth.jsx';
 
 const Routes = () => (
   <main>
