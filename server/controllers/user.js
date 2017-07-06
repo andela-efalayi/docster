@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt-nodejs';
 import Models from '../models';
 import QueryConstants from '../../constants/QueryConstants';
 import ServerConstants from '../../constants/ServerConstants';

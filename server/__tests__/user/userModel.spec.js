@@ -1,6 +1,6 @@
 import chai from 'chai';
 import colors from 'colors';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt-nodejs';
 import Models from '../../models';
 import testData from '../fakerData/model-data';
 
@@ -59,8 +59,8 @@ describe(colors.green('UserModel'), () => {
       });
       it('should be have a hashed password', () => {
         assert.exists(newUser.password);
-        bcrypt.compare(newUserPassword, newUser.password).then((result) => {
-          assert.isTrue(result, 'password was hashed');
+        bcrypt.compare(newUserPassword, newUser.password, (err, res) => {
+          assert.isTrue(res, 'password was hashed');
         });
       });
       it('should have a roleId', () => {
