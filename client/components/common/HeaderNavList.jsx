@@ -7,7 +7,10 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Divider from 'material-ui/Divider';
 
-// Header navigation list
+/*
+  Header Navigation List Component
+  Displays navigation links in a dropdown
+*/
 const HeaderNavList = (props) => {
   const { logoutUser, roleId, ...style} = props;
   return(
@@ -38,15 +41,11 @@ const HeaderNavList = (props) => {
         roleId === 1 &&
         <div>
           <MenuItem 
-            primaryText="Role Documents"
-            containerElement={<Link to='/profile' />}
-          />
-          <MenuItem 
-            primaryText="Roles"
+            primaryText="All Roles"
             containerElement={<Link to='/allroles' />}
           />
           <MenuItem 
-            primaryText="Users"
+            primaryText="All Users"
             containerElement={<Link to='/allusers' />}
           />
         </div>

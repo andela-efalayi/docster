@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import { muiTheme1 } from '../../muiTheme';
@@ -41,10 +40,9 @@ class SignInForm extends Component {
    */
   onInputChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   }
-
 
   /**
    * @memberof SignInForm
@@ -66,17 +64,22 @@ class SignInForm extends Component {
    * @returns {void}
    */
   authenticateUser() {
+    this.setState({
+      errors: {}
+    });
     if(this.validateForm() === true) {
+      const errors = {};      
       this.props.actions.loginUser(this.state)
-      .then(
-        () => {
+      .then(() => {
         this.context.router.history.push('/app');
       })
       .catch(error => {
-        console.log(error);
-      });
-      this.setState({
-        errors: {}
+        const message = JSON.parse(error).response.data.message;
+        errors.user = message;
+        errors.password = message;        
+        this.setState({
+          errors
+        });
       }); 
     }
   }

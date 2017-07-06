@@ -90,12 +90,15 @@ span.search {
   padding: 5px;
   margin-bottom: 15px;
   background-color: rgba(30, 27, 56, 0.8);
+  transition: all 600ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  border-top-left-radius: 24.8px;
+  border-bottom-right-radius: 26px;
 }
 .document:hover {
   background-color: #1e1b38; 
-  -moz-box-shadow:    3px 3px 5px 6px #ccc;
-  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
-  box-shadow:         3px 3px 5px 6px #ccc;
+  -moz-box-shadow:    2px 2px 3px 2px #ccc;
+  -webkit-box-shadow: 2px 2px 3px 2px #ccc;
+  box-shadow:         2px 2px 3px 2px #ccc;
 }
 .document .document-details, .document .document-content{
   padding: 10px;
@@ -109,12 +112,17 @@ span.search {
 }
 .document-content {
   background-color: #fff;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 22px;
 }
 .document-content{
   height: 225px;
   width: inherit;
 }
 .document-content p{
+  margin: 0px;
+}
+.document-content .text{
   height: 165px;
   text-align: justify;
 }

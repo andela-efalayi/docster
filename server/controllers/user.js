@@ -22,10 +22,10 @@ module.exports = {
         where: {
           $or: {
             userName: {
-              $iLike: `%${req.body.user}%`
+              $like: `%${req.body.user}%`
             },
             email: {
-              $iLike: `%${req.body.user}%`
+              $like: `%${req.body.user}%`
             }
           }
         }
@@ -33,7 +33,7 @@ module.exports = {
       .then((user) => {
         if(!user) {
           return res.status(401).send({
-            message: 'Invalid credentials'
+            message: 'User does not exist'
           });
         }
         if (bcrypt.compareSync(req.body.password, user.password)

@@ -38,6 +38,7 @@ class EditDocumentDialog extends Component {
     this.openDialog = this.openDialog.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+    this.onEditorChange = this.onEditorChange.bind(this);
     this.updateDocument = this.updateDocument.bind(this);
   }
 
@@ -51,7 +52,16 @@ class EditDocumentDialog extends Component {
       [event.target.name]: event.target.value
     });
   }
-
+  
+  /**
+   * @memberof CreateDocumentDialog
+   * @returns {void}
+   */
+  onEditorChange() {
+    this.setState({
+      content: tinymce.activeEditor.getContent(),
+    })
+  }
   /**
    * @memberof CreateDocumentDialog
    * @returns {void}
@@ -78,7 +88,7 @@ class EditDocumentDialog extends Component {
    * @returns {void}
    */
   openDialog() {
-    this.setState({open: true});
+    this.setState({open: true});    
     // window.history
     //   .pushState(null, null, `/home/documents/${this.state.slug}`);   
   }
@@ -123,6 +133,7 @@ class EditDocumentDialog extends Component {
               <DocumentForm 
                 onInputChange={this.onInputChange}
                 document={this.state}
+                onEditorChange={this.onEditorChange}
               />
             </Dialog>
           </div>

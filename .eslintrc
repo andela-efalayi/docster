@@ -4,6 +4,9 @@
   "plugins": [
     "react"
   ],
+  "globals": {
+    "tinymce": true
+  },
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",

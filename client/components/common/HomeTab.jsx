@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import CreateDocumentDialog from '../dialogs/CreateDocumentDialog.jsx';
 import SearchForm from '../forms/SearchForm.jsx';
 
+/*
+  HomeTab Component
+  Displays displays number of user's documents
+  Displays a search field and button for creating documents
+*/
 const HomeTab = ({ numberOfDocuments, onInputChange,
   placeholder, searchString }) => (
     <div className="home-tabs">

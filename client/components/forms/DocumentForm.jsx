@@ -1,29 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AccessRadioButtons from '../common/AccessRadioButtons.jsx';
+import TextInputField from '../common/TextInputField.jsx';
+import Tinymce from './Tinymce.jsx';
 
-const DocumentForm = ({ document, onInputChange }) => (
+const DocumentForm = ({ document, onInputChange, onEditorChange }) => (
   <form action="">
     <div className="row">
       <div className="twelve columns">
         <label htmlFor="title">Title</label>
-        <input 
-          type="text" 
-          className="u-full-width"
+        <TextInputField
+          type="text"
           name="title"
           value={document.title || ""}
           placeholder="Enter title"
-          onChange={onInputChange}
+          onInputChange={onInputChange}
         />
       </div>
       <div className="twelve columns">
         <label htmlFor="content">Content</label>
-        <textarea 
-          className="u-full-width"
-          name="content"
+        <Tinymce
+          id="content"
           value={document.content || ""}
-          placeholder="Enter content"
-          onChange={onInputChange}
+          onEditorChange={onEditorChange}
         />
       </div>
       <div className="document-access">
@@ -36,7 +35,8 @@ const DocumentForm = ({ document, onInputChange }) => (
 
 DocumentForm.propTypes = {
   document: PropTypes.object.isRequired,
-  onInputChange: PropTypes.func.isRequired
+  onInputChange: PropTypes.func.isRequired,
+  onEditorChange: PropTypes.func.isRequired
 }
 
 export default DocumentForm;

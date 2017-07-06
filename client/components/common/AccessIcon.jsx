@@ -7,6 +7,10 @@ import Public from 'material-ui/svg-icons/social/public';
 import { deepPurple200 } from 'material-ui/styles/colors';
 import { muiTheme1 } from '../../muiTheme';
 
+/*
+  AccessIcon Component
+  Displays an access icon [ public/private/role ]
+*/
 const AccessIcon = ({ accessType }) => {
   return(
     <MuiThemeProvider muiTheme={muiTheme1}>

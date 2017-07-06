@@ -30,7 +30,8 @@ export function loginUser(userCredentials) {
         setAuthorisationToken(token);
         dispatch(loginUserSuccess(currentUser));        
       })
-      .catch(error => {
+      .catch(response => {
+        const error = JSON.stringify(response);
         throw(error);
       });
   }

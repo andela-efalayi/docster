@@ -32,7 +32,7 @@ or you are just interested in a specific part of the project, but not sure where
  to begin, feel free to ask.
 On the other hand if the contribution you wish to make has not been documented 
 in an existing issue, please [create new issue](https://github.com/andela-efalayi/docster/issues/new) before submitting your [pull request](https://help.github.com/articles/about-pull-requests/).
-Please follow the Pull Request decsription convention [here](https://github.com/andela-efalayi/docster/wiki/Pull-Request-Naming-and-Description-Convention)
+Also, kindly follow the Pull Request decsription convention [here](https://github.com/andela-efalayi/docster/wiki/Pull-Request-Naming-and-Description-Convention)
 
 ***
 #### Getting Started
@@ -43,7 +43,7 @@ Please follow the Pull Request decsription convention [here](https://github.com/
 - Alternatively, you can access the app on [asedeyhot-news.herokuapp.com](https://asedeyhot-news.herokuapp.com)
 
 ***
-##### Running Tests
+#### Running Tests
 App view components and routes were tested using Jest, Mocha, and Chai. To tun the tests:
 - cd into the cloned Docster folder
 - Run `npm run mocha` in terminal. This runs the server test

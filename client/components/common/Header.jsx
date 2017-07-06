@@ -8,7 +8,10 @@ import AppIcon from 'material-ui/svg-icons/image/center-focus-strong';
 import HeaderItems from '../common/HeaderItems.jsx';
 import {muiTheme1} from '../../muiTheme';
 
-// Header component
+/*
+  Header Component
+  Displays app header
+*/
 const Header = ({ currentUser, logoutUser }) => (
   <div>
     <div className="bg-purple" />
