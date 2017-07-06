@@ -15,7 +15,7 @@
     "server-test": "npm run reset:test-db && npm run mocha",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "start:dev": "babel-node server/server.js",
-    "start": "npm run start:dev",
+    "start": "babel-node server/server.js",
     "test": "npm run server-test"
   },
   "nyc": {
