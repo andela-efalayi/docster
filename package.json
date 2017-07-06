@@ -14,7 +14,8 @@
     "mocha:test": "nyc --reporter=html --reporter=text mocha --timeout 15000 --compilers js:babel-register \"server/tests/**/*.test.js\"",
     "server-test": "npm run reset:test-db && npm run mocha",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "start": "nodemon --watch server server/server.js --exec babel-node --presets es2015,stage-2",
+    "start:dev": "babel-node server/server.js",
+    "start": "npm run start:dev",
     "test": "npm run server-test"
   },
   "nyc": {

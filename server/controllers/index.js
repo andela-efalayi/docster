@@ -3,7 +3,7 @@ import User from './user';
 import Document from './document';
 import Search from './search';
 
-module.exports = {
+export default {
   Role,
   User,
   Document,
