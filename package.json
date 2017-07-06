@@ -10,7 +10,7 @@
     "reset:db": "sequelize db:migrate:undo:all",
     "fill:db": "sequelize db:migrate && sequelize db:seed:all",
     "reset:test-db": "npm run reset:db && npm run fill:db",
-    "mocha": "NODE_ENV=test nyc mocha --timeout 15000 -- ./server/__tests__/**/*.spec.js",
+    "mocha": "NODE_ENV=test nyc mocha --timeout 15000 -- ./server/tests/**/*.spec.js",
     "mocha:test": "nyc --reporter=html --reporter=text mocha --timeout 15000 --compilers js:babel-register \"server/tests/**/*.test.js\"",
     "server-test": "npm run reset:test-db && npm run mocha",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
