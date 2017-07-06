@@ -6,12 +6,16 @@
   "license": "ISC",
   "main": "server.js",
   "scripts": {
+    "build": "babel lib -d dist --presets es2015,stage-2",
     "reset:db": "sequelize db:migrate:undo:all",
     "fill:db": "sequelize db:migrate && sequelize db:seed:all",
     "reset:test-db": "npm run reset:db && npm run fill:db",
+    "mocha": "NODE_ENV=test nyc mocha --timeout 15000 -- ./server/__tests__/**/*.spec.js",
+    "mocha:test": "nyc --reporter=html --reporter=text mocha --timeout 15000 --compilers js:babel-register \"server/tests/**/*.test.js\"",
+    "server-test": "npm run reset:test-db && npm run mocha",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "start": "nodemon --watch server server/server.js --exec babel-node --presets es2015,stage-2",
-    "mocha": "NODE_ENV=test nyc mocha --timeout 15000 server/__tests__/**/*.spec.js",
-    "server-test": "npm run reset:test-db && npm run mocha"
+    "test": "npm run server-test"
   },
   "nyc": {
     "require": [
@@ -63,7 +67,6 @@
     "body-parser": "^1.17.2",
     "classnames": "^2.2.5",
     "colors": "^1.1.2",
-    "coveralls": "^2.13.1",
     "css-loader": "^0.28.4",
     "dotenv": "^4.0.0",
     "dotenv-webpack": "^1.5.0",
