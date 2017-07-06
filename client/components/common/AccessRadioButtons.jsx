@@ -7,7 +7,9 @@ import Public from 'material-ui/svg-icons/social/public';
 import PeopleOutline from 'material-ui/svg-icons/social/people-outline';
 import People from 'material-ui/svg-icons/social/people';
 
-// Document access radio buttons
+/*
+  Radio buttons for docuemnt access selection
+*/
 const AccessRadioButtons = ({ onOptionChange }) => (
   <div>
     <RadioButtonGroup

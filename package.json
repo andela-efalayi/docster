@@ -6,13 +6,13 @@
   "license": "ISC",
   "main": "server.js",
   "scripts": {
-    "build": "babel lib -d dist --presets es2015,stage-2",
     "reset:db": "sequelize db:migrate:undo:all",
     "fill:db": "sequelize db:migrate && sequelize db:seed:all",
     "reset:test-db": "npm run reset:db && npm run fill:db",
-    "mocha": "NODE_ENV=test nyc mocha --timeout 15000 --compilers js:babel-register -- ./server/__tests__/**/*.spec.js",
+    "mocha": "NODE_ENV=test nyc mocha --timeout 15000 --compilers js:babel-register -- ./**/__tests__/**/*",
+    "server-test": "npm run reset:test-db && npm run mocha",
     "start": "nodemon --watch server server/server.js --exec babel-node --presets es2015,stage-2",
-    "server-test": "npm run reset:test-db && npm run mocha"
+    "test": "npm run server-test"
   },
   "nyc": {
     "require": [
@@ -69,6 +69,7 @@
     "express": "^4.15.3",
     "file-loader": "^0.11.2",
     "hammerjs": "^2.0.8",
+    "html-react-parser": "^0.3.5",
     "jsonwebtoken": "^7.4.1",
     "keymirror": "^0.1.1",
     "lodash": "^4.17.4",

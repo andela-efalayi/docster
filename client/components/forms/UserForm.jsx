@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { muiTheme2 } from '../../muiTheme';
+import TextInputField from '../common/TextInputField.jsx';
+
 
 const UserForm = (
   { disabled, onInputChange, onPasswordFieldChange,
@@ -13,35 +15,32 @@ const UserForm = (
         <div className="row">
           <div className="twelve columns">
             <label htmlFor="fullName">Full Name</label>
-            <input 
-              type="text" 
-              className="u-full-width"
+            <TextInputField
+              type="text"
               name="fullName"
               value={userDetails.fullName || ''}
-              placeholder='Full Name'
-              onChange={onInputChange}
+              placeholder="Full Name"
+              onInputChange={onInputChange}
             />
           </div>
           <div className="twelve columns">
             <label htmlFor="userName">User Name</label>
-            <input 
-              type="text" 
-              className="u-full-width"
+            <TextInputField
+              type="text"
               name="userName"
               value={userDetails.userName || ''}
-              placeholder='UserName'
-              onChange={onInputChange}
+              placeholder="UserName"
+              onInputChange={onInputChange}
             />
           </div>
           <div className="twelve columns">
             <label htmlFor="email">Email</label>
-            <input 
-              type="email" 
-              className="u-full-width"
+            <TextInputField
+              type="email"
               name="email"
               value={userDetails.email || ''}
-              placeholder='Email'
-              onChange={onInputChange}
+              placeholder="Email"
+              onInputChange={onInputChange}
             />
           </div>
           <div className="twelve columns">

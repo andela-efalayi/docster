@@ -4,8 +4,11 @@ import Avatar from 'material-ui/Avatar';
 import { ListItem } from 'material-ui/List';
 import { orange500 } from 'material-ui/styles/colors';
 
-// User avatar [ displays user's image (represented as the first 
-// letter in user's full name) and user's username]
+/*
+  UserAvatar component
+  User avatar [ displays user's image (represented as the first 
+  letter in user's full name) and user's username]
+*/
 const UserAvatar = ({ user }) => (
   <ListItem
     className="user-avatar"

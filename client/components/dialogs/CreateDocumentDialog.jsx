@@ -33,6 +33,7 @@ class CreateDocumentDialog extends Component {
     this.openDialog = this.openDialog.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+    this.onEditorChange = this.onEditorChange.bind(this);
     this.createDocument = this.createDocument.bind(this);
   }
 
@@ -45,6 +46,17 @@ class CreateDocumentDialog extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
+  }
+
+
+  /**
+   * @memberof CreateDocumentDialog
+   * @returns {void}
+   */
+  onEditorChange() {
+    this.setState({
+      content: tinymce.activeEditor.getContent(),
+    })
   }
 
   /**
@@ -118,6 +130,7 @@ class CreateDocumentDialog extends Component {
             >
               <DocumentForm 
                 onInputChange={this.onInputChange} 
+                onEditorChange={this.onEditorChange}
                 document={this.state} 
               />
             </Dialog>

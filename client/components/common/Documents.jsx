@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import orderBy from 'lodash/orderBy';
 import Document from './Document.jsx';
 
+/*
+  Documents Component
+  Displays all docuemnts in an array
+*/
 const Documents = (props) => {
     const orderedDocuments = orderBy(
       props.documents, ['createdAt'], ['desc'])

@@ -9,6 +9,7 @@ import TextInputField from '../common/TextInputField.jsx';
 
 import { formIsValid } from '../../utils/Validate';
 import  * as createNewUser from '../../actions/CreateNewUser';
+import ErrorAlert from '../dialogs/ErrorAlert.jsx';
 
 /**
  * @class SignUpForm
@@ -68,18 +69,20 @@ class SignUpForm extends Component {
    * @return {void}
    */
   createNewUser() {
-    if(this.validateForm() === true) {
-      this.props.actions.createNewUser(this.state)
-      .then(() => {
-        this.context.router.history.push('/app');
-      })
-      .catch(error => {
-        console.log(error);
-      });
-      this.setState({
-        errors: {}
-      }); 
-    }
+    <ErrorAlert />    
+    // this.setState({
+    //   errors: {}
+    // }); 
+    // if(this.validateForm() === true) {
+    //   this.props.actions.createNewUser(this.state)
+    //   .then(() => {
+    //     this.context.router.history.push('/app');
+    //   })
+    //   .catch(error => {
+    //     // const message = JSON.parse(error).response.data.message;
+    //     // console.log(message);
+    //   });
+    // }
   }
 
   /**

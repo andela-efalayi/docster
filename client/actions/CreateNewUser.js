@@ -34,7 +34,8 @@ export function createNewUser(newUser) {
         }
         // dispatch(createNewUserSuccess(user));
       })
-      .catch(error => {
+      .catch(response => {
+        const error = JSON.stringify(response);
         throw(error);
       });
   }

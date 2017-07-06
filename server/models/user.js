@@ -48,11 +48,6 @@ module.exports = (sequelize, DataTypes) => {
         });
       }
     },
-    instanceMethods: {
-      passwordIsValid(password) {
-        return bcrypt.compareSync(password, this.password);
-      }
-    },
     hooks: {
       beforeCreate(user) {
         user.password = bcrypt.hashSync(user.password, salt);
