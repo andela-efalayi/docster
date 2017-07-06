@@ -12,7 +12,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack-dev.config';
 import routes from './routes';
 
-dotenv.config();
+dotenv.config(); // dotenv
 
 const app = express();
 const webpackCompiler = webpack(webpackConfig);
@@ -37,10 +37,8 @@ app.get('*', (req, res) => {
 });
 app.set('superSecret', secret);
 
-app.listen(1193, () => {
-  console.log(colors
-  .bgGreen('Docster is running on localhost:1193'));
-  // console.log(colors.blue(Role.createRole()));
+app.listen(2700, () => {
+  console.log(colors.rainbow('Docster is running on localhost:2700'));
 });
 
 module.exports = app;

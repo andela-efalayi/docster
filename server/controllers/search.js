@@ -1,5 +1,3 @@
-/* eslint-disable no-console*/
-import colors from 'colors';
 import Models from '../models';
 import ServerConstants from '../../constants/ServerConstants';
 
@@ -8,10 +6,13 @@ const User = Models.User;
 const attributes = ServerConstants.USER_ATTRIBUTES;
 
 module.exports = {
+  /**
+   * Search documents in database
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   searchDocuments(req, res) {
-    console.log(colors.yellow('Searching for document...'));
-  
-    // const queryString = req.query.q;
     return Document
       .findAll({
         where: {
@@ -35,8 +36,14 @@ module.exports = {
         });
     })
   },
+
+  /**
+   * Search users in database
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   searchUsers(req, res) {
-    console.log(colors.yellow('Searching for users...'));
     return User
       .findAll({
         attributes,

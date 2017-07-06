@@ -15,7 +15,11 @@ let serverResponse;
 process.env.NODE_ENV = 'test';
 chai.use(chaiHttp);
 
+/*
+  Test Document Routes
+*/
 describe(colors.green('DocumentRoutes'), () => {
+  // Create a user before test
   before((done) => {
     chai.request(server)
     .post('/users')
@@ -27,6 +31,8 @@ describe(colors.green('DocumentRoutes'), () => {
       done();
     });
   });
+
+  // Test that route creates a document with the correct userId
   describe(colors.underline('POST /document'), () => {
     it('should create a new document in database with userId', (done) => {
       chai.request(server)
@@ -40,6 +46,8 @@ describe(colors.green('DocumentRoutes'), () => {
         done();
       });
     });
+
+    // Test that route does not create a document twice
     it('should not create a document twice', (done) => {
       chai.request(server)
       .post('/documents')
@@ -53,6 +61,8 @@ describe(colors.green('DocumentRoutes'), () => {
       });
     });
   });
+
+  // Test that route returns an error if request is not from an admin
   describe(colors.underline('GET /documents'), () => {
     it('should return an error if user is not an admin', (done) => {
       chai.request(server)
@@ -64,19 +74,9 @@ describe(colors.green('DocumentRoutes'), () => {
         done();
       });
     });
-    it('should not create a document twice', (done) => {
-      chai.request(server)
-      .post('/documents')
-      .send(newDocument)
-      .set('authorisation', 'Bearer '+serverResponse.token)
-      .end((err, res) => {
-        expect(res.status).to.equal(400);
-        expect(res.body.message).to
-        .equal('An error occurred while creating document');
-        done();
-      });
-    });
   });
+
+  //  Test that route can get documents by id
   describe(colors.underline('GET /documents/:documentId'), () => {
     it('should get all documents from the database', (done) => {
       chai.request(server)
@@ -109,6 +109,8 @@ describe(colors.green('DocumentRoutes'), () => {
       });
     });
   });
+
+  //  Test that a particular document can be edited
   describe(colors.underline('PUT /documents/:documentId'), () => {
     it('should update a document with the id specified', (done) => {
       const content = serverData.newDocumentContent;
@@ -135,6 +137,8 @@ describe(colors.green('DocumentRoutes'), () => {
       });
     });
   });
+
+  //  Test that a particular document can be deleted
   describe(colors.underline('DELETE /documents/:documentId'), () => {
     it('should delete a user with the id specified', (done) => {
       chai.request(server)

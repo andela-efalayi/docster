@@ -1,3 +1,6 @@
+/*
+  Document model
+*/
 module.exports = (sequelize, DataTypes) => {
   const Document = sequelize.define('Document', {
     title: {

@@ -5,9 +5,10 @@ module.exports = {
       Return a promise to correctly handle asynchronicity.
 
       Example:
-      return queryInterface.bulkInsert('Person', [{
-        name: 'John Doe',
-        isBetaMember: false
+      return queryInterface.bulkInsert('Roles', [{
+        roleType: role_type,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }], {});
     */
     return queryInterface.bulkInsert('Roles', [
@@ -40,7 +41,7 @@ module.exports = {
       Return a promise to correctly handle asynchronicity.
 
       Example:
-      return queryInterface.bulkDelete('Person', null, {});
+      return queryInterface.bulkDelete('Roles', null, {});
     */
     return queryInterface.bulkDelete('Roles', null, {});
   }

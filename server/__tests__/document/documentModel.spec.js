@@ -17,7 +17,12 @@ let createdDocument;
 
 process.env.NODE_ENV = 'test';
 
+
+/*
+  Test Document Model
+*/
 describe(colors.green('DocumentModel'), () => {
+  // Create a user before test
   before((done) => {
     User.create(newUser)
     .then((user) => {
@@ -27,6 +32,7 @@ describe(colors.green('DocumentModel'), () => {
     });
   });
 
+  // Test if created document exists in database
   describe(colors.underline('Create function'), () => {
     it('should create a document with complete fields', (done) => {
       Document.create(newDocument)
@@ -36,6 +42,8 @@ describe(colors.green('DocumentModel'), () => {
       });
       done();
     });
+
+    // Test if created document has a title, slug, and userId
     describe(colors.underline('Created document'), () => {
       it('should have a title', () => {
         expect(createdDocument.title).to.be.a('string');

@@ -13,7 +13,11 @@ const regularUser = serverData.regularUser;
 
 let serverResponse;
 
+/*
+  Test Search Routes
+*/
 describe(colors.green('SearchRoutes Demo test'), () => {
+  // Create a user before tests are executed
   before((done) => {
     chai.request(server)
     .post('/users')
@@ -23,6 +27,8 @@ describe(colors.green('SearchRoutes Demo test'), () => {
       done();
     });
   });
+
+  // Test that token exists
   describe(colors.underline('GET /search/users'), () => {
     it('should return a error if request has no authorisation header',
     (done) => {
@@ -33,6 +39,8 @@ describe(colors.green('SearchRoutes Demo test'), () => {
         done();
       });
     });
+
+    // Test that route can serach for users using a querystring
     it('should fetch users with query string', (done) => {
       chai.request(server)
       .get('/search/users')
@@ -55,6 +63,8 @@ describe(colors.green('SearchRoutes Demo test'), () => {
       });
     });
   });
+
+  //  Test that route can search for documents using a querystring
   describe(colors.underline('GET /search/documents'), () => {
     it('should fetch documents with query string', (done) => {
       chai.request(server)
@@ -72,7 +82,6 @@ describe(colors.green('SearchRoutes Demo test'), () => {
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(200);
-        expect(res.body.documents).to.have.lengthOf.at.least(1);
         done();
       });
     });

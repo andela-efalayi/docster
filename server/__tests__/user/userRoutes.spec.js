@@ -12,7 +12,11 @@ let serverResponse;
 process.env.NODE_ENV = 'test';
 chai.use(chaiHttp);
 
+/*
+  Test User Routes
+*/
 describe(colors.green('UserRoutes'), () => {
+  // Test that route can create a user
   describe(colors.underline('POST /users'), () => {
     it('should create a new user in database', (done) => {
       chai.request(server)
@@ -28,6 +32,8 @@ describe(colors.green('UserRoutes'), () => {
       });
     });
   });
+
+  //  Test that route can login a user
   describe(colors.underline('POST /users/login'), () => {
     it('should check if user exists in the database', (done) => {
       const user = newuser.email;
@@ -44,6 +50,8 @@ describe(colors.green('UserRoutes'), () => {
       });
     });
   });
+
+  // Test that route can logout a user
   describe(colors.underline('POST /users/logout'), () => {
     it('should log user out ot app', (done) => {
       chai.request(server)
@@ -56,6 +64,8 @@ describe(colors.green('UserRoutes'), () => {
       });
     });
   });
+
+  // Test that route can fetech users from database
   describe(colors.underline('GET /users'), () => {
     it('should return an error if no token is provided', (done) => {
       chai.request(server)
@@ -77,6 +87,8 @@ describe(colors.green('UserRoutes'), () => {
       });
     });
   });
+
+  // Test that route can fetch users by id
   describe(colors.underline('GET /users/:userId'), () => {
     it('should return an error if no token is provided', (done) => {
     chai.request(server)
@@ -87,6 +99,8 @@ describe(colors.green('UserRoutes'), () => {
       });
     });
   });
+
+  // Test that route can edit a user
   describe(colors.underline('PUT /users/:userId'), () => {
     it('should get a user with the id specified', (done) => {
       const fullName = serverData.newFullName;
@@ -113,6 +127,8 @@ describe(colors.green('UserRoutes'), () => {
       });
     });
   });
+
+  // Test that route can delete a user
   describe(colors.underline('DELETE /users/:userId'), () => {
     it('should delete a user with the id specified', (done) => {
       chai.request(server)

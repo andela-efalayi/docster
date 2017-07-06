@@ -1,13 +1,17 @@
-/* eslint-disable no-console*/
-import colors from 'colors';
 import Models from '../models';
 import QueryConstants from '../../constants/QueryConstants';
 
 const Document = Models.Document;
 
 module.exports = {
+
+  /**
+   * Create a new document
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   createDocument(req, res) {
-    console.log(colors.yellow('Creating document...'));
     return Document
       .create({
         title: req.body.title,
@@ -25,8 +29,14 @@ module.exports = {
         message: 'An error occurred while creating document'
       }));
   },
+
+  /**
+   * Get all docuemnts from database
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   getAllDocuments(req, res) {
-    console.log(colors.yellow('Fetching all documents...'));
     const limit = req.query.limit || QueryConstants.DEFAULT_LIMIT,
       offset = req.query.offset || QueryConstants.DEFAULT_OFFSET;
     return Document
@@ -48,8 +58,14 @@ module.exports = {
         message: 'An error occurred while retrieving documents.'
       }));
   },
+
+  /**
+   * Get all public documents from database
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   getPublicDocuments(req, res) {
-    console.log(colors.yellow('Fetching public documents...'));
     return Document
       .findAll({ 
         where: {
@@ -73,8 +89,14 @@ module.exports = {
         message: 'An error occurred while retrieving documents.'
       }));
   },
+
+  /**
+   * Get all role documents
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   getRoleDocuments(req, res) {
-    console.log(colors.yellow('Fetching public documents...'));
     return Document
       .findAll({ 
         where: {
@@ -98,8 +120,14 @@ module.exports = {
         message: 'An error occurred while retrieving documents.'
       }));
   },
+
+  /**
+   * Get a document by Id
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   getDocumentById(req, res) {
-    console.log(colors.yellow('Fetching documents from database...'));
     if (isNaN(req.params.documentId) === false) {
       return Document
       .findById(req.params.documentId)
@@ -124,8 +152,14 @@ module.exports = {
       message: 'Invalid parameter detected'
     });
   },
+
+  /**
+   * Update a document
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   updateDocument(req, res) {
-    console.log(colors.yellow('Updating document...'));
     return Document
       .findById(req.params.documentId)
       .then((document) => {
@@ -147,8 +181,14 @@ module.exports = {
         message: 'An error occurred while fetching document'
       }));
   },
+
+  /**
+   * Delete a document
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} res
+   */
   deleteDocument(req, res) {
-    console.log(colors.red(`Deleting document: ${req.params.documentId}...`));
     return Document
       .findById(req.params.documentId)
       .then((document) => {

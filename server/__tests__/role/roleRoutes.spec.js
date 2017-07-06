@@ -14,7 +14,11 @@ const administrator = serverData.administrator;
 let createdRole;
 let serverResponse;
 
+/*
+   Test Role Routes
+*/
 describe(colors.green('RoleRoutes'), () => {
+  // Create a user before tests are executed
   before((done) => {
     chai.request(server)
     .post('/users')
@@ -24,6 +28,8 @@ describe(colors.green('RoleRoutes'), () => {
       done();
     });
   });
+
+  // Test if token exists
   describe(colors.underline('POST /roles without token'), () => {
     it('should give an error', (done) => {
       const newRole = serverData.userRole;
@@ -36,6 +42,8 @@ describe(colors.green('RoleRoutes'), () => {
       });
     });
   });
+
+  // Test that route create a role in the database
   describe(colors.underline('POST /roles'), () => {
     it('should create a role in the database', (done) => {
       const newRole = serverData.userRole;
@@ -51,6 +59,8 @@ describe(colors.green('RoleRoutes'), () => {
       });
     });
   });
+
+  // Test that route can retrieve all roles from the database
   describe(colors.underline('GET /roles'), () => {
     it('should get all roles from the database', (done) => {
       chai.request(server)
@@ -58,11 +68,12 @@ describe(colors.green('RoleRoutes'), () => {
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(200);
-        // expect(res.body).to.be.a('object');
         done();
       });
     });
   });
+
+  // Test that route can retrieve a role by id
   describe(colors.underline('GET /roles/:roleId'), () => {
     it('should create a role in the database', (done) => {
       chai.request(server)
@@ -80,8 +91,6 @@ describe(colors.green('RoleRoutes'), () => {
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(404);
-        // expect(res.body.role.id).to.equal(createdRole.id);
-        // console.log(res.body);
         done();
       });
     });
