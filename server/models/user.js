@@ -1,7 +1,7 @@
 /*
   User model
 */
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt-nodejs';
 
 const salt = bcrypt.genSaltSync(10);
 
