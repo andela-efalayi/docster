@@ -11,7 +11,7 @@
     "reset:test-db": "npm run reset:db && npm run fill:db",
     "mocha": "NODE_ENV=test nyc mocha --timeout 15000 --compilers js:babel-register -- ./**/__tests__/**/*",
     "server-test": "npm run reset:test-db && npm run mocha",
-    "start": "nodemon --watch server server/server.js --exec babel-node --presets es2015,stage-2",
+    "start": "babel-node server/server.js",
     "test": "npm run server-test"
   },
   "nyc": {
