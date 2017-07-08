@@ -117,7 +117,7 @@ module.exports = {
       offset = req.query.offset || QueryConstants.DEFAULT_OFFSET;
 
     return User
-      .findAll({
+      .findAndCountAll({
         offset,
         limit,
         attributes
@@ -128,8 +128,9 @@ module.exports = {
           res.send({
             message: 'No users available'
           });
-        } res.send({
-          users,
+        }
+        res.send({
+          users: users.rows,
           message: 'Users were retrieved successfully'
         });
       })

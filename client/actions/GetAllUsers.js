@@ -27,6 +27,6 @@ export function getAllUsers() {
       })
       .catch(error => {
         throw(error);
-      })
+      });
   }
 }

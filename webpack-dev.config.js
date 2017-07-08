@@ -1,10 +1,5 @@
 import webpack from 'webpack';
 import path from 'path';
-import DotEnvPlugin from 'dotenv-webpack';
-
-const dotEnvPlugin = new DotEnvPlugin({
-  path: './.env'
-});
 
 export default {
   devtool: 'eval-source-map',
@@ -34,8 +29,7 @@ export default {
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
       Hammer: 'hammerjs/hammer'
-    }),
-    dotEnvPlugin
+    })
   ],
   node: {
     net: 'empty',

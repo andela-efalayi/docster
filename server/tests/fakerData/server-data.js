@@ -39,7 +39,7 @@ const serverData = {
   newDocumentContent: faker.lorem.paragraph(),
   newFullName: faker.name.findName(),
   userRole: {
-    roleType: faker.name.jobType()
+    roleType: "technical consultant"
   },
   newPublicDocument: {
     title: faker.company.catchPhrase(),

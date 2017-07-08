@@ -5,10 +5,7 @@ import server from '../../server';
 import serverData from '../fakerData/server-data';
 
 const expect = chai.expect;
-
-process.env.NODE_ENV = 'test';
 chai.use(chaiHttp);
-
 const regularUser = serverData.regularUser;
 
 let serverResponse;

@@ -12,20 +12,12 @@
     "reset:db": "sequelize db:migrate:undo:all",
     "seed:all": "sequelize db:migrate && sequelize db:seed:all",
     "fill:db": "npm run reset:db && npm run seed:all",
-    "mocha": "NODE_ENV=test nyc mocha --timeout 15000 --compilers js:babel-register -- ./server/__tests__/**/*.spec.js",
-    "server-test": "npm run fill:db && npm run mocha",
-    "start": "npm run fill:db && babel-node server/server.js -- watch",
+    "mocha": "NODE_ENV=test nyc --reporter=html --reporter=lcov --reporter=text mocha --timeout 15000 --compilers js:babel-register ./server/tests/**/*.spec.js",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "server-test": "NODE_ENV=test npm run fill:db && npm run mocha",
+    "start:dev": "npm run fill:db && babel-node server/server.js -- watch",
+    "start": "NODE_ENV=development npm run fill:db && NODE_ENV=development  babel-node server/server.js -- watch",
     "test": "npm run server-test"
-  },
-  "nyc": {
-    "require": [
-      "babel-register"
-    ],
-    "reporter": [
-      "lcov",
-      "text"
-    ],
-    "instrument": false
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
