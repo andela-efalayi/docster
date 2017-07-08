@@ -4,6 +4,10 @@ import AccessRadioButtons from '../common/AccessRadioButtons.jsx';
 import TextInputField from '../common/TextInputField.jsx';
 import Tinymce from './Tinymce.jsx';
 
+/*
+  Document Form
+  Renders a form for creating a document.
+*/
 const DocumentForm = ({ document, onInputChange, onEditorChange }) => (
   <form action="">
     <div className="row">
@@ -27,7 +31,10 @@ const DocumentForm = ({ document, onInputChange, onEditorChange }) => (
       </div>
       <div className="document-access">
         <h6>Access</h6>
-        <AccessRadioButtons onOptionChange={onInputChange} />
+        <AccessRadioButtons
+          access={document.access}
+          onOptionChange={onInputChange}
+        />
       </div>
     </div>
   </form>

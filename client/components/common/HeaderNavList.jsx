@@ -21,7 +21,6 @@ const HeaderNavList = (props) => {
       }
       targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
       anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-      className="header-nav-list"
     >
       <MenuItem 
         primaryText="Public Documents"

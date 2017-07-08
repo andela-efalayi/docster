@@ -8,7 +8,7 @@ const UsersTable = ({ users }) => {
     <table className="u-full-width">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>UserId</th>
           <th>Full Name</th>
           <th>Email</th>
           <th>RoleId</th>

@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt-nodejs';
 import Models from '../models';
 import QueryConstants from '../../constants/QueryConstants';
 import ServerConstants from '../../constants/ServerConstants';
@@ -36,8 +36,7 @@ module.exports = {
             message: 'User does not exist'
           });
         }
-        if (bcrypt.compareSync(req.body.password, user.password)
-          || req.body.password === user.password) {
+        if (bcrypt.compareSync(req.body.password, user.password)) {
           user.password = undefined; // remove password from user attributes
           const token = auth.generateToken(user);
           return res.status(201).send({

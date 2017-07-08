@@ -73,10 +73,9 @@ class SignInForm extends Component {
       .then(() => {
         this.context.router.history.push('/app');
       })
-      .catch(error => {
-        const message = JSON.parse(error).response.data.message;
-        errors.user = message;
-        errors.password = message;        
+      .catch(errorMessage => {
+        errors.user = errorMessage;
+        errors.password = errorMessage;        
         this.setState({
           errors
         });

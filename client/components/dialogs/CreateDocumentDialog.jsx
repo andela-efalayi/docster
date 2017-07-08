@@ -9,6 +9,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { muiTheme1, muiTheme2 } from '../../muiTheme';
 import DocumentForm from '../forms/DocumentForm.jsx';
 import { createDocument } from '../../actions/CreateDocument';
+import { formIsValid } from '../../utils/Validate';
+import showToast from '../../utils/ShowToast';
 
 /**
  * @class CreateDocumentDialog
@@ -28,7 +30,8 @@ class CreateDocumentDialog extends Component {
       title: '',
       content: '',
       access: '',
-      userId: this.props.user.id
+      userId: this.props.user.id,
+      errors: {}
     };
     this.openDialog = this.openDialog.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
@@ -48,7 +51,6 @@ class CreateDocumentDialog extends Component {
     });
   }
 
-
   /**
    * @memberof CreateDocumentDialog
    * @returns {void}
@@ -64,14 +66,25 @@ class CreateDocumentDialog extends Component {
    * @returns {void}
    */
   createDocument() {
-    this.props.createDocument(this.state).then(() => {
-      this.setState({
-        open: false,
-        title: '',
-        content: '',
-        access: ''
+    const { isValid } = formIsValid(this.state);
+    if(isValid === true) {
+      this.props.createDocument(this.state).then(() => {
+        showToast('Document was successfully created.', 'success');
+        this.setState({
+          open: false,
+          title: '',
+          content: '',
+          access: ''
+        });
+      })
+      .catch(errorMessage => {
+        showToast(errorMessage, 'error');
       });
-    });
+    }
+    else{
+      showToast('Your document has to have a title, content and '+
+      'an access attribute. Please fill all required fields.','warning');
+    }
   }
 
   /**
@@ -121,7 +134,7 @@ class CreateDocumentDialog extends Component {
         <MuiThemeProvider muiTheme={muiTheme2}>
           <div className="container">
             <Dialog
-              title="Create New Document"
+              title="New Document"
               actions={actions}
               modal={false}
               open={this.state.open}

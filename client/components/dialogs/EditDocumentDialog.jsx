@@ -21,7 +21,7 @@ import { updateDocument } from '../../actions/UpdateDocument';
 class EditDocumentDialog extends Component {
 
   /**
-   * Creates an instance of CreateDocumentDialog.
+   * Creates an instance of CreateDocumentDialog
    * @param {any} props 
    * @memberof CreateDocumentDialog
    */
@@ -90,7 +90,7 @@ class EditDocumentDialog extends Component {
   openDialog() {
     this.setState({open: true});    
     // window.history
-    //   .pushState(null, null, `/home/documents/${this.state.slug}`);   
+    //   .pushState(null, null, `/app/edit/${this.state.slug}`);   
   }
 
   /**

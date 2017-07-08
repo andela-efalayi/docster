@@ -2,6 +2,7 @@ import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
 import { loginUserSuccess } from '../actions/Authenticate';
 import setAuthorisationToken from '../utils/SetAuthorisationToken';
+import getServerError from '../utils/GetServerError';
 
 /**
  * Set newUser if new user creation is successful
@@ -34,9 +35,9 @@ export function createNewUser(newUser) {
         }
         // dispatch(createNewUserSuccess(user));
       })
-      .catch(response => {
-        const error = JSON.stringify(response);
-        throw(error);
+      .catch(error => {
+        const serverError = getServerError(error)
+        throw(serverError.data.message);
       });
   }
 }

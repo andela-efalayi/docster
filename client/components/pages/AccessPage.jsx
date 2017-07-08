@@ -123,7 +123,7 @@ class AccessPage extends Component {
             <div className="row">
               <div className="five columns">
                 <h5>
-                {this.state.accessTitle}: {numberOfDocuments}</h5>
+                  {this.state.accessTitle}: {numberOfDocuments}</h5>
               </div>
               <div className="six columns">
                 <SearchInputField
@@ -134,7 +134,13 @@ class AccessPage extends Component {
                 />
               </div>
             </div>
-            <Documents documents={documents} />
+            {
+              numberOfDocuments === 0 &&
+              <h4>No documents available</h4>
+            }
+            <div className="documents">
+              <Documents documents={documents} userId={this.state.user.id} />
+            </div>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
+import getServerError from '../utils/GetServerError';
 
 /**
  * @export
@@ -24,7 +25,11 @@ export function createDocument(newDocument) {
         dispatch(createDocumentSuccess(response.data.newDocument));
       })
       .catch(error => {
-        throw(error.data);
+        const serverError = getServerError(error).data;
+        if(serverError.error){
+          throw(serverError.error.errors[0].message);
+        }
+        throw(serverError.message);
       });
   }
 }

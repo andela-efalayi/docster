@@ -1,3 +1,7 @@
+const  bcrypt = require('bcrypt-nodejs');
+
+const salt = bcrypt.genSaltSync(10);
+
 module.exports = {
   up(queryInterface) {
     /*
@@ -19,7 +23,7 @@ module.exports = {
       fullName: 'Esther Falayi',
       userName: '@estherfalayi',
       email: 'admin@docster.com',
-      password: 'docster',
+      password: bcrypt.hashSync('docster', salt),
       roleId: 1,
       createdAt: new Date(),
       updatedAt: new Date()

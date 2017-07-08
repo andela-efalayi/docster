@@ -5,7 +5,7 @@ import Document from './Document.jsx';
 
 /*
   Documents Component
-  Displays all docuemnts in an array
+  Orders all documents in an array
 */
 const Documents = (props) => {
     const orderedDocuments = orderBy(
@@ -14,7 +14,7 @@ const Documents = (props) => {
       <div>
         {orderedDocuments.map(document => (
           <div className="three columns" key={document.id}>
-            <Document document={document} />
+            <Document document={document} userId={props.userId} />
           </div>
         ))}
       </div>
@@ -22,7 +22,8 @@ const Documents = (props) => {
 };
 
 Documents.propTypes = {
-  documents: PropTypes.array.isRequired
+  documents: PropTypes.array.isRequired,
+  userId: PropTypes.number.isRequired
 }
 
 export default Documents;

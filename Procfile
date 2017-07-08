@@ -1,0 +1,1 @@
+web: npm run reset:test-db && npm start
