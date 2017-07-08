@@ -1,18 +1,17 @@
-# Docster
-This is a react-redux based Document Management System (DMS) designed to managed documents which 
-are accessed as private, public, or role.
+## Docster
+This is a react-redux based Document Management System (DMS) designed to managed text documents which 
+are can be accessed as private, public, or role.
 
 ###### Features
 - A user can create, and edit personal documents
 - A user can view documents set as public
-- A user can also view documents set as role provided, the user has the 
-particular roleId set
+- A user can also view documents set as role provided, the user has the roleId set on the document
 - A user (as an admin) can view all documents, users, and roles in the database.
 
 ***
 #### Technology
 This application was developed purely with JavaScript using React and the Redux 
-Architecture, NodeJs, Sequelize, and Express.
+Architecture, NodeJs, Sequelize (ORM), and Express.
 
 ###### Dependencies
 - [Babel](https://babeljs.io/)
@@ -26,23 +25,30 @@ Architecture, NodeJs, Sequelize, and Express.
 
 ***
 #### Getting Started
-
 - Clone the project from repository [github.com/andela-efalayi/asedeyhot-news](https://github.com/andela-efalayi/docster)
 - In your terminal, cd into the cloned folder and run `npm install`. This installs all the app's dependencies.
 - Run `npm start` in your terminal, open your browser, and type `localhost:2700`. This runs the application on your local machine.
-- Alternatively, you can access the app on [asedeyhot-news.herokuapp.com](https://asedeyhot-news.herokuapp.com)
+- Alternatively, you can access the app on [docster-dms.herokuapp.com](https://docster-dms.herokuapp.com/)
 
-***
-#### Running Tests
-App view components and routes were tested using Jest, Mocha, and Chai. To tun the tests:
+##### NPM Scripts
+To make development easier, some NPM scripts were written:
+- `npm run reset:db` undos all database migrations
+- `npm run seed:all` migrates database tables and seeds data
+- `npm run fill:db` chains two scripts: `npm run reset:db` and `npm run seed:all`
+- `npm run mocha` runs mocha test for server
+- `npm run server-test` chains two scripts: `npm run fill:db` and `npm run mocha`
+
+##### Running Tests
+Application view components and routes were tested using Jest, Mocha, and Chai. To tun the tests:
 - cd into the cloned Docster folder
-- Run `npm run mocha` in terminal. This runs the server test
+- Run `npm run server-test` in terminal. This runs the server test
+*NOTE*: It is advised that you have a different database for running your tests.
 
 *** 
 #### API Documentation
 | Endpoint                                          | Functionality                                   |
 | ------------------------------------------------- |:-----------------------------------------------:|
-| <span style="color:red">POST</span> /users/login  | logs user in                                    |
+| POST /users/login  | logs user in                 |                                                 |
 | POST /users/logout                                | logs user out                                   |
 | POST /users                                       | creates a new user                              |
 | GET /users                                        | finds matching instances of a user              |
@@ -59,16 +65,6 @@ App view components and routes were tested using Jest, Mocha, and Chai. To tun t
 | GET /users/id/documents                           | finds all documents that belong to a user       | 
 | GET /search/users/?q={}                           | searches for a user                             |
 | GET /search/documents/?q={doctitle}               | searches for a document                         |
-
-
-
-
-
-
-
-
-
-
 
 ***
 #### How to Contribute
