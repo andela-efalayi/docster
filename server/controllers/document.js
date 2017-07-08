@@ -2,7 +2,6 @@ import Models from '../models';
 import QueryConstants from '../../constants/QueryConstants';
 
 const Document = Models.Document;
-
 module.exports = {
 
   /**
@@ -42,13 +41,12 @@ module.exports = {
     return Document
       .findAll({ offset, limit })
       .then((documents) => {
-        res.status(200);
         if (documents.length === 0) {
-          res.send({
+          return res.status(404).send({
             message: 'No documents available'
           });
         }
-        res.send({
+        return res.status(200).send({
           documents,
           message: 'Retrieved all documents successfully'
         });
@@ -73,13 +71,12 @@ module.exports = {
         }
       })
       .then((documents) => {
-        res.status(200);
         if (documents.length === 0) {
-          res.send({
+          return res.status(404).send({
             message: 'No documents available'
           });
         }
-        res.send({
+        return res.status(200).send({
           documents,
           message: 'Retrieved all documents successfully'
         });
@@ -104,16 +101,15 @@ module.exports = {
         }
       })
       .then((documents) => {
-        res.status(200);
-        if (documents.length === 0) {
-          res.send({
-            message: 'No documents available'
-          });
-        }
-        res.send({
+        if (documents.length > 0) {
+          return res.status(200).send({
           documents,
           message: 'Retrieved all documents successfully'
         });
+        }
+        return res.status(404).send({
+            message: 'No documents availablessss'
+          });
       })
       .catch(error => res.status(400).send({
         error,

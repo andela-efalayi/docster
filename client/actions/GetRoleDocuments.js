@@ -12,6 +12,13 @@ export function getRoleDocumentsSuccess(documents) {
   }
 }
 
+// export function getRoleDocumentsError(error) {
+//   return {
+//     type: ActionTypes.GET_ERROR,
+//     error
+//   }
+// }
+
 /**
  * @param {number} userId 
  * @returns {func} dispatch
@@ -23,7 +30,9 @@ export function getRoleDocuments() {
         dispatch(getRoleDocumentsSuccess(response.data.documents));
       })
       .catch(error => {
-        throw(error);
+        let errorMessage = JSON.parse(JSON.stringify(error));
+        const message = errorMessage.response.data.message;
+        throw(message);
       });
   }
 }

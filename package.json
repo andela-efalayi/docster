@@ -6,12 +6,15 @@
   "license": "ISC",
   "main": "server.js",
   "scripts": {
+    "build:reset:server": "NODE_ENV=production ./node_modules/.bin/sequelize db:migrate:undo:all",
+    "build:refill:server": "NODE_ENV=production ./node_modules/.bin/sequelize db:migrate && ./node_modules/.bin/sequelize db:seed:all",
+    "build": "babel server -d dist",
     "reset:db": "sequelize db:migrate:undo:all",
-    "fill:db": "sequelize db:migrate && sequelize db:seed:all",
-    "reset:test-db": "npm run reset:db && npm run fill:db",
-    "mocha": "NODE_ENV=test nyc mocha --timeout 15000 --compilers js:babel-register -- ./**/__tests__/**/*",
-    "server-test": "npm run reset:test-db && npm run mocha",
-    "start": "babel-node server/server.js",
+    "seed:all": "sequelize db:migrate && sequelize db:seed:all",
+    "fill:db": "npm run reset:db && npm run seed:all",
+    "mocha": "NODE_ENV=test nyc mocha --timeout 15000 --compilers js:babel-register -- ./server/__tests__/**/*.spec.js",
+    "server-test": "npm run fill:db && npm run mocha",
+    "start": "npm run fill:db && babel-node server/server.js -- watch",
     "test": "npm run server-test"
   },
   "nyc": {
@@ -96,6 +99,7 @@
     "sequelize": "^4.1.0",
     "sequelize-cli": "^2.7.0",
     "style-loader": "^0.18.2",
+    "toastr": "^2.1.2",
     "url-loader": "^0.5.8",
     "validator": "^7.1.0",
     "webpack": "^2.6.1",

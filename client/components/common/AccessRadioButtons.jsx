@@ -8,14 +8,14 @@ import PeopleOutline from 'material-ui/svg-icons/social/people-outline';
 import People from 'material-ui/svg-icons/social/people';
 
 /*
-  Radio buttons for docuemnt access selection
+  Radio buttons for document access options
 */
-const AccessRadioButtons = ({ onOptionChange }) => (
+const AccessRadioButtons = ({ access, onOptionChange }) => (
   <div>
     <RadioButtonGroup
       className="document-access-options"
       name="access"
-      defaultSelected="not_light"
+      defaultSelected={access}
       onChange={onOptionChange}
     >
       <RadioButton
@@ -41,6 +41,7 @@ const AccessRadioButtons = ({ onOptionChange }) => (
 );
 
 AccessRadioButtons.propTypes = {
+  access: PropTypes.string.isRequired,
   onOptionChange: PropTypes.func.isRequired
 }
 

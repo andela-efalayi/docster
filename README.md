@@ -25,16 +25,6 @@ Architecture, NodeJs, Sequelize, and Express.
 - [Postgres](https://www.postgresql.org/docs/9.6/static/tutorial-createdb.html)
 
 ***
-#### How to Contribute
-I welcome any form of contribution. If you feel something can be done better or 
-there's an issue that needs to be fixed
-or you are just interested in a specific part of the project, but not sure where
- to begin, feel free to ask.
-On the other hand if the contribution you wish to make has not been documented 
-in an existing issue, please [create new issue](https://github.com/andela-efalayi/docster/issues/new) before submitting your [pull request](https://help.github.com/articles/about-pull-requests/).
-Also, kindly follow the Pull Request decsription convention [here](https://github.com/andela-efalayi/docster/wiki/Pull-Request-Naming-and-Description-Convention)
-
-***
 #### Getting Started
 
 - Clone the project from repository [github.com/andela-efalayi/asedeyhot-news](https://github.com/andela-efalayi/docster)
@@ -47,6 +37,48 @@ Also, kindly follow the Pull Request decsription convention [here](https://githu
 App view components and routes were tested using Jest, Mocha, and Chai. To tun the tests:
 - cd into the cloned Docster folder
 - Run `npm run mocha` in terminal. This runs the server test
+
+*** 
+#### API Documentation
+| Endpoint                                          | Functionality                                   |
+| ------------------------------------------------- |:-----------------------------------------------:|
+| <span style="color:red">POST</span> /users/login  | logs user in                                    |
+| POST /users/logout                                | logs user out                                   |
+| POST /users                                       | creates a new user                              |
+| GET /users                                        | finds matching instances of a user              |
+| GET /users/?limit={integer}&offset={integer}      | pagination for users                            |
+| GET /users/id                                     | finds a particular user                         |
+| PUT /users/id                                     | updates a particular user's attributes          |
+| DELETE /users/id                                  | deletes a particular user                       |
+| POST /documents/                                  | creates a new document                          |
+| GET /documents/                                   | finds matching instances of documents           |
+| POST /documents/                                  | creates a new document                          |
+| GET /documents/?limit={integer}&offset={integer}  | pagination for documents                        |
+| GET /documents/id                                 | finds a particular document                     |
+| PUT /documents/id                                 | updates a particular document's attributes      |
+| GET /users/id/documents                           | finds all documents that belong to a user       | 
+| GET /search/users/?q={}                           | searches for a user                             |
+| GET /search/documents/?q={doctitle}               | searches for a document                         |
+
+
+
+
+
+
+
+
+
+
+
+***
+#### How to Contribute
+I welcome any form of contribution. If you feel something can be done better or 
+there's an issue that needs to be fixed
+or you are just interested in a specific part of the project, but not sure where
+ to begin, feel free to ask.
+On the other hand if the contribution you wish to make has not been documented 
+in an existing issue, please [create new issue](https://github.com/andela-efalayi/docster/issues/new) before submitting your [pull request](https://help.github.com/articles/about-pull-requests/).
+Also, kindly follow the Pull Request decsription convention [here](https://github.com/andela-efalayi/docster/wiki/Pull-Request-Naming-and-Description-Convention)
 
 ***
 ##### License

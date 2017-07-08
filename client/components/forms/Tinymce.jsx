@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 /**
+ * Renders Tinymce editor in document form.
  * @class TinyEditorComponent
  * @extends {Component}
  */
@@ -22,6 +23,8 @@ class TinyEditorComponent extends Component {
    */
   componentDidMount() {
     tinymce.init({
+      branding: false,
+      height: 150,
       selector: `#${this.props.id}`,
       plugins: 'wordcount table',
       setup: editor => {

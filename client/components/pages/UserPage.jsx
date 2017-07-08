@@ -83,7 +83,9 @@ class UserPage extends Component {
           placeholder="Search My Documents"
         />
         <div className="documents">
-          <Documents documents={documents} />
+          <div className="container">
+            <Documents documents={documents} userId={this.state.user.id} />
+          </div>
         </div>
       </div>
     );

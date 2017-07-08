@@ -40,7 +40,7 @@ app.set('superSecret', secret);
 const PORT = process.env.PORT || 2700;
 
 app.listen(PORT, () => {
-  console.log(colors.rainbow('Docster is running on localhost:`${PORT}`'));
+  console.log(colors.rainbow(`Docster is running on localhost:${PORT}`));
 });
 
 module.exports = app;
