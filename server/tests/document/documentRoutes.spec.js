@@ -5,6 +5,7 @@ import serverData from '../fakerData/server-data';
 import server from '../../server';
 
 const expect = chai.expect;
+const assert = chai.assert;
 const documentOwner = serverData.documentOwner;
 const newDocument = serverData.newPublicDocument;
 
@@ -76,6 +77,34 @@ describe(colors.green('DocumentRoutes'), () => {
     });
   });
 
+  // Test that route gets public documents
+  describe(colors.underline('GET /public-documents'), () => {
+    it('should return all public documents', (done) => {
+      chai.request(server)
+      .get('/public-documents')
+      .set('authorisation', 'Bearer '+serverResponse.token)
+      .end((err, res) => {
+        assert.isDefined(res.body.documents);
+        expect(res.body.documents).to.have.all.keys('count', 'rows');
+        done();
+      });
+    });
+  });
+
+  // Test that route gets role documents  
+  describe(colors.underline('GET /role-documents'), () => {
+    it('should return all role documents', (done) => {
+      chai.request(server)
+      .get('/role-documents')
+      .set('authorisation', 'Bearer '+serverResponse.token)
+      .end((err, res) => {
+        assert.isDefined(res.body.documents);
+        expect(res.body.documents).to.have.all.keys('count', 'rows');
+        done();
+      });
+    });
+  });
+
   //  Test that route can get documents by id
   describe(colors.underline('GET /documents/:documentId'), () => {
     it('should get all documents from the database', (done) => {
@@ -136,6 +165,16 @@ describe(colors.green('DocumentRoutes'), () => {
         done();
       });
     });
+     it('should give an error for an invalid document id', (done) => {
+      chai.request(server)
+      .put('/documents/esther')
+      .send({ content: 'content for an invalid document id' })
+      .set('authorisation', 'Bearer '+serverResponse.token)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        done();
+      });
+    });
   });
 
   //  Test that a particular document can be deleted
@@ -157,6 +196,15 @@ describe(colors.green('DocumentRoutes'), () => {
       .end((err, res) => {
         expect(res.status).to.equal(404);
         expect(res.body.message).to.equal('Document not found');
+        done();
+      });
+    });
+    it('should give an error for invalid document Id ', (done) => {
+      chai.request(server)
+      .delete('/documents/esther')
+      .set('authorisation', 'Bearer '+serverResponse.token)      
+      .end((err, res) => {
+        expect(res.status).to.equal(400);        
         done();
       });
     });
