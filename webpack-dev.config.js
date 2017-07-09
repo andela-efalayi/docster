@@ -14,7 +14,7 @@ export default {
   },
   resolve: {
     alias: {
-      jquery: path.resolve(__dirname, 'bower_components/jquery/dist/jquery.js')
+      jquery: path.resolve(__dirname, 'node_modules/jquery/dist/jquery.js')
     }
   },
   resolveLoader: {
