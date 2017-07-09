@@ -42,7 +42,7 @@ const testData = {
     slug: 'some slug'
   },
   newRole: {
-    roleType: faker.name.jobType()
+    roleType: "facilitator"
   }
 };
 

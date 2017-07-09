@@ -3,7 +3,6 @@ import ActionTypes from '../../constants/ActionTypes';
 
 
 /**
- * Set user if getUserDetails is successful
  * @param {any} users
  * @returns {object} action
  */
@@ -27,6 +26,6 @@ export function getAllUsers() {
       })
       .catch(error => {
         throw(error);
-      })
+      });
   }
 }

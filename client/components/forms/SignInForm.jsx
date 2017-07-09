@@ -45,6 +45,7 @@ class SignInForm extends Component {
   }
 
   /**
+   * Validate sigin form
    * @memberof SignInForm
    * @returns {bool} hasData
    */

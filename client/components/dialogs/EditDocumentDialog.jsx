@@ -43,7 +43,7 @@ class EditDocumentDialog extends Component {
   }
 
   /**
-   * @param {any} event 
+   * @param {object} event 
    * @memberof CreateDocumentDialog
    * @returns {void}
    */
@@ -53,7 +53,7 @@ class EditDocumentDialog extends Component {
     });
   }
   
-  /**
+  /** Get content from tinymce editor
    * @memberof CreateDocumentDialog
    * @returns {void}
    */
@@ -62,7 +62,9 @@ class EditDocumentDialog extends Component {
       content: tinymce.activeEditor.getContent(),
     })
   }
+
   /**
+   * Update document
    * @memberof CreateDocumentDialog
    * @returns {void}
    */
@@ -76,6 +78,7 @@ class EditDocumentDialog extends Component {
   }
 
   /**
+   * Close dialog
    * @memberof CreateDocumentDialog
    * @returns {void}
    */

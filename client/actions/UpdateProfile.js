@@ -2,7 +2,8 @@ import axios from 'axios';
 import { loginUserSuccess } from  '../actions/Authenticate';
 
 /**
- * @param {any} user 
+ * Update user's details
+ * @param {object} user 
  * @returns {func} dispatch
  */
 export default function updateProfile(user) {

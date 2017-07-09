@@ -2,7 +2,7 @@ import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
 
 /**
- * @param {any} documents 
+ * @param {object} documents 
  * @returns {object} action
  */
 export function searchDocumentSuccess(documents) {
@@ -13,6 +13,7 @@ export function searchDocumentSuccess(documents) {
 }
 
 /**
+ * Search for document in database
  * @param {any} searchString 
  * @returns {func} dispatch
  */

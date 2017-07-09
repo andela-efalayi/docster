@@ -39,7 +39,6 @@ class TinyEditorComponent extends Component {
     tinymce.activeEditor.setContent(this.props.value);
   }
 
-
   /**
    * @memberof TinyEditorComponent
    * @returns {void}

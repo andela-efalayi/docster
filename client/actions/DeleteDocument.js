@@ -3,6 +3,7 @@ import ActionTypes from '../../constants/ActionTypes';
 
 
 /**
+ * Delete Document
  * @param {object} document 
  * @returns {object} action
  */

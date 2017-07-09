@@ -10,6 +10,7 @@ process.env.NODE_ENV = 'test';
 chai.use(chaiHttp);
 
 const administrator = serverData.administrator;
+const newRole = serverData.userRole;
 
 let createdRole;
 let serverResponse;
@@ -32,7 +33,6 @@ describe(colors.green('RoleRoutes'), () => {
   // Test if token exists
   describe(colors.underline('POST /roles without token'), () => {
     it('should give an error', (done) => {
-      const newRole = serverData.userRole;
       chai.request(server)
       .post('/roles')
       .send(newRole)
@@ -46,7 +46,6 @@ describe(colors.green('RoleRoutes'), () => {
   // Test that route create a role in the database
   describe(colors.underline('POST /roles'), () => {
     it('should create a role in the database', (done) => {
-      const newRole = serverData.userRole;
       chai.request(server)
       .post('/roles')
       .send(newRole)

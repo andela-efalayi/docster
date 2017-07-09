@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/*
+  Renders a Search text-input field
+*/
 const SearchForm = ( { onInputChange, searchString, placeholder } ) => {
   return(
     <input 

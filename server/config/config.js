@@ -9,19 +9,16 @@ module.exports = {
     "database": "docster",
     "host": "127.0.0.1",
     "port": 5432,
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false 
   },
   test: {
-    "username": "estherfalayi",
-    "password": "esther",
-    "database": "docster-test",
-    "host": "127.0.0.1",
-    "port": 5432,
+    "use_env_variable": "TESTDB_URL",
     "dialect": "postgres",
-    "logging": false
+    "logging": false    
   },
   production: {
-    url: process.env.DATABASE_URL,
-    dialect: 'postgres'
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "postgres"
   }
 };
