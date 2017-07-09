@@ -13,12 +13,18 @@ export function getUserDocumentsSuccess(documents) {
 }
 
 /**
+ * Get user's documents from database
  * @param {number} userId 
+ * @param {number} offset
  * @returns {func} dispatch
  */
-export function getUserDocuments(userId) {
+export function getUserDocuments(userId, offset) {
   return function(dispatch) {
-    return axios.get(`/users/${userId}/documents`)
+    return axios.get(`/users/${userId}/documents`, {
+      params: {
+        offset
+      }
+    })
       .then(response => {
         dispatch(getUserDocumentsSuccess(response.data.documents));
       })

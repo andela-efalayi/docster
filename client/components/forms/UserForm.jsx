@@ -5,7 +5,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { muiTheme2 } from '../../muiTheme';
 import TextInputField from '../common/TextInputField.jsx';
 
-
+/*
+  User form
+  Renders a form for user profile information
+*/
 const UserForm = (
   { disabled, onInputChange, onPasswordFieldChange,
     userDetails, updateUser }) => {

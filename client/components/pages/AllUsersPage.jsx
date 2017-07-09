@@ -3,20 +3,19 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from '../common/Header.jsx';
-import RolesTable from '../tables/RolesTable.jsx';
+import UsersTable from '../tables/UsersTable.jsx';
 import { logoutUser } from '../../actions/Authenticate';
 import { muiTheme1 } from '../../muiTheme';
-import { getAllRoles } from '../../actions/GetAllRoles';
+import { getAllUsers } from '../../actions/GetAllUsers';
 import BackButton from '../common/BackButton.jsx';
-
 /**
- * @class ProfilePage
+ * @class AllUsersPage
  * @extends {Component}
  */
-class RolesPage extends Component {
+class AllUsersPage extends Component {
 
   /**
-   * Creates an instance of ProfilePage.
+   * Creates an instance of AllUsersPage.
    * @param {any} props 
    * @param {object} context
    * @memberof ProfilePage
@@ -30,15 +29,15 @@ class RolesPage extends Component {
 
 
   /**
-   * @memberof RolesPage
+   * @memberof AllUsersPage
    * @returns {void}
    */
   componentWillMount() {
-    this.props.getAllRoles();
+    this.props.getAllUsers();
   }
   /**
    * @param {object} event 
-   * @memberof ProfilePage
+   * @memberof AllUsersPage
    * @returns {void}
    */
   onInputChange(event) {
@@ -49,7 +48,7 @@ class RolesPage extends Component {
 
   /**
    * Log user out of app and redirect to index page
-   * @memberof UserPage
+   * @memberof AllUsersPage
    * @param {object} event
    * @returns {void}
    */
@@ -60,11 +59,11 @@ class RolesPage extends Component {
   }
 
   /**
-   * @memberof ProfilePage
+   * @memberof AllUsersPage
    * @returns {object} react-component
    */
   render() {
-    const roles = this.props.roles;
+  const users = this.props.allUsers;    
     return(
       <div>
         <Header 
@@ -76,9 +75,9 @@ class RolesPage extends Component {
             <BackButton />
           </div>
           <div className="container">
-            <h3 className="center">Docster Roles</h3>
-            <MuiThemeProvider muiTheme={muiTheme1}> 
-              <RolesTable roles={roles} />
+            <h3 className="center">Docster Users</h3>
+            <MuiThemeProvider muiTheme={muiTheme1}>
+              <UsersTable users={users} />
             </MuiThemeProvider>
           </div>
         </div>
@@ -87,16 +86,16 @@ class RolesPage extends Component {
   }
 }
 
-// Set UserPage proptypes
-RolesPage.propTypes = {
+// Set AllUsersPage proptypes
+AllUsersPage.propTypes = {
+  allUsers: PropTypes.array.isRequired,
   auth: PropTypes.object.isRequired,
-  getAllRoles: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  roles: PropTypes.array.isRequired
+  getAllUsers: PropTypes.func.isRequired
 }
 
-// Set UserPage contexttypes
-RolesPage.contextTypes = {
+// Set AllUsersPage contexttypes
+AllUsersPage.contextTypes = {
   router: PropTypes.object.isRequired
 }
 
@@ -104,9 +103,9 @@ RolesPage.contextTypes = {
 const matchStateToProps = (state) => {
   return{
     auth: state.auth,
-    roles: state.roles
+    allUsers: state.users
   }
 }
 
 export default 
-  connect(matchStateToProps, { logoutUser, getAllRoles })(RolesPage);
+  connect(matchStateToProps, { logoutUser, getAllUsers })(AllUsersPage);

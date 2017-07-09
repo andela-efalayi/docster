@@ -13,6 +13,7 @@ export function getPublicDocumentsSuccess(documents) {
 }
 
 /**
+ * Get all public documents from database
  * @param {number} userId 
  * @returns {func} dispatch
  */

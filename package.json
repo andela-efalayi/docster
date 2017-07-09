@@ -15,7 +15,7 @@
     "mocha": "NODE_ENV=test nyc --reporter=html --reporter=lcov --reporter=text mocha --timeout 15000 --compilers js:babel-register ./server/tests/**/*.spec.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "server-test": "NODE_ENV=test npm run fill:db && npm run mocha",
-    "start:dev": "npm run fill:db && babel-node server/server.js -- watch",
+    "start:dev": "nodemon --watch server server/server.js --exec babel-node",
     "start": "NODE_ENV=development npm run fill:db && NODE_ENV=development  babel-node server/server.js -- watch",
     "test": "npm run server-test"
   },
@@ -82,6 +82,7 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-hot-loader": "^1.3.1",
+    "react-paginate": "^4.4.3",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
     "react-tap-event-plugin": "^2.0.1",

@@ -90,7 +90,7 @@ a[role="menuitem"], span[role="menuitem"]{
 }
 .documents{
   font-size: 0.85em;
-  padding-top: 20px;
+  clear: both;
 }
 .documents h5{
   font-size: 1.3em;
@@ -222,6 +222,29 @@ a[role="menuitem"], span[role="menuitem"]{
 /* Toast */
 .toast-info{
   background-color: #1e1b38 !important;
+}
+
+/* Pagination */
+ul.pagination{
+  margin-top: 1em;
+  margin-right: 1em;
+}
+ul.pagination li {
+  display: inline;
+  list-style: none;
+  margin-right: 15px;
+  border: 1px solid #1e1b38;
+  padding: 3px 8px;
+  color: #1e1b38;
+  cursor: pointer;
+}
+ul.pagination li a{
+  text-decoration: none;
+  color: inherit;
+}
+ul.pagination .active{
+  background-color: rgba(30, 27, 56, 0.8);
+  color: #ff9800;
 }
 
 /* Media Queries */

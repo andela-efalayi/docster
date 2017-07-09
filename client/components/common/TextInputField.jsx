@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 /*
   TextInputField Component
-  Displays an input field
+  Renders an input field
 */
 const TextInputField = ({ 
   error, type, name, value, placeholder, onInputChange }) => {

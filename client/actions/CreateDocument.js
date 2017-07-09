@@ -3,8 +3,8 @@ import ActionTypes from '../../constants/ActionTypes';
 import getServerError from '../utils/GetServerError';
 
 /**
- * @export
- * @param {any} document 
+ * Create document in database
+ * @param {object} document 
  * @returns {object} action
  */
 export function createDocumentSuccess(document) {

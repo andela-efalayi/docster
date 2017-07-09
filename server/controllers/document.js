@@ -65,7 +65,7 @@ module.exports = {
    */
   getPublicDocuments(req, res) {
     return Document
-      .findAll({ 
+      .findAndCountAll({ 
         where: {
           access: 'public'
         }
@@ -95,21 +95,21 @@ module.exports = {
    */
   getRoleDocuments(req, res) {
     return Document
-      .findAll({ 
+      .findAndCountAll({ 
         where: {
           access: 'role'
         }
       })
       .then((documents) => {
-        if (documents.length > 0) {
-          return res.status(200).send({
+        if (documents.length === 0) {
+          return res.status(404).send({
+            message: 'No role documents available'
+          });
+        }
+        return res.status(200).send({
           documents,
           message: 'Retrieved all documents successfully'
         });
-        }
-        return res.status(404).send({
-            message: 'No documents availablessss'
-          });
       })
       .catch(error => res.status(400).send({
         error,

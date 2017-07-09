@@ -12,14 +12,8 @@ export function getRoleDocumentsSuccess(documents) {
   }
 }
 
-// export function getRoleDocumentsError(error) {
-//   return {
-//     type: ActionTypes.GET_ERROR,
-//     error
-//   }
-// }
-
 /**
+ * Get all role documents from database
  * @param {number} userId 
  * @returns {func} dispatch
  */

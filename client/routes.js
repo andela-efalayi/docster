@@ -4,8 +4,8 @@ import Index from './components/Index.jsx';
 import UserPage from './components/pages/UserPage.jsx';
 import ProfilePage from './components/pages/ProfilePage.jsx';
 import AccessPage from './components//pages/AccessPage.jsx';
-import UsersPage from './components//pages/UsersPage.jsx';
-import RolesPage from './components/pages/RolesPage.jsx';
+import AllUsersPage from './components//pages/AllUsersPage.jsx';
+import AllRolesPage from './components/pages/AllRolesPage.jsx';
 
 const Routes = () => (
   <main>
@@ -14,8 +14,8 @@ const Routes = () => (
       <Route exact path="/app" component={UserPage} />
       <Route path="/app/:access" component={AccessPage} />           
       <Route path="/profile" component={ProfilePage} />
-      <Route exact path="/allusers" component={UsersPage} />
-      <Route exact path="/allroles" component={RolesPage} />  
+      <Route exact path="/allusers" component={AllUsersPage} />
+      <Route exact path="/allroles" component={AllRolesPage} />  
     </Switch>
   </main>
 );

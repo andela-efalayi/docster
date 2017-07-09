@@ -35,6 +35,7 @@ class DeleteDocumentAlert extends Component {
   }
 
   /**
+   * Delete document
    * @memberof CreateDocumentDialog
    * @returns {void}
    */
@@ -46,6 +47,7 @@ class DeleteDocumentAlert extends Component {
   }
 
   /**
+   * Close dialog
    * @memberof CreateDocumentDialog
    * @returns {void}
    */
@@ -54,6 +56,7 @@ class DeleteDocumentAlert extends Component {
   }
 
   /**
+   * Open dialog
    * @memberof CreateDocumentDialog
    * @returns {void}
    */

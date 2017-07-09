@@ -8,15 +8,18 @@ import SearchInputField from '../forms/SearchForm.jsx';
 import { logoutUser } from '../../actions/Authenticate';
 import { getPublicDocuments } from '../../actions/GetPublicDocuments';
 import { getRoleDocuments } from '../../actions/GetRoleDocuments';
+import { getUserDocuments } from '../../actions/GetUserDocuments';
+import PageNavigation from '../common/PageNavigation.jsx';
+import QueryConstants from '../../../constants/QueryConstants';
 
 /**
- * @class ProfilePage
+ * @class AccessPage
  * @extends {Component}
  */
 class AccessPage extends Component {
 
   /**
-   * Creates an instance of ProfilePage.
+   * Creates an instance of AccessPage.
    * @param {any} props 
    * @param {object} context
    * @memberof ProfilePage
@@ -26,9 +29,11 @@ class AccessPage extends Component {
     this.state = {
       accessTitle: '',
       documents: [],
+      pageCount: 0,
       searchString: '',
       user: this.props.auth.currentUser      
     };
+    this.changePage = this.changePage.bind(this);
     this.logoutUser = this.logoutUser.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
   }
@@ -37,7 +42,7 @@ class AccessPage extends Component {
    * @memberof AccessPage
    * @returns {void}
    */
-  componentWillMount() {
+  componentDidMount() {
     const access = this.props.match.params.access;
     if( access === 'public-documents') {
       this.props.getPublicDocuments();
@@ -45,10 +50,6 @@ class AccessPage extends Component {
     if( access === 'role-documents') {
       this.props.getRoleDocuments();
     }
-    this.setState({
-      documents: this.props.documents,
-      accessTitle: access.replace('-', ' ')
-    });
   }
 
   /**
@@ -67,14 +68,17 @@ class AccessPage extends Component {
       }
     }
     this.setState({
-      documents: nextProps.documents,
-      accessTitle: access.replace('-', ' ')
+      documents: nextProps.documents.rows,
+      documentsCount: nextProps.documents.count,
+      accessTitle: access.replace('-', ' '),
+      pageCount: Math.ceil(
+        nextProps.documents.count / QueryConstants.DEFAULT_LIMIT)
     });
   }
 
   /**
    * @param {object} event 
-   * @memberof ProfilePage
+   * @memberof AccessPage
    * @returns {void}
    */
   onInputChange(event) {
@@ -83,9 +87,20 @@ class AccessPage extends Component {
     });
   }
   
+ /**
+   * @param {object} data 
+   * @memberof AccessPage
+   * @returns {void}
+   */
+  changePage(data) {
+    event.preventDefault();    
+    const offset = data.selected * QueryConstants.DEFAULT_LIMIT;
+    this.props.getUserDocuments(this.state.user.id, offset);
+  }
+
   /**
    * Log user out of app and redirect to index page
-   * @memberof UserPage
+   * @memberof AccessPage
    * @param {object} event
    * @returns {void}
    */
@@ -96,7 +111,7 @@ class AccessPage extends Component {
   }
 
   /**
-   * @memberof ProfilePage
+   * @memberof AccessPage
    * @returns {object} react-component
    */
   render() {
@@ -116,21 +131,31 @@ class AccessPage extends Component {
         <div className="profile-body">
           <div className="back container">
             <div className="row">
-              <BackButton />
-            </div>
-          </div>
-          <div className="container">
-            <div className="row">
-              <div className="five columns">
-                <h5>
-                  {this.state.accessTitle}: {numberOfDocuments}</h5>
+              <div className="three columns">
+                <BackButton />
               </div>
-              <div className="six columns">
+              <div className="eight columns">
                 <SearchInputField
                   type="text" 
                   searchString={this.state.searchString}
                   onInputChange={this.onInputChange}
                   placeholder="Search documents"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="container">
+            <div className="row">
+              <div className="four columns">
+                <h4>
+                  {this.state.accessTitle}: 
+                  <span>{this.state.documentsCount}</span>
+                </h4>
+              </div>
+              <div className="eight columns">
+                <PageNavigation
+                  pageCount={this.state.pageCount}
+                  changePage={this.changePage}
                 />
               </div>
             </div>
@@ -148,17 +173,18 @@ class AccessPage extends Component {
   }
 }
 
-// Set UserPage proptypes
+// Set AccessPage proptypes
 AccessPage.propTypes = {
   auth: PropTypes.object.isRequired,
-  documents: PropTypes.array.isRequired,
+  documents: PropTypes.object.isRequired,
   getPublicDocuments: PropTypes.func.isRequired,
   getRoleDocuments: PropTypes.func.isRequired,
+  getUserDocuments:PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired
 }
 
-// Set UserPage contexttypes
+// Set AccessPage contexttypes
 AccessPage.contextTypes = {
   router: PropTypes.object.isRequired
 }
@@ -173,4 +199,5 @@ const matchStateToProps = (state) => {
 
 export default 
   connect(matchStateToProps,
-  { logoutUser, getPublicDocuments, getRoleDocuments })(AccessPage);
+  { logoutUser, getPublicDocuments, 
+    getRoleDocuments, getUserDocuments })(AccessPage);

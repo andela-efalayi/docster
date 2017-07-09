@@ -174,9 +174,13 @@ module.exports = {
    * @returns {object} res
    */
   getUserDocuments(req, res) {
+    const limit = req.query.limit || QueryConstants.DEFAULT_LIMIT,
+      offset = req.query.offset || QueryConstants.DEFAULT_OFFSET;
     return Document
-    .findAll({
-      where: { userId: req.params.userId }
+    .findAndCountAll({
+      where: { userId: req.params.userId },
+      offset,
+      limit,
     })
     .then((documents) => {
       if (!documents) {

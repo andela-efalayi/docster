@@ -49,6 +49,7 @@ class SignUpForm extends Component {
   }
 
   /**
+   * Validate signup form
    * @memberof SignUpForm
    * @returns {bool} hasData
    */

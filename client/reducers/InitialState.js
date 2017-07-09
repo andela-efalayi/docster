@@ -1,5 +1,5 @@
 export default {
-  documents: [],
+  documents: {},
   searchResult: [],
   users: [],
   roles: []

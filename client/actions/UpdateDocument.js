@@ -2,7 +2,7 @@ import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
 
 /**
- * @param {any} document 
+ * @param {object} document 
  * @returns {object} action
  */
 export function updateDocumentSuccess(document){
@@ -13,6 +13,7 @@ export function updateDocumentSuccess(document){
 }
 
 /**
+ * Update a document
  * @param {object} document 
  * @returns {func} dispatch
  */

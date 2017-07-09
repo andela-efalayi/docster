@@ -41,7 +41,7 @@ class CreateDocumentDialog extends Component {
   }
 
   /**
-   * @param {any} event 
+   * @param {object} event 
    * @memberof CreateDocumentDialog
    * @returns {void}
    */
@@ -52,6 +52,7 @@ class CreateDocumentDialog extends Component {
   }
 
   /**
+   * Get content from tinymce editor
    * @memberof CreateDocumentDialog
    * @returns {void}
    */
@@ -62,6 +63,7 @@ class CreateDocumentDialog extends Component {
   }
 
   /**
+   * Create document
    * @memberof CreateDocumentDialog
    * @returns {void}
    */
@@ -88,6 +90,7 @@ class CreateDocumentDialog extends Component {
   }
 
   /**
+   * Close Dialog
    * @memberof CreateDocumentDialog
    * @returns {void}
    */
@@ -96,6 +99,7 @@ class CreateDocumentDialog extends Component {
   }
 
   /**
+   * Open dialog
    * @memberof CreateDocumentDialog
    * @returns {void}
    */

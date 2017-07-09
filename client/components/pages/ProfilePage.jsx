@@ -45,7 +45,6 @@ class ProfilePage extends Component {
     });
   }
   
-
   /**
    * @param {object} event 
    * @memberof ProfilePage
@@ -57,7 +56,6 @@ class ProfilePage extends Component {
       typedPassord
     });
   }
-
 
   /**
    * Log user out of app and redirect to index page
@@ -76,11 +74,10 @@ class ProfilePage extends Component {
    * @returns {void}
    */
   updateUser() {
-    console.log(this.state.typedPassord);
-    // this.props.updateProfile(this.state);
-    // this.setState({
-    //   state: this.props.auth.currentUser
-    // });
+    this.props.updateProfile(this.state);
+    this.setState({
+      state: this.props.auth.currentUser
+    });
   }
 
   /**

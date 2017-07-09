@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import Header from '../common/Header.jsx';
 import HomeTab from '../common/HomeTab.jsx';
 import Documents from '../common/Documents.jsx';
+import PageNavigation from '../common/PageNavigation.jsx';
 import { logoutUser } from '../../actions/Authenticate';
 import { getUserDocuments } from '../../actions/GetUserDocuments';
+import QueryConstants from '../../../constants/QueryConstants';
 
 /**
  * @class UserPage
@@ -23,9 +25,13 @@ class UserPage extends Component {
     super(props, context);
     this.state = {
       user: this.props.auth.currentUser,
-      searchString: ''
+      searchString: '',
+      documents: [],
+      documentsCount: 0,
+      pageCount: 0
     };
     this.logoutUser = this.logoutUser.bind(this);
+    this.changePage = this.changePage.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
   }
 
@@ -33,8 +39,22 @@ class UserPage extends Component {
    * @memberof UserPage
    * @return {void}
    */
-  componentWillMount() {
+  componentDidMount() {
     this.props.getUserDocuments(this.state.user.id);
+  }
+
+  /**
+   * @param {object} nextProps 
+   * @memberof UserPage
+   * @returns {void}
+   */
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      documents: nextProps.documents.rows,
+      documentsCount: nextProps.documents.count,
+      pageCount: Math.ceil(
+        nextProps.documents.count / QueryConstants.DEFAULT_LIMIT)
+    });
   }
 
   /**
@@ -47,6 +67,17 @@ class UserPage extends Component {
     this.setState({
       searchString
     });
+  }
+
+  /**
+   * @param {any} data 
+   * @memberof UserPage
+   * @returns {void}
+   */
+  changePage(data) {
+    event.preventDefault();    
+    const offset = data.selected * QueryConstants.DEFAULT_LIMIT;
+    this.props.getUserDocuments(this.state.user.id, offset);
   }
 
   /**
@@ -67,7 +98,7 @@ class UserPage extends Component {
    * @returns {object} react-component
    */
   render() {
-    let documents = this.props.documents.filter(
+    let filtered = this.state.documents.filter(
       (document) => {
         return document.title.toLowerCase()
           .indexOf(this.state.searchString) !== -1
@@ -77,14 +108,18 @@ class UserPage extends Component {
       <div>
         <Header currentUser={this.state.user} logoutUser={this.logoutUser} />
         <HomeTab
-          numberOfDocuments={documents.length || 0}
+          numberOfDocuments={this.state.documentsCount}
           onInputChange={this.onInputChange}
           searchString={this.state.searchString}
           placeholder="Search My Documents"
         />
+        <PageNavigation
+          pageCount={this.state.pageCount}
+          changePage={this.changePage}
+        />
         <div className="documents">
           <div className="container">
-            <Documents documents={documents} userId={this.state.user.id} />
+            <Documents documents={filtered} userId={this.state.user.id} />
           </div>
         </div>
       </div>
@@ -97,7 +132,7 @@ UserPage.propTypes = {
   auth: PropTypes.object.isRequired,
   logoutUser: PropTypes.func.isRequired,
   getUserDocuments: PropTypes.func.isRequired,
-  documents: PropTypes.array.isRequired
+  documents: PropTypes.object.isRequired
 }
 
 // Set UserPage contexttypes
