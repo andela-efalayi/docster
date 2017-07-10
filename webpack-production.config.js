@@ -1,10 +1,12 @@
 import webpack from 'webpack';
 import path from 'path';
+import TransferWebpackPlugin from 'transfer-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
-  devtool: 'eval-source-map',
+   // Render source-map file for final build
+  devtool: 'source-map',
   entry: [
-    'webpack-hot-middleware/client',
     path.join(__dirname, '/client/app.jsx')
   ],
   output: {
@@ -12,15 +14,25 @@ export default {
     publicPath: '/',
     filename: 'app.js',
   },
-  resolve: {
-    alias: {
-      jquery: path.resolve(__dirname, 'node_modules/jquery/dist/jquery.js')
-    }
-  },
   resolveLoader: {
     moduleExtensions: ['-loader']
   },
   plugins: [
+    new ExtractTextPlugin('main.css'),
+    // Define production build to allow React to strip out unnecessary checks
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    // Minify the bundle
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+    }),
+    // Transfer Files
+    new TransferWebpackPlugin([
+      { from: 'www' },
+    ], path.resolve(__dirname, 'src')),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),

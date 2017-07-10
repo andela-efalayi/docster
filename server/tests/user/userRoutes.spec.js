@@ -98,6 +98,26 @@ describe(colors.green('UserRoutes'), () => {
         done();
       });
     });
+
+    it('should return a user if token is provided', (done) => {
+    chai.request(server)
+    .get(`/users/${createdUser.id}`)
+      .set('authorisation', 'Bearer '+serverResponse.token)    
+    .end((err, res) => {
+      expect(res.status).to.equal(200);
+        done();
+      });
+    });
+
+    it('should return user documents', (done) => {
+      chai.request(server)
+      .get(`/users/${createdUser.id}/documents`)
+      .set('authorisation', 'Bearer '+serverResponse.token)    
+      .end((err, res) => {
+        expect(res.body.documents).to.have.all.keys('count', 'rows');
+          done();
+      });
+    });
   });
 
   // Test that route can edit a user
