@@ -7,6 +7,8 @@ import { logoutUser } from '../../actions/Authenticate';
 import updateProfile from '../../actions/UpdateProfile';
 import BackButton from '../common/BackButton.jsx';
 import { checkIfEmpty } from '../../utils/Validate';
+import showToast from '../../utils/ShowToast';
+
 /**
  * @class ProfilePage
  * @extends {Component}
@@ -74,10 +76,15 @@ class ProfilePage extends Component {
    * @returns {void}
    */
   updateUser() {
-    this.props.updateProfile(this.state);
-    this.setState({
-      state: this.props.auth.currentUser
-    });
+    this.props.updateProfile(this.state.user)
+    .then(() => {
+      this.setState({
+        state: this.props.auth.currentUser
+      });
+    })
+    .catch(errorMessage => {
+      showToast(errorMessage, 'error');
+    }); 
   }
 
   /**

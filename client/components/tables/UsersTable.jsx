@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import orderBy  from 'lodash/orderBy';
+import setRoleType from '../../utils/SetRoleType';
 
 const UsersTable = ({ users }) => {
   const orderedUsersList = orderBy(users, ['id'], ['asc']);
@@ -8,20 +9,20 @@ const UsersTable = ({ users }) => {
     <table className="u-full-width">
       <thead>
         <tr>
-          <th>UserId</th>
           <th>Full Name</th>
           <th>Email</th>
-          <th>RoleId</th>
+          <th>UserId</th>          
+          <th>Role</th>
         </tr>
       </thead>
       <tbody>
         {
           orderedUsersList.map(user => (
             <tr key={user.id}>
-              <td>{user.id}</td>
               <td>{user.fullName}</td>
               <td>{user.email}</td>
-              <td>{user.roleId}</td>
+              <td>{user.id}</td>              
+              <td>{setRoleType(user.roleId)}</td>
             </tr>
           ))
         }

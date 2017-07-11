@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/andela-efalayi/docster.svg?branch=staging)](https://travis-ci.org/andela-efalayi/docster) [![Coverage Status](https://coveralls.io/repos/github/andela-efalayi/docster/badge.svg?branch=bug%2Ffix-travis-error)](https://coveralls.io/github/andela-efalayi/docster?branch=staging)
+
 ## Docster
 This is a react-redux based Document Management System (DMS) designed to managed text documents which 
 are can be accessed as private, public, or role.
@@ -25,7 +27,7 @@ Architecture, NodeJs, Sequelize (ORM), and Express.
 
 ***
 #### Getting Started
-- Clone the project from repository [github.com/andela-efalayi/asedeyhot-news](https://github.com/andela-efalayi/docster)
+- Clone the project from repository [https://github.com/andela-efalayi/docster](https://github.com/andela-efalayi/docster)
 - In your terminal, cd into the cloned folder and run `npm install`. This installs all the app's dependencies.
 - Run `npm start` in your terminal, open your browser, and type `localhost:2700`. This runs the application on your local machine.
 - Alternatively, you can access the app on [docster-dms.herokuapp.com](https://docster-dms.herokuapp.com/)
@@ -33,15 +35,16 @@ Architecture, NodeJs, Sequelize (ORM), and Express.
 ###### NPM Scripts
 To make development easier, some NPM scripts were written:
 - `npm run reset:db` undos all database migrations
-- `npm run seed:all` migrates database tables and seeds data
-- `npm run fill:db` chains two scripts: `npm run reset:db` and `npm run seed:all`
-- `npm run mocha` runs mocha test for server
-- `npm run server-test` chains two scripts: `npm run fill:db` and `npm run mocha`
+- `npm run fill:db` migrates database tables and seeds data
+- `npm run server:test` runs test for server modules using Mocha
+- `npm run client:test` runs test for client modules using Jest
 
 ###### Running Tests
 Application view components and routes were tested using Jest, Mocha, and Chai. To tun the tests:
 - cd into the cloned Docster folder
-- Run `npm run server-test` in terminal. This runs the server test
+- Run `npm run server:test` in terminal. This runs all server tests
+- Run `npm run client:test` in terminal. This runs all client tests
+
 ```
 *NOTE*: It is advised that you have a different database for running your tests.
 ```

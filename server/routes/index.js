@@ -6,37 +6,47 @@ import { authenticate, isAdmin } from '../auth/authenticate';
 
 module.exports = (app) => {
   // Document routes
-  app.delete('/documents/:documentId',
+  app.delete('/docster/api/v1/documents/:documentId',
     authenticate, documentController.deleteDocument);
-  app.get('/documents', authenticate,
+  app.get('/docster/api/v1/documents', authenticate,
     isAdmin, documentController.getAllDocuments);
-  app.get('/documents/:documentId',
+  app.get('/docster/api/v1/documents/:documentId',
     authenticate, documentController.getDocumentById);
-  app.get('/public-documents',
+  app.get('/docster/api/v1/public-documents',
     authenticate, documentController.getPublicDocuments);
-  app.get('/role-documents', authenticate, documentController.getRoleDocuments);
+  app.get('/docster/api/v1/role-documents',
+  authenticate, documentController.getRoleDocuments);
 
-  app.post('/documents', authenticate, documentController.createDocument);
-  app.put('/documents/:documentId',
+  app.post('/docster/api/v1/documents',
+  authenticate, documentController.createDocument);
+  app.put('/docster/api/v1/documents/:documentId',
     authenticate, documentController.updateDocument);
 
   // Role routes
-  app.get('/roles', authenticate, isAdmin, rolesController.getAllRoles);
-  app.get('/roles/:roleId', authenticate, isAdmin, rolesController.getRoleById);
-  app.post('/roles', authenticate, isAdmin, rolesController.createRole);
+  app.get('/docster/api/v1/roles', authenticate,
+  isAdmin, rolesController.getAllRoles);
+  app.get('/docster/api/v1/roles/:roleId', authenticate,
+  isAdmin, rolesController.getRoleById);
+  app.post('/docster/api/v1/roles', authenticate,
+  isAdmin, rolesController.createRole);
 
   // Search routes
-  app.get('/search/documents', authenticate, searchController.searchDocuments);
-  app.get('/search/users', authenticate, searchController.searchUsers);
+  app.get('/docster/api/v1/search/documents',
+  authenticate, searchController.searchDocuments);
+  app.get('/docster/api/v1/search/users',
+  authenticate, searchController.searchUsers);
 
   // User routes
-  app.delete('/users/:userId', userController.deleteUser);
-  app.get('/users', authenticate, userController.getAllUsers); // admin rights
-  app.get('/users/:userId', authenticate, userController.getUserById);
-  app.get('/users/:userId/documents',
+  app.delete('/docster/api/v1/users/:userId', userController.deleteUser);
+  app.get('/docster/api/v1/users', authenticate,
+  userController.getAllUsers); // admin rights
+  app.get('/docster/api/v1/users/:userId',
+  authenticate, userController.getUserById);
+  app.get('/docster/api/v1/users/:userId/documents',
     authenticate, userController.getUserDocuments);
-  app.post('/users/login', userController.authenticateUser);
-  app.post('/users/logout', userController.logoutUser);
-  app.post('/users', userController.createUser);
-  app.put('/users/:userId', authenticate, userController.updateUser);
+  app.post('/docster/api/v1/users/login', userController.authenticateUser);
+  app.post('/docster/api/v1/users/logout', userController.logoutUser);
+  app.post('/docster/api/v1/users', userController.createUser);
+  app.put('/docster/api/v1/users/:userId',
+  authenticate, userController.updateUser);
 };

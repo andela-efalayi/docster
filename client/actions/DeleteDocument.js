@@ -1,6 +1,6 @@
 import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
-
+import getServerError from '../utils/GetServerError';
 
 /**
  * Delete Document
@@ -14,19 +14,19 @@ export function deleteDocumentSuccess(document) {
   }
 }
 
-
 /**
  * @param {any} document 
  * @returns {func} dispatch
  */
 export function deleteDocument(document){
   return function(dispatch) {
-    return axios.delete(`/documents/${document.id}`)
+    return axios.delete(`/docster/api/v1/documents/${document.id}`)
       .then(() => {
         dispatch(deleteDocumentSuccess(document));
       })
-      .catch(error => {
-        throw(error);
+      .catch(response => {
+        const errorMessage = getServerError(response).data.message;
+        throw(errorMessage);
       });
   }
 }

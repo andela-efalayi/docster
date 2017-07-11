@@ -224,10 +224,13 @@ module.exports = {
               `Username: ${userWithUpdate.userName} was updated successfully`
             });
           })
-          .catch(error => res.status(400).send({
-            error,
-            message: 'An error occurred while updating'
-          }));
+          .catch(error => {
+            const dbError = error.errors;
+            res.status(400).send({
+              dbError,
+              message: 'An error occurred while updating'
+            });
+          });
       })
       .catch(error => res.status(400).send({
         error,

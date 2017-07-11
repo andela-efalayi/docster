@@ -17,10 +17,10 @@ chai.use(chaiHttp);
 */
 describe(colors.green('UserRoutes'), () => {
   // Test that route can create a user
-  describe(colors.underline('POST /users'), () => {
+  describe(colors.underline('POST /docster/api/v1/users'), () => {
     it('should create a new user in database', (done) => {
       chai.request(server)
-      .post('/users')
+      .post('/docster/api/v1/users')
       .send(newuser)
       .end((err, res) => {
         serverResponse = res.body;
@@ -34,13 +34,13 @@ describe(colors.green('UserRoutes'), () => {
   });
 
   //  Test that route can login a user
-  describe(colors.underline('POST /users/login'), () => {
+  describe(colors.underline('POST /docster/api/v1/users/login'), () => {
     it('should check if user exists in the database', (done) => {
       const user = newuser.email;
       const password = newuser.password;
 
       chai.request(server)
-      .post('/users/login')
+      .post('/docster/api/v1/users/login')
       .send({user, password})
       .end((err, res) => {
         expect(res.status).to.equal(201);
@@ -52,10 +52,10 @@ describe(colors.green('UserRoutes'), () => {
   });
 
   // Test that route can logout a user
-  describe(colors.underline('POST /users/logout'), () => {
+  describe(colors.underline('POST /docster/api/v1/users/logout'), () => {
     it('should log user out ot app', (done) => {
       chai.request(server)
-      .post('/users/logout')
+      .post('/docster/api/v1/users/logout')
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.message)
@@ -69,7 +69,7 @@ describe(colors.green('UserRoutes'), () => {
   describe(colors.underline('GET /users'), () => {
     it('should return an error if no token is provided', (done) => {
       chai.request(server)
-      .get('/users')
+      .get('/docster/api/v1/users')
       .end((err, res) => {
         expect(res.status).to.equal(403);
         expect(res.body.message).to.equal('No token provided');
@@ -78,7 +78,7 @@ describe(colors.green('UserRoutes'), () => {
     });
     it('should return users if token is provided', (done) => {
       chai.request(server)
-      .get('/users')
+      .get('/docster/api/v1/users')
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -89,10 +89,10 @@ describe(colors.green('UserRoutes'), () => {
   });
 
   // Test that route can fetch users by id
-  describe(colors.underline('GET /users/:userId'), () => {
+  describe(colors.underline('GET /docster/api/v1/users/:userId'), () => {
     it('should return an error if no token is provided', (done) => {
     chai.request(server)
-    .get(`/users/${createdUser.id}`)
+    .get(`/docster/api/v1/users/${createdUser.id}`)
     .end((err, res) => {
         expect(res.status).to.equal(403);
         done();
@@ -101,7 +101,7 @@ describe(colors.green('UserRoutes'), () => {
 
     it('should return a user if token is provided', (done) => {
     chai.request(server)
-    .get(`/users/${createdUser.id}`)
+    .get(`/docster/api/v1/users/${createdUser.id}`)
       .set('authorisation', 'Bearer '+serverResponse.token)    
     .end((err, res) => {
       expect(res.status).to.equal(200);
@@ -111,7 +111,7 @@ describe(colors.green('UserRoutes'), () => {
 
     it('should return user documents', (done) => {
       chai.request(server)
-      .get(`/users/${createdUser.id}/documents`)
+      .get(`/docster/api/v1/users/${createdUser.id}/documents`)
       .set('authorisation', 'Bearer '+serverResponse.token)    
       .end((err, res) => {
         expect(res.body.documents).to.have.all.keys('count', 'rows');
@@ -121,11 +121,11 @@ describe(colors.green('UserRoutes'), () => {
   });
 
   // Test that route can edit a user
-  describe(colors.underline('PUT /users/:userId'), () => {
+  describe(colors.underline('PUT /docster/api/v1/users/:userId'), () => {
     it('should get a user with the id specified', (done) => {
       const fullName = serverData.newFullName;
       chai.request(server)
-      .put(`/users/${createdUser.id}`)
+      .put(`/docster/api/v1/users/${createdUser.id}`)
       .send({ fullName })
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
@@ -137,7 +137,7 @@ describe(colors.green('UserRoutes'), () => {
     });
     it('should give an error if user does not exist', (done) => {
       chai.request(server)
-      .put('/users/-1')
+      .put('/docster/api/v1/users/-1')
       .send({ userName: 'invalidUserId' })
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
@@ -149,10 +149,10 @@ describe(colors.green('UserRoutes'), () => {
   });
 
   // Test that route can delete a user
-  describe(colors.underline('DELETE /users/:userId'), () => {
+  describe(colors.underline('DELETE /docster/api/v1/users/:userId'), () => {
     it('should delete a user with the id specified', (done) => {
       chai.request(server)
-      .delete(`/users/${createdUser.id}`)
+      .delete(`/docster/api/v1/users/${createdUser.id}`)
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.message).to.equal('User was successfully deleted');
@@ -161,7 +161,7 @@ describe(colors.green('UserRoutes'), () => {
     });
     it('should give an error if user does not exist', (done) => {
       chai.request(server)
-      .delete('/users/-1')
+      .delete('/docster/api/v1/users/-1')
       .end((err, res) => {
         expect(res.status).to.equal(404);
         expect(res.body.message).to.equal('User not found');

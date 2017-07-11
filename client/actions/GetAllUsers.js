@@ -19,7 +19,7 @@ export function getAllUsersSuccess(users) {
  */
 export function getAllUsers() {
   return function(dispatch) {
-    return axios.get('/users')
+    return axios.get('/docster/api/v1/users')
       .then(response => {
         const users = response.data.users;
         dispatch(getAllUsersSuccess(users));

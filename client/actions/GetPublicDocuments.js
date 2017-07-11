@@ -19,7 +19,7 @@ export function getPublicDocumentsSuccess(documents) {
  */
 export function getPublicDocuments() {
   return function(dispatch) {
-    return axios.get(`/public-documents`)
+    return axios.get(`/docster/api/v1/public-documents`)
       .then(response => {
         dispatch(getPublicDocumentsSuccess(response.data.documents));
       })

@@ -10,6 +10,9 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       }], {});
+
+      NOTE: Any change in this file should be updated in 
+      SetRoleType function in client/utils.
     */
     return queryInterface.bulkInsert('Roles', [
       {

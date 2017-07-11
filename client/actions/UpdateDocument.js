@@ -19,7 +19,7 @@ export function updateDocumentSuccess(document){
  */
 export function updateDocument(document) {
   return function(dispatch) {
-    return axios.put(`/documents/${document.id}`, document)
+    return axios.put(`/docster/api/v1/documents/${document.id}`, document)
       .then(response => {
         const updatedDocument = response.data.documentWithUpdate
         dispatch(updateDocumentSuccess(updatedDocument));

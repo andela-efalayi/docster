@@ -8,6 +8,7 @@ import { orange500 } from 'material-ui/styles/colors';
   UserAvatar component
   User avatar [ displays user's image (represented as the first 
   letter in user's full name) and user's username]
+  @param {array} user
 */
 const UserAvatar = ({ user }) => (
   <ListItem

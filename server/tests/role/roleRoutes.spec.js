@@ -22,7 +22,7 @@ describe(colors.green('RoleRoutes'), () => {
   // Create a user before tests are executed
   before((done) => {
     chai.request(server)
-    .post('/users')
+    .post('/docster/api/v1/users')
     .send(administrator)
     .end((err, res) => {
       serverResponse = res.body;
@@ -31,10 +31,10 @@ describe(colors.green('RoleRoutes'), () => {
   });
 
   // Test if token exists
-  describe(colors.underline('POST /roles without token'), () => {
+  describe(colors.underline('POST /docster/api/v1/roles without token'), () => {
     it('should give an error', (done) => {
       chai.request(server)
-      .post('/roles')
+      .post('/docster/api/v1/roles')
       .send(newRole)
       .end((err, res) => {
         expect(res.status).to.equal(403);
@@ -44,10 +44,10 @@ describe(colors.green('RoleRoutes'), () => {
   });
 
   // Test that route create a role in the database
-  describe(colors.underline('POST /roles'), () => {
+  describe(colors.underline('POST /docster/api/v1/roles'), () => {
     it('should create a role in the database', (done) => {
       chai.request(server)
-      .post('/roles')
+      .post('/docster/api/v1/roles')
       .send(newRole)
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
@@ -60,10 +60,10 @@ describe(colors.green('RoleRoutes'), () => {
   });
 
   // Test that route can retrieve all roles from the database
-  describe(colors.underline('GET /roles'), () => {
+  describe(colors.underline('GET /docster/api/v1/roles'), () => {
     it('should get all roles from the database', (done) => {
       chai.request(server)
-      .get('/roles')
+      .get('/docster/api/v1/roles')
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -73,10 +73,10 @@ describe(colors.green('RoleRoutes'), () => {
   });
 
   // Test that route can retrieve a role by id
-  describe(colors.underline('GET /roles/:roleId'), () => {
+  describe(colors.underline('GET /docster/api/v1/roles/:roleId'), () => {
     it('should create a role in the database', (done) => {
       chai.request(server)
-      .get(`/roles/${createdRole.id}`)
+      .get(`/docster/api/v1/roles/${createdRole.id}`)
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -86,7 +86,7 @@ describe(colors.green('RoleRoutes'), () => {
     });
     it('should return error if role does not exist', (done) => {
       chai.request(server)
-      .get('/roles/-1')
+      .get('/docster/api/v1/roles/-1')
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(404);

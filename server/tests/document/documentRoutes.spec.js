@@ -23,7 +23,7 @@ describe(colors.green('DocumentRoutes'), () => {
   // Create a user before test
   before((done) => {
     chai.request(server)
-    .post('/users')
+    .post('/docster/api/v1/users')
     .send(documentOwner)
     .end((err, res) => {
       serverResponse = res.body;
@@ -34,10 +34,10 @@ describe(colors.green('DocumentRoutes'), () => {
   });
 
   // Test that route creates a document with the correct userId
-  describe(colors.underline('POST /document'), () => {
+  describe(colors.underline('POST /docster/api/v1/document'), () => {
     it('should create a new document in database with userId', (done) => {
       chai.request(server)
-      .post('/documents')
+      .post('/docster/api/v1/documents')
       .send(newDocument)
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
@@ -51,7 +51,7 @@ describe(colors.green('DocumentRoutes'), () => {
     // Test that route does not create a document twice
     it('should not create a document twice', (done) => {
       chai.request(server)
-      .post('/documents')
+      .post('/docster/api/v1/documents')
       .send(newDocument)
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
@@ -64,10 +64,10 @@ describe(colors.green('DocumentRoutes'), () => {
   });
 
   // Test that route returns an error if request is not from an admin
-  describe(colors.underline('GET /documents'), () => {
+  describe(colors.underline('GET /docster/api/v1/documents'), () => {
     it('should return an error if user is not an admin', (done) => {
       chai.request(server)
-      .get('/documents')
+      .get('/docster/api/v1/documents')
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(403);
@@ -78,10 +78,10 @@ describe(colors.green('DocumentRoutes'), () => {
   });
 
   // Test that route gets public documents
-  describe(colors.underline('GET /public-documents'), () => {
+  describe(colors.underline('GET /docster/api/v1/public-documents'), () => {
     it('should return all public documents', (done) => {
       chai.request(server)
-      .get('/public-documents')
+      .get('/docster/api/v1/public-documents')
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         assert.isDefined(res.body.documents);
@@ -92,10 +92,10 @@ describe(colors.green('DocumentRoutes'), () => {
   });
 
   // Test that route gets role documents  
-  describe(colors.underline('GET /role-documents'), () => {
+  describe(colors.underline('GET /docster/api/v1/role-documents'), () => {
     it('should return all role documents', (done) => {
       chai.request(server)
-      .get('/role-documents')
+      .get('/docster/api/v1/role-documents')
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         assert.isDefined(res.body.documents);
@@ -106,10 +106,11 @@ describe(colors.green('DocumentRoutes'), () => {
   });
 
   //  Test that route can get documents by id
-  describe(colors.underline('GET /documents/:documentId'), () => {
+  describe(colors.underline('GET /docster/api/v1/documents/:documentId'),
+  () => {
     it('should get all documents from the database', (done) => {
       chai.request(server)
-      .get(`/documents/${createdDocument.id}`)
+      .get(`/docster/api/v1/documents/${createdDocument.id}`)
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -119,7 +120,7 @@ describe(colors.green('DocumentRoutes'), () => {
     });
     it('should send an error if documentId does not exist', (done) => {
       chai.request(server)
-      .get('/documents/-1')
+      .get('/docster/api/v1/documents/-1')
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(404);
@@ -129,7 +130,7 @@ describe(colors.green('DocumentRoutes'), () => {
     });
     it('should send an error if documentId is not an number', (done) => {
       chai.request(server)
-      .get('/documents/esther')
+      .get('/docster/api/v1/documents/esther')
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -140,11 +141,12 @@ describe(colors.green('DocumentRoutes'), () => {
   });
 
   //  Test that a particular document can be edited
-  describe(colors.underline('PUT /documents/:documentId'), () => {
+  describe(colors.underline('PUT /docster/api/v1/documents/:documentId'),
+  () => {
     it('should update a document with the id specified', (done) => {
       const content = serverData.newDocumentContent;
       chai.request(server)
-      .put(`/documents/${createdDocument.id}`)
+      .put(`/docster/api/v1/documents/${createdDocument.id}`)
       .send({ content })
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
@@ -156,7 +158,7 @@ describe(colors.green('DocumentRoutes'), () => {
     });
     it('should give an error if document does not exist', (done) => {
       chai.request(server)
-      .put('/documents/-1')
+      .put('/docster/api/v1/documents/-1')
       .send({ content: 'content for an invalid document id' })
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
@@ -167,7 +169,7 @@ describe(colors.green('DocumentRoutes'), () => {
     });
      it('should give an error for an invalid document id', (done) => {
       chai.request(server)
-      .put('/documents/esther')
+      .put('/docster/api/v1/documents/esther')
       .send({ content: 'content for an invalid document id' })
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
@@ -181,7 +183,7 @@ describe(colors.green('DocumentRoutes'), () => {
   describe(colors.underline('DELETE /documents/:documentId'), () => {
     it('should delete a user with the id specified', (done) => {
       chai.request(server)
-      .delete(`/documents/${createdDocument.id}`)
+      .delete(`/docster/api/v1/documents/${createdDocument.id}`)
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -191,7 +193,7 @@ describe(colors.green('DocumentRoutes'), () => {
     });
     it('should give an error if document does not exist', (done) => {
       chai.request(server)
-      .delete('/documents/-1')
+      .delete('/docster/api/v1/documents/-1')
       .set('authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(404);
@@ -201,7 +203,7 @@ describe(colors.green('DocumentRoutes'), () => {
     });
     it('should give an error for invalid document Id ', (done) => {
       chai.request(server)
-      .delete('/documents/esther')
+      .delete('/docster/api/v1/documents/esther')
       .set('authorisation', 'Bearer '+serverResponse.token)      
       .end((err, res) => {
         expect(res.status).to.equal(400);        

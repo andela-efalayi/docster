@@ -10,7 +10,7 @@ import HeaderNavList from '../common/HeaderNavList.jsx';
 */
 const HeaderItems = ({ currentUser, logoutUser }) => (
   <ListItem 
-    className="header-item"
+    className="header-items"
     leftAvatar={
       <UserAvatar 
         user={[currentUser.fullName, currentUser.userName]}

@@ -11,6 +11,7 @@ import ActionDelete from 'material-ui/svg-icons/action/delete';
 import {red500} from 'material-ui/styles/colors';
 import { muiTheme1, muiTheme2 } from '../../muiTheme';
 import { deleteDocument } from '../../actions/DeleteDocument';
+import showToast from '../../utils/ShowToast';
 
 /**
  * @class CreateDocumentDialog
@@ -40,7 +41,13 @@ class DeleteDocumentAlert extends Component {
    * @returns {void}
    */
   deleteDocument() {
-    this.props.deleteDocument(this.state.document);
+    this.props.deleteDocument(this.state.document)
+    .then(() => {
+      showToast('Document deleted', 'success');
+    })
+    .catch(errorMessage => {
+      showToast(errorMessage, 'error');
+    });
     this.setState({
       open: false
     });

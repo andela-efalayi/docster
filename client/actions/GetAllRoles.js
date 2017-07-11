@@ -1,5 +1,6 @@
 import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
+import getServerError from '../utils/GetServerError';
 
 
 /**
@@ -19,13 +20,14 @@ export function getAllRolesSuccess(roles) {
  */
 export function getAllRoles() {
   return function(dispatch) {
-    return axios.get('/roles')
+    return axios.get('/docster/api/v1/roles')
       .then(response => {
         const roles = response.data.roles;
         dispatch(getAllRolesSuccess(roles));
       })
-      .catch(error => {
+      .catch(response => {
+        const error = getServerError(response);
         throw(error);
-      })
+      });
   }
 }

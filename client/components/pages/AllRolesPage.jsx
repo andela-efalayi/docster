@@ -33,7 +33,7 @@ class AllRolesPage extends Component {
    * @memberof AllRolesPage
    * @returns {void}
    */
-  componentWillMount() {
+  componentDidMount() {
     this.props.getAllRoles();
   }
   /**

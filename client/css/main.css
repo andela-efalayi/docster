@@ -8,13 +8,6 @@
 .error input{
   border: 1px solid #E53935;
 }
-.search {
-  color: #ff9800;
-}
-span.search {
-  margin-left: 0.5em;
-  font-size: 1.2em;
-}
 
 /* Index page */
 .index-page {
@@ -45,7 +38,7 @@ span.search {
 }
 
 /* Header */
-.header-item > div {
+.header-items > div {
   line-height: 0px !important;
 }
 a[role="menuitem"], span[role="menuitem"]{
@@ -83,13 +76,15 @@ a[role="menuitem"], span[role="menuitem"]{
 .document-length p{
   margin-bottom: 0px;
   margin-top: -10px;
+  line-height: 1.5em;
+  padding-top: 0.5em;  
 }
 .document-length span {
   font-size: 2em;
   margin-left: 8px;
 }
 .documents{
-  font-size: 0.85em;
+  font-size: 0.9em;
   clear: both;
 }
 .documents h5{
@@ -148,7 +143,7 @@ a[role="menuitem"], span[role="menuitem"]{
 }
 .document-content .actions .two{
   width: 13.3333333333%;
-  margin-right: 15%;
+  margin-right: 1em;
 }
 .document-content .actions button{
   padding: 0px !important;
@@ -181,16 +176,22 @@ a[role="menuitem"], span[role="menuitem"]{
 .mce-widget button i{
   font-size: 11px
 }
-/* Profile */
-.profile-body {
+
+/* Profile and Access Pages */
+.profile-body, .access-page {
   padding-top: 20px;
 }
-.profile-body .back{
+.profile-body .back, .access-page .back{
   margin-bottom: 20px;
 }
 .center-btn {
   width: 150px;
   margin: 0 auto;
+}
+.access-page .access-title > span{
+  margin-left: 0.6em;
+  font-size: 1.4em;
+  font-weight: 900;
 }
 
 /* tables */
@@ -247,6 +248,23 @@ ul.pagination .active{
   color: #ff9800;
 }
 
+/* Not Found  */
+.not-found{
+  padding-top: 15em;
+}
+/* Footer */
+footer span{
+  font-size: 11px;
+  letter-spacing: 0.15em;
+}
+footer a {
+  color: #000013;
+  padding-left: 0.5em;
+}
+footer a:hover {
+  color: #ff9800;
+}
+
 /* Media Queries */
 @media (max-width: 480px) {
   .document-access-options > div {
@@ -265,6 +283,9 @@ ul.pagination .active{
   }
 }
 @media (min-width: 550px) {
+  .document-length p{
+    line-height: 1.1em;
+  }
   .documents .three{
     width: 46%;
   }
@@ -274,17 +295,18 @@ ul.pagination .active{
   .documents{
     font-size: 0.75em;
   }
-}
-@media (min-width: 600px) {
-  .home-tabs {
-    padding-left: 6.8%;
-    padding-right: 0px;
-  }
   .home-tabs .columns {
-    margin-bottom: 0px;
+    margin-bottom: -15px;
+  }
+  .home-tabs .eight > .four.columns{
+    margin-left: 1.7em;
   }
 }
-@media (min-width: 750px) {
+@media (min-width: 724px) {
+  .document-length p{
+    line-height: 1em;
+    padding-top: 1.5em;
+  }
   .documents .three{
     width: 28.6666666667%;
   }
@@ -293,5 +315,13 @@ ul.pagination .active{
   }
   .document-content{
     height: 135px;    
+  }
+}
+@media (min-width: 1280px) {
+  footer.container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
 }

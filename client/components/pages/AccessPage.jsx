@@ -128,7 +128,7 @@ class AccessPage extends Component {
           currentUser={this.state.user}
           logoutUser={this.logoutUser} 
         />
-        <div className="profile-body">
+        <div className="access-page">
           <div className="back container">
             <div className="row">
               <div className="three columns">
@@ -147,10 +147,10 @@ class AccessPage extends Component {
           <div className="container">
             <div className="row">
               <div className="four columns">
-                <h4>
+                <h5 className="access-title">
                   {this.state.accessTitle}: 
                   <span>{this.state.documentsCount}</span>
-                </h4>
+                </h5>
               </div>
               <div className="eight columns">
                 <PageNavigation

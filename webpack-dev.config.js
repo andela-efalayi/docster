@@ -72,11 +72,7 @@ export default {
         options: {
           limit: 25000,
         },
-      },
-      {
-        test: /materialize-css\/bin\//,
-        loader: 'imports?jQuery=jquery,$=jquery,hammerjs'
-      }
+      }, 
     ]
   }
 };
