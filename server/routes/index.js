@@ -37,8 +37,9 @@ module.exports = (app) => {
   authenticate, searchController.searchUsers);
 
   // User routes
-  app.delete('/docster/api/v1/users/:userId', userController.deleteUser);
-  app.get('/docster/api/v1/users', authenticate,
+  app.delete('/docster/api/v1/users/:userId', authenticate,
+  isAdmin, userController.deleteUser);
+  app.get('/docster/api/v1/users', authenticate, isAdmin,
   userController.getAllUsers); // admin rights
   app.get('/docster/api/v1/users/:userId',
   authenticate, userController.getUserById);

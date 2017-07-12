@@ -6,7 +6,9 @@ import server from '../../server';
 
 const expect = chai.expect;
 let newuser = serverData.newUser;
+let dummyAdmin = serverData.dummyAdmin;
 let createdUser;
+let createdAdmin;
 let serverResponse;
 
 process.env.NODE_ENV = 'test';
@@ -16,6 +18,15 @@ chai.use(chaiHttp);
   Test User Routes
 */
 describe(colors.green('UserRoutes'), () => {
+  before((done) => {
+    chai.request(server)
+    .post('/docster/api/v1/users')
+    .send(dummyAdmin)
+    .end((err, res) => {
+      createdAdmin = res.body;
+      done();
+    });
+  });
   // Test that route can create a user
   describe(colors.underline('POST /docster/api/v1/users'), () => {
     it('should create a new user in database', (done) => {
@@ -76,10 +87,22 @@ describe(colors.green('UserRoutes'), () => {
         done();
       });
     });
-    it('should return users if token is provided', (done) => {
+    it('should return an error if token is provided but user is not '+
+    'an admin', (done) => {
       chai.request(server)
       .get('/docster/api/v1/users')
       .set('authorisation', 'Bearer '+serverResponse.token)
+      .end((err, res) => {
+        expect(res.status).to.equal(403);
+        expect(res.body.message).to.equal('User is not a docster app admin');
+        done();
+      });
+    });
+    it('should return all users if token is provided and user'+
+    'is an admin', (done) => {
+      chai.request(server)
+      .get('/docster/api/v1/users')
+      .set('authorisation', 'Bearer '+createdAdmin.token)
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.message).to.equal('Users were retrieved successfully');
@@ -153,6 +176,7 @@ describe(colors.green('UserRoutes'), () => {
     it('should delete a user with the id specified', (done) => {
       chai.request(server)
       .delete(`/docster/api/v1/users/${createdUser.id}`)
+      .set('authorisation', 'Bearer '+createdAdmin.token)
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.message).to.equal('User was successfully deleted');
@@ -162,6 +186,7 @@ describe(colors.green('UserRoutes'), () => {
     it('should give an error if user does not exist', (done) => {
       chai.request(server)
       .delete('/docster/api/v1/users/-1')
+      .set('authorisation', 'Bearer '+createdAdmin.token)
       .end((err, res) => {
         expect(res.status).to.equal(404);
         expect(res.body.message).to.equal('User not found');

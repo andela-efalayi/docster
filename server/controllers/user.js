@@ -115,22 +115,22 @@ module.exports = {
   getAllUsers(req, res) {
     const limit = req.query.limit || QueryConstants.DEFAULT_LIMIT,
       offset = req.query.offset || QueryConstants.DEFAULT_OFFSET;
-
     return User
-      .findAndCountAll({
+      .findAll({
         offset,
         limit,
         attributes
       })
       .then((users) => {
-        res.status(200);
-        if (users.length === 0) {
-          res.send({
+        if (!users) {
+          return res.status(404).send({
             message: 'No users available'
           });
         }
-        res.send({
-          users: users.rows,
+        const currentUser = req.currentUser;
+        return res.status(200).send({
+          users,
+          currentUser,
           message: 'Users were retrieved successfully'
         });
       })
@@ -158,7 +158,7 @@ module.exports = {
             message: 'User not found'
           });
         }
-        return res.status(200).send(user);
+        return res.status(200).send({user});
       })
       .catch(error => res.status(400).send({
         error,

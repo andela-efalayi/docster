@@ -36,6 +36,13 @@ const serverData = {
     password: faker.internet.password(),
     roleId: 1
   },
+  dummyAdmin: {
+    fullName: "Dummy Admin",
+    userName: "da",
+    email: "admin@dummy.com",
+    password: "dummypassword",
+    roleId: 1
+  },
   newDocumentContent: faker.lorem.paragraph(),
   newFullName: faker.name.findName(),
   userRole: {
@@ -45,16 +52,6 @@ const serverData = {
     title: faker.company.catchPhrase(),
     content: faker.lorem.paragraph(),
     access: 'public'
-  },
-  newPrivateDocument: {
-    title: faker.company.catchPhrase(),
-    content: faker.lorem.paragraph(),
-    access: 'private'
-  },
-  newRoleDocument: {
-    title: faker.company.catchPhrase(),
-    content: faker.lorem.paragraph(),
-    access: 'role'
   }
 };
 
