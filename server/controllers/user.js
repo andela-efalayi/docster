@@ -9,6 +9,7 @@ const Document = Models.Document;
 const attributes = ServerConstants.USER_ATTRIBUTES;
 
 module.exports = {
+
   /**
    * Authenticate user
    * @param {object} req 
@@ -36,24 +37,20 @@ module.exports = {
             message: 'User does not exist'
           });
         }
-        if (bcrypt.compareSync(req.body.password, user.password)) {
+        if (bcrypt.compareSync(req.body.password, user.password) === true) {
           user.password = undefined; // remove password from user attributes
           const token = auth.generateToken(user);
           return res.status(201).send({
             user,
             token,
-            message: 'User was logged in successfully'
+            message: 'User is logged in'
           });
         } else {
           return res.status(401).send({
             message: 'Invalid credentials'
           })
         }
-      })
-      .catch(error => res.status(500).send({
-        error,
-        message: 'Internal server error'
-      }));
+      });
   },
 
   /**
@@ -68,8 +65,8 @@ module.exports = {
       .findOrCreate({ 
         where: {
           $or: {
-            fullName: {
-              $iLike: `%${req.body.fullName}%`
+            userName: {
+              $iLike: `%${req.body.userName}%`
             },
             email: {
               $iLike: `%${req.body.email}%`
@@ -85,9 +82,9 @@ module.exports = {
         }
       })
       .spread((user, created) => {
-        if (created === false) {
+        if (user && created === false) {
           return res.status(409).send({
-            message: 'This user already exists'
+            message: 'Username or email exists'
           });
         }
         const token = auth.generateToken(user); 
@@ -95,13 +92,8 @@ module.exports = {
         return res.status(201).send({
           user,
           token,
-          message: 'User was created successfully'
-        });
-      })
-      .catch(error => {
-        res.status(500).send({
-          error,
-          message: `An error occurred while creating ${req.body.fullName}`
+          created,
+          message: 'User created'
         });
       });
   },
@@ -116,28 +108,22 @@ module.exports = {
     const limit = req.query.limit || QueryConstants.DEFAULT_LIMIT,
       offset = req.query.offset || QueryConstants.DEFAULT_OFFSET;
     return User
-      .findAll({
+      .findAndCountAll({
         offset,
         limit,
         attributes
       })
       .then((users) => {
-        if (!users) {
-          return res.status(404).send({
+        if (users.count === 0) {
+          return res.status(200).send({
             message: 'No users available'
           });
         }
-        const currentUser = req.currentUser;
         return res.status(200).send({
           users,
-          currentUser,
-          message: 'Users were retrieved successfully'
+          message: 'Users retrieved'
         });
-      })
-      .catch(error => res.status(400).send({
-        error,
-        message: 'An error occurred while getting users from database.'
-      }));
+      });
   },
 
   /**
@@ -155,16 +141,11 @@ module.exports = {
       .then((user) => {
         if (!user) {
           return res.status(404).send({
-            message: 'User not found'
+            message: 'User does not exist'
           });
         }
         return res.status(200).send({user});
-      })
-      .catch(error => res.status(400).send({
-        error,
-        message:
-        `An error occurred while fetching user with id: ${req.params.userId}`
-      }));
+      });
   },
 
   /**
@@ -183,13 +164,14 @@ module.exports = {
       limit,
     })
     .then((documents) => {
-      if (!documents) {
+      if (documents.count === 0) {
         return res.status(200).send({
           message: 'No documents available'
         });
       }
       return res.status(200).send({
-        documents
+        documents,
+        message: "Documents retrieved"
       });
     });
   },
@@ -206,7 +188,7 @@ module.exports = {
       .then((user) => {
         if (!user) {
           return res.status(404).send({
-            message: 'User not found'
+            message: 'User does not exist'
           });
         }
         return user
@@ -220,8 +202,7 @@ module.exports = {
               userWithUpdate.password = undefined;
               res.status(200).send({
               userWithUpdate,
-              message:
-              `Username: ${userWithUpdate.userName} was updated successfully`
+              message: 'User updated'
             });
           })
           .catch(error => {
@@ -231,11 +212,7 @@ module.exports = {
               message: 'An error occurred while updating'
             });
           });
-      })
-      .catch(error => res.status(400).send({
-        error,
-        message: 'An error occurred while getting user'
-      }));
+      });
   },
 
   /**
@@ -250,13 +227,13 @@ module.exports = {
       .then((user) => {
         if (!user) {
           return res.status(404).send({
-            message: 'User not found'
+            message: 'User does not exist'
           });
         }
         return user
           .destroy()
           .then(() => res.status(200).send({
-            message: 'User was successfully deleted'
+            message: 'User deleted'
           }));
       });
   },

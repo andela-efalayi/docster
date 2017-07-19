@@ -9,7 +9,7 @@ import './css/normalize.css';
 import './css/skeleton.css';
 import './css/main.css';
 
-import Routes from './routes';
+import Routes from './Routes.jsx';
 import setAuthorisationToken from './utils/SetAuthorisationToken';
 import { loginUserSuccess } from './actions/Authenticate';
 

@@ -2,8 +2,12 @@
 .center {
   text-align: center;
 }
-.error span {
+.error p {
   color: #F44336;
+  margin-bottom: 0;
+}
+.error p:first-letter{
+  text-transform: uppercase;  
 }
 .error input{
   border: 1px solid #E53935;
@@ -61,31 +65,39 @@ a[role="menuitem"], span[role="menuitem"]{
 }
 
 /* Home tabs*/
-.home-tabs {
+.home-tab {
   background-color: #E1E2E1;
-  padding: 15px 20px;
+  padding-top: 15px;
 }
-.home-tabs .columns {
+.home-tab .columns {
   margin-bottom: 6px;
+  margin-right: 10px;
 }
-.home-tabs form, .home-tabs form input {
+.home-tab form, .home-tab form input {
   margin-bottom: 0px;
 }
 
 /* Document */
-.document-length p{
+.page-title p{
   margin-bottom: 0px;
   margin-top: -10px;
   line-height: 1.5em;
-  padding-top: 0.5em;  
+  padding-top: 0.5em; 
+  text-transform: capitalize;
+  font-weight: 800;
+  font-size: 1.2em;
+  font-family: 'Carrois Gothic', sans-serif;  
 }
-.document-length span {
-  font-size: 2em;
+.page-title span {
+  font-size: 1.5em;
   margin-left: 8px;
+  /* color: #ff9800; */
 }
 .documents{
   font-size: 0.9em;
   clear: both;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 .documents h5{
   font-size: 1.3em;
@@ -94,6 +106,7 @@ a[role="menuitem"], span[role="menuitem"]{
 .documents .three.columns{
   margin-bottom: 1em;
 }
+
 .document {
   height: 200px;
   padding: 5px;
@@ -152,6 +165,24 @@ a[role="menuitem"], span[role="menuitem"]{
 .document-access{
   padding-top: 15px;
 }
+button.access-icon{
+  padding: 0 !important;
+  height: 25px !important;
+  width: 24px !important;
+}
+button.access-icon > div > div:first-child{
+  max-width: 48px !important;  
+  margin-top: -16px !important;
+  padding: 0px 6px !important; 
+  border-radius: 0px !important;      
+}
+button.access-icon > div > div:first-child > div{
+  background-color: #1e1b38 !important; 
+}
+button.access-icon span{
+  color: #ff9800; 
+  text-transform: capitalize; 
+}
 .document-access h6{
   margin-bottom: 0px;
   font-size: 14px;
@@ -178,20 +209,25 @@ a[role="menuitem"], span[role="menuitem"]{
 }
 
 /* Profile and Access Pages */
-.profile-body, .access-page {
+ #profile .page-title span, #profile .five, #profile .two{
+  display: none;
+} 
+#profile .home-tab{
+  padding-bottom: 20px;
+}
+#profile .profile-body{
+  max-width: 960px;
+  margin: auto;
+}
+.profile-body{
   padding-top: 20px;
 }
-.profile-body .back, .access-page .back{
+.profile-body .back{
   margin-bottom: 20px;
 }
 .center-btn {
   width: 150px;
   margin: 0 auto;
-}
-.access-page .access-title > span{
-  margin-left: 0.6em;
-  font-size: 1.4em;
-  font-weight: 900;
 }
 
 /* tables */
@@ -252,7 +288,11 @@ ul.pagination .active{
 .not-found{
   padding-top: 15em;
 }
+
 /* Footer */
+footer.container{
+  margin-top: 1.5em;
+}
 footer span{
   font-size: 11px;
   letter-spacing: 0.15em;
@@ -283,7 +323,7 @@ footer a:hover {
   }
 }
 @media (min-width: 550px) {
-  .document-length p{
+  .page-title p{
     line-height: 1.1em;
   }
   .documents .three{
@@ -295,17 +335,14 @@ footer a:hover {
   .documents{
     font-size: 0.75em;
   }
-  .home-tabs .columns {
-    margin-bottom: -15px;
-  }
-  .home-tabs .eight > .four.columns{
-    margin-left: 1.7em;
+  .home-tab .columns {
+    margin-bottom: 0px;
   }
 }
 @media (min-width: 724px) {
-  .document-length p{
+  .page-title p{
     line-height: 1em;
-    padding-top: 1.5em;
+    padding-top: 1em;
   }
   .documents .three{
     width: 28.6666666667%;
@@ -316,12 +353,12 @@ footer a:hover {
   .document-content{
     height: 135px;    
   }
+  .home-tab{
+    text-align: center;
+  }
 }
 @media (min-width: 1280px) {
-  footer.container {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+  .home-tab .columns:first-child{
+    margin-left: 2em;
   }
 }

@@ -20,7 +20,7 @@ export function getAllRolesSuccess(roles) {
  */
 export function getAllRoles() {
   return function(dispatch) {
-    return axios.get('/docster/api/v1/roles')
+    return axios.get('/api/v1/roles')
       .then(response => {
         const roles = response.data.roles;
         dispatch(getAllRolesSuccess(roles));

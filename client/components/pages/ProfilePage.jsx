@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../common/Header.jsx';
+import HomeTab from '../common/HomeTab.jsx';
+
 import UserForm from '../forms/UserForm.jsx';
 import { logoutUser } from '../../actions/Authenticate';
 import updateProfile from '../../actions/UpdateProfile';
-import BackButton from '../common/BackButton.jsx';
 import { checkIfEmpty } from '../../utils/Validate';
 import showToast from '../../utils/ShowToast';
 
@@ -93,15 +94,13 @@ class ProfilePage extends Component {
    */
   render() {
     return(
-      <div>
+      <div id="profile">
         <Header 
           currentUser={this.state.user}
           logoutUser={this.logoutUser} 
         />
+        <HomeTab title="profile" />
         <div className="profile-body">
-          <div className="back container">
-            <BackButton />
-          </div>
           <UserForm 
             userDetails={this.state.user} 
             updateUser={this.updateUser}

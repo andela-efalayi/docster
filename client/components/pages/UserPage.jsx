@@ -109,13 +109,14 @@ class UserPage extends Component {
       }
     );
     return(
-      <div classID="user-page">
+      <div id="user-page">
         <Header currentUser={this.state.user} logoutUser={this.logoutUser} />
         <HomeTab
           numberOfDocuments={this.state.documentsCount}
           onInputChange={this.onInputChange}
           searchString={this.state.searchString}
           placeholder="Filter My Documents"
+          title="my documents"
         />
         <div className="container">
           <PageNavigation

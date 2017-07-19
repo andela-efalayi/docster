@@ -25,15 +25,22 @@ const HeaderNavList = (props) => {
       <MenuItem 
         primaryText="Public Documents"
         containerElement={<Link to={{
-            pathname: `/app/public-documents`
+            pathname: `/my-documents/public-documents`
           }}
         />}
       />
       <MenuItem 
         primaryText="Role Documents"
         containerElement={<Link to={{
-            pathname: `/app/role-documents`,
+            pathname: `/my-documents/role-documents`,
           }}
+        />}
+      />
+      <MenuItem 
+        primaryText="Private Documents"
+        containerElement={<Link to={{
+          pathname: `/my-documents`,
+        }}
         />}
       />
       {

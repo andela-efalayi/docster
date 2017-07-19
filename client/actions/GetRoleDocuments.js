@@ -19,7 +19,7 @@ export function getRoleDocumentsSuccess(documents) {
  */
 export function getRoleDocuments() {
   return function(dispatch) {
-    return axios.get(`/docster/api/v1/role-documents`)
+    return axios.get(`/api/v1/role-documents`)
       .then(response => {
         dispatch(getRoleDocumentsSuccess(response.data.documents));
       })

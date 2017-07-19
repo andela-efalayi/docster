@@ -21,7 +21,7 @@ const UsersTable = ({ users }) => {
             <tr key={user.id}>
               <td>{user.fullName}</td>
               <td>{user.email}</td>
-              <td>{user.id}</td>              
+              <td>{user.id}</td>
               <td>{setRoleType(user.roleId)}</td>
             </tr>
           ))

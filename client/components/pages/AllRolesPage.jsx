@@ -7,7 +7,6 @@ import RolesTable from '../tables/RolesTable.jsx';
 import { logoutUser } from '../../actions/Authenticate';
 import { muiTheme1 } from '../../muiTheme';
 import { getAllRoles } from '../../actions/GetAllRoles';
-import BackButton from '../common/BackButton.jsx';
 
 /**
  * @class AllRolesPage
@@ -23,7 +22,10 @@ class AllRolesPage extends Component {
    */
   constructor(props, context){
     super(props, context);
-    this.state = this.props.auth.currentUser;
+    this.state = {
+      currentUser: this.props.auth.currentUser,
+      roles: []
+    };
     this.logoutUser = this.logoutUser.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
   }
@@ -36,6 +38,18 @@ class AllRolesPage extends Component {
   componentDidMount() {
     this.props.getAllRoles();
   }
+
+  /**
+   * @memberof AllRolesPage
+   * @param {object} nextProps
+   * @returns {void}
+   */
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      roles: nextProps.roles.rows
+    });
+  }
+
   /**
    * @param {object} event 
    * @memberof AllRolesPage
@@ -64,21 +78,17 @@ class AllRolesPage extends Component {
    * @returns {object} react-component
    */
   render() {
-    const roles = this.props.roles;
     return(
       <div>
         <Header 
-          currentUser={this.state}
+          currentUser={this.state.currentUser}
           logoutUser={this.logoutUser} 
         />
         <div className="profile-body">
-          <div className="back container">
-            <BackButton />
-          </div>
           <div className="container">
             <h3 className="center">Docster Roles</h3>
             <MuiThemeProvider muiTheme={muiTheme1}> 
-              <RolesTable roles={roles} />
+              <RolesTable roles={this.state.roles} />
             </MuiThemeProvider>
           </div>
         </div>
@@ -92,7 +102,7 @@ AllRolesPage.propTypes = {
   auth: PropTypes.object.isRequired,
   getAllRoles: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  roles: PropTypes.array.isRequired
+  roles: PropTypes.object.isRequired
 }
 
 // Set AllRolesPage contexttypes

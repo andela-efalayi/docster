@@ -9,7 +9,7 @@ import getServerError from '../utils/GetServerError';
  */
 export default function updateProfile(user) {
   return function(dispatch) {
-    return axios.put(`/docster/api/v1/users/${user.id}`, user)
+    return axios.put(`/api/v1/users/${user.id}`, user)
       .then(response => {
         const updatedUser = response.data.userWithUpdate;
         localStorage.setItem('currentUser', JSON.stringify(updatedUser));

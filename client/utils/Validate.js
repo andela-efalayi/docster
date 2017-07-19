@@ -19,7 +19,7 @@ export function formIsValid(formData) {
           errors[fields[i]] = 'Email is invalid'
         }
         if(Validator.isEmpty(formData[fields[i]])) {
-          errors[fields[i]] = `${fields[i]} is required`;
+          errors[fields[i]] = `${fields[i].toLowerCase()} is required`;
         }
         break;
       case 'confirmPassword': 
@@ -28,9 +28,14 @@ export function formIsValid(formData) {
           errors.confirmPassword = "Passwords do not match";
         }
         break;
+      case 'user': 
+        if(Validator.isEmpty(formData[fields[i]])) {
+          errors[fields[i]] = 'Username or email is required';
+        }
+        break;
       default: 
         if(Validator.isEmpty(formData[fields[i]])) {
-          errors[fields[i]] = `${fields[i]} is required`;
+          errors[fields[i]] = `${fields[i].toLowerCase()} is required`;
         }
     }
   }

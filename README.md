@@ -32,6 +32,9 @@ Architecture, NodeJs, Sequelize (ORM), and Express.
 - Run `npm start` in your terminal, open your browser, and type `localhost:2700`. This runs the application on your local machine.
 - Alternatively, you can access the app on [docster-dms.herokuapp.com](https://docster-dms.herokuapp.com/)
 
+#### Testing
+Server modules were tested using Mocha while client modules were tested using Jest and Enzyme.
+
 ###### NPM Scripts
 To make development easier, some NPM scripts were written:
 - `npm run reset:db` undos all database migrations
@@ -39,39 +42,15 @@ To make development easier, some NPM scripts were written:
 - `npm run server:test` runs test for server modules using Mocha
 - `npm run client:test` runs test for client modules using Jest
 
-###### Running Tests
-Application view components and routes were tested using Jest, Mocha, and Chai. To tun the tests:
-- cd into the cloned Docster folder
-- Run `npm run server:test` in terminal. This runs all server tests
-- Run `npm run client:test` in terminal. This runs all client tests
-
 ```
 *NOTE*: It is advised that you have a different database for running your tests.
 ```
 *** 
-#### API Documentation
-| Endpoint                                          | Functionality                              |
-| ------------------------------------------------- |:------------------------------------------:|
-| POST /users/login  | logs user in                 |                                            |
-| POST /users/logout                                | logs user out                              |
-| POST /users                                       | creates a new user                         |
-| GET /users                                        | finds matching instances of a user         |
-| GET /users/?limit={integer}&offset={integer}      | pagination for users                       |
-| GET /users/id                                     | finds a particular user                    |
-| PUT /users/id                                     | updates a particular user's attributes     |
-| DELETE /users/id                                  | deletes a particular user                  |
-| POST /documents/                                  | creates a new document                     |
-| GET /documents/                                   | finds matching instances of documents      |
-| POST /documents/                                  | creates a new document                     |
-| GET /documents/?limit={integer}&offset={integer}  | pagination for documents                   |
-| GET /documents/id                                 | finds a particular document                |
-| PUT /documents/id                                 | updates a particular document's attributes |
-| GET /users/id/documents                           | finds all documents that belong to a user  | 
-| GET /search/users/?q={}                           | searches for a user                        |
-| GET /search/documents/?q={doctitle}               | searches for a document                    |
+###### API Documentation
+This was done with Swagger.
 
 ***
-#### How to Contribute
+#### Contribution
 I welcome any form of contribution. If you feel something can be done better or 
 there's an issue that needs to be fixed
 or you are just interested in a specific part of the project, but not sure where

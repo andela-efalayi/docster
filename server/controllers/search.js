@@ -14,7 +14,7 @@ module.exports = {
    */
   searchDocuments(req, res) {
     return Document
-      .findAll({
+      .findAndCountAll({
         where: {
             $or: {
               title: {
@@ -26,13 +26,14 @@ module.exports = {
           }
         }
       }).then(documents => {
-      if(!documents) {
+      if(documents.count === 0) {
         return res.status(404).send({
-            message: 'Not found'
+            message: 'No documents available'
           });
       } 
       return res.status(200).send({
-          documents
+          documents,
+          message: 'Search completed'
         });
     })
   },
@@ -45,7 +46,7 @@ module.exports = {
    */
   searchUsers(req, res) {
     return User
-      .findAll({
+      .findAndCountAll({
         attributes,
         where: {
           $or: [
@@ -63,13 +64,14 @@ module.exports = {
         }
       })
       .then((users) => {
-        if (!users) {
+        if (users.count === 0) {
           return res.status(404).send({
-            message: 'Not found'
+            message: 'No users available'
           });
         }
         return res.status(200).send({
-          users
+          users,
+          message: 'Search completed'
         });
       });
   }

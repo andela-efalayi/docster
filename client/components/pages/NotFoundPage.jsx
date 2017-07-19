@@ -8,7 +8,7 @@ const NotFoundPage = () => (
       <h5>Page Not Found.</h5>
       <span>
         <Link to={{
-            pathname: "/app"
+            pathname: "/my-documents"
           }}
         >Okay, I understand. Help me find my way back.
         </Link>

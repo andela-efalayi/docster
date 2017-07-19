@@ -20,7 +20,7 @@ export function deleteDocumentSuccess(document) {
  */
 export function deleteDocument(document){
   return function(dispatch) {
-    return axios.delete(`/docster/api/v1/documents/${document.id}`)
+    return axios.delete(`/api/v1/documents/${document.id}`)
       .then(() => {
         dispatch(deleteDocumentSuccess(document));
       })

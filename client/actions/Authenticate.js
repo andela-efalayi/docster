@@ -22,7 +22,7 @@ export function loginUserSuccess(currentUser) {
  */
 export function loginUser(userCredentials) {
   return function(dispatch) {
-    return axios.post('/docster/api/v1/users/login', userCredentials)
+    return axios.post('/api/v1/users/login', userCredentials)
       .then(response => {
         const token = response.data.token;
         const currentUser = response.data.user;
@@ -37,7 +37,6 @@ export function loginUser(userCredentials) {
       });
   }
 }
-
 
 /**
  * Log user out of app [ clear localStorage and removes authorisation token ]

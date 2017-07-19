@@ -7,7 +7,7 @@ describe('DocumentForm.jsx', () => {
   const onInputChange = jest.fn();
   const onEditorChange = jest.fn();
 
-  const documentFormWrapper = shallow(
+  const documentForm = shallow(
     <DocumentForm
       document={publicDocument}
       onInputChange={onInputChange}
@@ -15,11 +15,11 @@ describe('DocumentForm.jsx', () => {
     />
   );
   it('should render a form for creating and editing a document', () => {
-    expect(documentFormWrapper.find('form')).toHaveLength(1);
-    expect(documentFormWrapper.find('.twelve.columns')).toHaveLength(2);
-    expect(documentFormWrapper.find('.twelve.columns').nodes[0]
+    expect(documentForm.find('form')).toHaveLength(1);
+    expect(documentForm.find('.twelve.columns')).toHaveLength(2);
+    expect(documentForm.find('.twelve.columns').nodes[0]
     .props.children[0].type).toEqual('label');
-    expect(documentFormWrapper.find('.twelve.columns')
+    expect(documentForm.find('.twelve.columns')
     .nodes[0].props.children[1].type.propTypes).toBeDefined();
   });
 });

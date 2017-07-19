@@ -19,7 +19,7 @@ export function searchDocumentSuccess(documents) {
  */
 export function searchDocument(searchString) {
   return function(dispatch) {
-    return axios.get(`/docster/api/v1/search/documents`, {
+    return axios.get(`/api/v1/search/documents`, {
       params: {
         q: searchString
       }

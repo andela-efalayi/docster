@@ -10,7 +10,7 @@ const TextInputField = ({
   error, type, name, value, placeholder, onInputChange }) => {
   return(
     <div className={classNames("twelve columns", {'error': error})}>
-      {error && <span>{error}</span>}
+      {error && <p>{error}</p>}
       <input
         className="u-full-width"
         type={type}

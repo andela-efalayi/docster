@@ -93,7 +93,7 @@ class EditDocumentDialog extends Component {
   openDialog() {
     this.setState({open: true});    
     // window.history
-    //   .pushState(null, null, `/app/edit/${this.state.slug}`);   
+    //   .pushState(null, null, `/my-documents/edit/${this.state.slug}`);   
   }
 
   /**

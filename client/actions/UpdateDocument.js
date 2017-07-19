@@ -1,5 +1,6 @@
 import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
+import showToast from '../utils/ShowToast';
 
 /**
  * @param {object} document 
@@ -19,10 +20,11 @@ export function updateDocumentSuccess(document){
  */
 export function updateDocument(document) {
   return function(dispatch) {
-    return axios.put(`/docster/api/v1/documents/${document.id}`, document)
+    return axios.put(`/api/v1/documents/${document.id}`, document)
       .then(response => {
         const updatedDocument = response.data.documentWithUpdate
         dispatch(updateDocumentSuccess(updatedDocument));
+        showToast(response.data.message, 'success');
       })
       .catch(error => {
         throw(error);

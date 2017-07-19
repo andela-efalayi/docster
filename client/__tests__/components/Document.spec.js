@@ -8,6 +8,6 @@ describe('Header.jsx', () => {
     <Document document={publicDocument} userId={publicDocument.userId} />
   );
   it('should render app name', () => {
-    console.log("passed");
+    expect(document.find('.document')).toHaveLength(1);
   });
 });

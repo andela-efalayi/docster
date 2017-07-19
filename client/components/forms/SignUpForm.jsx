@@ -75,7 +75,7 @@ class SignUpForm extends Component {
     if(this.validateForm() === true) {
       this.props.actions.createNewUser(this.state)
       .then(() => {
-        this.context.router.history.push('/app');
+        this.context.router.history.push('/my-documents');
       })
       .catch(errorMessage => {
         showToast(errorMessage, 'error');

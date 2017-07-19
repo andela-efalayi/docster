@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import BackButton from '../common/BackButton.jsx';
 import { logoutUser } from '../../actions/Authenticate';
 
 /**
@@ -47,7 +46,6 @@ class AccessDeniedPage extends Component {
           <div className="back container">
             <div className="row">
               <div className="three columns">
-                <BackButton />
               </div>
             </div>
           </div>

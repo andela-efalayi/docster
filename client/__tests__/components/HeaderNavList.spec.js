@@ -12,7 +12,7 @@ describe('HeaderNavList.jsx', () => {
     <HeaderNavList roleId={1} logoutUser={logoutUser} />
   );
   it('should render 6 items in dropdown list', () => {
-    expect(regularUser.node.props.children.length).toEqual(6);
-    expect(admin.node.props.children.length).toEqual(6);       
+    expect(regularUser.node.props.children.length).toEqual(7);
+    expect(admin.node.props.children.length).toEqual(7);       
   });
 });

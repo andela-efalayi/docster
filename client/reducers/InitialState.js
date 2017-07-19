@@ -1,6 +1,6 @@
 export default {
   documents: {},
   searchResult: [],
-  users: [],
-  roles: []
+  users: {},
+  roles: {}
 };

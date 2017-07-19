@@ -49,8 +49,8 @@ const Routes = () => (
   <main>
     <Switch>
       <Route exact path="/" component={Index} />
-      <RequireToken exact path="/app" component={UserPage} />
-      <RequireToken path="/app/:access" component={AccessPage} /> 
+      <RequireToken exact path="/my-documents" component={UserPage} />
+      <RequireToken path="/my-documents/:access" component={AccessPage} /> 
       <RequireToken path="/profile" component={ProfilePage} />        
       <AdminRoute exact path="/allusers" component={AllUsersPage} />
       <AdminRoute exact path="/allroles" component={AllRolesPage} /> 

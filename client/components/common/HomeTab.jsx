@@ -8,36 +8,42 @@ import SearchForm from '../forms/SearchForm.jsx';
   Displays displays number of user's documents
   Displays a search field and button for creating documents
 */
-const HomeTab = ({ numberOfDocuments, onInputChange,
+const HomeTab = ({ title, numberOfDocuments, onInputChange,
   placeholder, searchString }) => (
-    <div className="home-tabs">
-      <div className="container">
-        <div className="row">
-          <div className="four columns">
-            <SearchForm 
-              onInputChange={onInputChange}
-              searchString={searchString}
-              placeholder={placeholder}
-            />
-          </div>
-          <div className="eight columns">
-            <div className="four columns document-length">
-              <p className="center">My Documents:
-                <span>{numberOfDocuments}</span></p>
-            </div>
-            <div className="four columns">
-              <CreateDocumentDialog />
-            </div>
-          </div>
+    <div className="home-tab">
+      <div className="row">
+        <div className="three columns page-title">
+          <p className="center">{title}
+            <span>{numberOfDocuments}</span>
+          </p> 
+        </div>
+        <div className="five columns">
+          <SearchForm 
+            onInputChange={onInputChange}
+            searchString={searchString}
+            placeholder={placeholder}
+          />
+        </div>
+        <div className="two columns">
+          <CreateDocumentDialog />
         </div>
       </div>
     </div>
   );
 
 HomeTab.propTypes = {
-  numberOfDocuments: PropTypes.number.isRequired,
-  onInputChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  searchString: PropTypes.string.isRequired
+  numberOfDocuments: PropTypes.number,
+  onInputChange: PropTypes.func,
+  placeholder: PropTypes.string,
+  searchString: PropTypes.string,
+  title: PropTypes.string.isRequired
 }
+
+HomeTab.defaultProps = {
+  numberOfDocuments: 0,
+  onInputChange: null,
+  placeholder: "search",
+  searchString: ""
+}
+
 export default HomeTab;

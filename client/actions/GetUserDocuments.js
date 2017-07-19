@@ -20,7 +20,7 @@ export function getUserDocumentsSuccess(documents) {
  */
 export function getUserDocuments(userId, offset) {
   return function(dispatch) {
-    return axios.get(`/docster/api/v1/users/${userId}/documents`, {
+    return axios.get(`/api/v1/users/${userId}/documents`, {
       params: {
         offset
       }

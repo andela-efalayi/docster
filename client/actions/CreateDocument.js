@@ -20,7 +20,7 @@ export function createDocumentSuccess(document) {
  */
 export function createDocument(newDocument) {
   return function(dispatch) {
-    return axios.post('/docster/api/v1/documents', newDocument)
+    return axios.post('/api/v1/documents', newDocument)
       .then(response => {
         dispatch(createDocumentSuccess(response.data.newDocument));
       })

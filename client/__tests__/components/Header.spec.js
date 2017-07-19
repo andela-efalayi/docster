@@ -4,15 +4,15 @@ import { currentUser } from '../../__mocks__/mockData';
 import Header from '../../components/common/Header.jsx';
 
 describe('Header.jsx', () => {
-  const logoutUser = jest.fn();
-  const wrapper = shallow(
-    <Header currentUser={currentUser} logoutUser={logoutUser} />
+  const logoutUserMock = jest.fn();
+  const header = shallow(
+    <Header currentUser={currentUser} logoutUser={logoutUserMock} />
   );
   it('should render app name', () => {
-    expect(wrapper.find('.main-header').node.props.title).toBeDefined();
+    expect(header.find('.main-header').node.props.title).toBeDefined();
   });
   it('should render user name', () => {
-    expect(wrapper.find('.main-header').node.props.children.props.currentUser)
+    expect(header.find('.main-header').node.props.children.props.currentUser)
     .toEqual(currentUser)
   });
 });
