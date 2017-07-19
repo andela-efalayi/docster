@@ -27,6 +27,7 @@ describe(colors.green('UserRoutes'), () => {
       done();
     });
   });
+  
   // Test that route can create a user
   describe(colors.underline('POST /api/v1/users'), () => {
     it('should create a new user in database', (done) => {
@@ -98,7 +99,7 @@ describe(colors.green('UserRoutes'), () => {
         done();
       });
     });
-    it('should return all users if token is provided and user'+
+    it('should return all users if token is provided and user '+
     'is an admin', (done) => {
       chai.request(server)
       .get('/api/v1/users')
@@ -125,23 +126,24 @@ describe(colors.green('UserRoutes'), () => {
     it('should return a user if token is provided', (done) => {
     chai.request(server)
     .get(`/api/v1/users/${createdUser.id}`)
-      .set('Authorisation', 'Bearer '+serverResponse.token)    
+    .set('Authorisation', 'Bearer '+serverResponse.token)    
     .end((err, res) => {
       expect(res.status).to.equal(200);
         done();
       });
     });
-
-    // it('should return user documents', (done) => {
-    //   chai.request(server)
-    //   .get(`/api/v1/users/${createdUser.id}/documents`)
-    //   .set('Authorisation', 'Bearer '+serverResponse.token)    
-    //   .end((err, res) => {
-    //     expect(res.body.documents).to.have.all.keys('count', 'rows');
-    //       done();
-    //   });
-    // });
   });
+  describe(colors.underline('GET /api/v1/users/:userId/documents'), () => {
+    it("should return user's documents", (done) => {
+      chai.request(server)
+      .get(`/api/v1/users/${createdUser.id}/documents`)
+      .set('Authorisation', 'Bearer '+serverResponse.token)    
+      .end((err, res) => {
+        expect(res.body.message).to.equal('No documents available');
+        done();
+      });
+    });
+  })
 
   // Test that route can edit a user
   describe(colors.underline('PUT /api/v1/users/:userId'), () => {
