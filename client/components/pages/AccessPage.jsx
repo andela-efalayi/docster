@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../common/Header.jsx';
-import BackButton from '../common/BackButton.jsx';
+import HomeTab from '../common/HomeTab.jsx';
 import Documents from '../common/Documents.jsx';
-import SearchInputField from '../forms/SearchForm.jsx';
 import { logoutUser } from '../../actions/Authenticate';
 import { getPublicDocuments } from '../../actions/GetPublicDocuments';
 import { getRoleDocuments } from '../../actions/GetRoleDocuments';
@@ -128,37 +127,19 @@ class AccessPage extends Component {
           currentUser={this.state.user}
           logoutUser={this.logoutUser} 
         />
-        <div className="profile-body">
-          <div className="back container">
-            <div className="row">
-              <div className="three columns">
-                <BackButton />
-              </div>
-              <div className="eight columns">
-                <SearchInputField
-                  type="text" 
-                  searchString={this.state.searchString}
-                  onInputChange={this.onInputChange}
-                  placeholder="Search documents"
-                />
-              </div>
-            </div>
-          </div>
+        <HomeTab
+          numberOfDocuments={this.state.documentsCount}
+          onInputChange={this.onInputChange}
+          searchString={this.state.searchString}
+          placeholder="Filter Documents"
+          title={this.state.accessTitle}
+        />
+        <div className="access-page">
           <div className="container">
-            <div className="row">
-              <div className="four columns">
-                <h4>
-                  {this.state.accessTitle}: 
-                  <span>{this.state.documentsCount}</span>
-                </h4>
-              </div>
-              <div className="eight columns">
-                <PageNavigation
-                  pageCount={this.state.pageCount}
-                  changePage={this.changePage}
-                />
-              </div>
-            </div>
+            <PageNavigation
+              pageCount={this.state.pageCount}
+              changePage={this.changePage}
+            />
             {
               numberOfDocuments === 0 &&
               <h4>No documents available</h4>

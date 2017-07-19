@@ -1,5 +1,6 @@
 import Models from '../models';
 import QueryConstants from '../../constants/QueryConstants';
+import * as checkParam from '../validations/checkParam';
 
 const Document = Models.Document;
 module.exports = {
@@ -21,11 +22,7 @@ module.exports = {
       })
       .then(newDocument => res.status(200).send({
         newDocument,
-        message: 'Document was created successfuly'
-      }))
-      .catch(error => res.status(400).send({
-        error,
-        message: 'An error occurred while creating document'
+        message: 'Document created'
       }));
   },
 
@@ -39,22 +36,18 @@ module.exports = {
     const limit = req.query.limit || QueryConstants.DEFAULT_LIMIT,
       offset = req.query.offset || QueryConstants.DEFAULT_OFFSET;
     return Document
-      .findAll({ offset, limit })
+      .findAndCountAll({ offset, limit })
       .then((documents) => {
-        if (documents.length === 0) {
-          return res.status(404).send({
+        if (documents.count === 0) {
+          return res.status(200).send({
             message: 'No documents available'
           });
         }
         return res.status(200).send({
           documents,
-          message: 'Retrieved all documents successfully'
+          message: 'All documents retrieved'
         });
-      })
-      .catch(error => res.status(400).send({
-        error,
-        message: 'An error occurred while retrieving documents.'
-      }));
+      });
   },
 
   /**
@@ -71,20 +64,16 @@ module.exports = {
         }
       })
       .then((documents) => {
-        if (documents.length === 0) {
-          return res.status(404).send({
-            message: 'No documents available'
+        if (documents.count === 0) {
+          return res.status(200).send({
+            message: 'No public documents available'
           });
         }
         return res.status(200).send({
           documents,
-          message: 'Retrieved all documents successfully'
+          message: 'Public documents retrieved'
         });
-      })
-      .catch(error => res.status(400).send({
-        error,
-        message: 'An error occurred while retrieving documents.'
-      }));
+      });
   },
 
   /**
@@ -101,20 +90,16 @@ module.exports = {
         }
       })
       .then((documents) => {
-        if (documents.length === 0) {
-          return res.status(404).send({
+        if (documents.count === 0) {
+          return res.status(200).send({
             message: 'No role documents available'
           });
         }
         return res.status(200).send({
           documents,
-          message: 'Retrieved all documents successfully'
+          message: 'Role documents retrieved'
         });
-      })
-      .catch(error => res.status(400).send({
-        error,
-        message: 'An error occurred while retrieving documents.'
-      }));
+      });
   },
 
   /**
@@ -124,8 +109,12 @@ module.exports = {
    * @returns {object} res
    */
   getDocumentById(req, res) {
-    if (isNaN(req.params.documentId) === false) {
-      return Document
+    if (isNaN(req.params.documentId) === true) {
+      return res.status(400).send({
+        message: 'DocumentId must be numeric'
+      });
+    }
+    return Document
       .findById(req.params.documentId)
       .then((document) => {
         if (!document) {
@@ -135,18 +124,9 @@ module.exports = {
         }
         return res.status(200).send({
           document,
-          message: 'Document was retrieved successfully'
+          message: 'Document retrieved'
         });
-      })
-      .catch(error => res.status(400).send({
-        error,
-        message:
-        `An error occurred while retrieving this document: ${req.params.option}`
-      }));
-    }
-    return res.status(400).send({
-      message: 'Invalid parameter detected'
-    });
+      });
   },
 
   /**
@@ -168,14 +148,9 @@ module.exports = {
           .update(req.body)
           .then(documentWithUpdate => res.status(201).send({
             documentWithUpdate,
-            message:
-            `Document: ${documentWithUpdate.title} was updated successfully`
+            message: 'Document updated'
           }));
-      })
-      .catch(error => res.status(400).send({
-        error,
-        message: 'An error occurred while fetching document'
-      }));
+      });
   },
 
   /**
@@ -185,6 +160,11 @@ module.exports = {
    * @returns {object} res
    */
   deleteDocument(req, res) {
+    if(isNaN(req.params.documentId) === true) {
+      return res.status(400).send({
+        message: 'DocumentId must be numeric'
+      });
+    }
     return Document
       .findById(req.params.documentId)
       .then((document) => {
@@ -196,13 +176,8 @@ module.exports = {
         return document
           .destroy()
           .then(() => res.status(200).send({
-            message: 'Document was deleted successfully'
+            message: 'Document deleted'
           }));
-      })
-      .catch(error => res.status(400).send({
-        error,
-        message:
-        `An error occurred while fetching document: ${req.params.documentId}`
-      }));
+      });
   }
 };

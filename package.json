@@ -12,16 +12,30 @@
     "reset:db": "sequelize db:migrate:undo:all",
     "seed:all": "sequelize db:migrate && sequelize db:seed:all",
     "fill:db": "npm run reset:db && npm run seed:all",
+    "client:test": "jest ./client/__tests__ --coverage ",
     "mocha": "NODE_ENV=test nyc --reporter=html --reporter=lcov --reporter=text mocha --timeout 15000 --compilers js:babel-register ./server/tests/**/*.spec.js",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "server-test": "NODE_ENV=test npm run fill:db && npm run mocha",
+    "server:test": "NODE_ENV=test npm run fill:db && npm run mocha",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "start:dev": "nodemon --watch server server/server.js --exec babel-node",
     "start": "npm run fill:db && babel-node server/server.js",
     "test": "npm run server-test"
   },
+  "jest": {
+    "transform": {
+      ".*": "<rootDir>/node_modules/babel-jest"
+    },
+    "collectCoverage": true,
+    "globals": {
+      "window": true
+    },
+    "setupFiles": [
+      "<rootDir>/client/__mocks__/localStorageMock.js"
+    ]
+  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.3",
     "babel-loader": "^7.0.0",
     "babel-plugin-istanbul": "^4.1.4",
     "babel-preset-es2015": "^6.24.1",
@@ -31,6 +45,7 @@
     "chai-http": "^3.0.0",
     "colors": "^1.1.2",
     "cross-env": "^5.0.1",
+    "enzyme": "^2.9.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-config-airbnb-base": "^11.2.0",
@@ -40,10 +55,15 @@
     "eslint-watch": "^3.1.0",
     "faker": "^4.1.0",
     "file-loader": "^0.11.2",
+    "jest": "^20.0.4",
     "mocha": "^3.4.2",
+    "moxios": "^0.4.0",
+    "nock": "^9.0.13",
     "nodemon": "^1.11.0",
     "nyc": "^11.0.2",
     "react-hot-loader": "^1.3.1",
+    "react-test-renderer": "^15.6.1",
+    "redux-mock-store": "^1.2.3",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.8",
     "webpack": "^2.6.1",

@@ -18,9 +18,15 @@ const SearchForm = ( { onInputChange, searchString, placeholder } ) => {
 };
 
 SearchForm.propTypes = {
-  onInputChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  searchString: PropTypes.string.isRequired
+  onInputChange: PropTypes.func,
+  placeholder: PropTypes.string,
+  searchString: PropTypes.string
+};
+
+SearchForm.defaultProps = {
+  onInputChange: null,
+  placeholder: "search",
+  searchString: ""
 }
 
 export default SearchForm;

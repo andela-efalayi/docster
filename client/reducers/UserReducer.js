@@ -8,8 +8,6 @@ import InitialState from '../reducers/InitialState';
  */
 export default function UserReducer(state=InitialState.users, action) {
   switch(action.type) {
-    case ActionTypes.CREATE_NEW_USER_SUCCESS:
-      return action.newUser
     case ActionTypes.GET_ALL_USERS:
       return action.users
     default:

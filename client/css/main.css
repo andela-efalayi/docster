@@ -2,18 +2,15 @@
 .center {
   text-align: center;
 }
-.error span {
+.error p {
   color: #F44336;
+  margin-bottom: 0;
+}
+.error p:first-letter{
+  text-transform: uppercase;  
 }
 .error input{
   border: 1px solid #E53935;
-}
-.search {
-  color: #ff9800;
-}
-span.search {
-  margin-left: 0.5em;
-  font-size: 1.2em;
 }
 
 /* Index page */
@@ -45,7 +42,7 @@ span.search {
 }
 
 /* Header */
-.header-item > div {
+.header-items > div {
   line-height: 0px !important;
 }
 a[role="menuitem"], span[role="menuitem"]{
@@ -68,29 +65,39 @@ a[role="menuitem"], span[role="menuitem"]{
 }
 
 /* Home tabs*/
-.home-tabs {
+.home-tab {
   background-color: #E1E2E1;
-  padding: 15px 20px;
+  padding-top: 15px;
 }
-.home-tabs .columns {
+.home-tab .columns {
   margin-bottom: 6px;
+  margin-right: 10px;
 }
-.home-tabs form, .home-tabs form input {
+.home-tab form, .home-tab form input {
   margin-bottom: 0px;
 }
 
 /* Document */
-.document-length p{
+.page-title p{
   margin-bottom: 0px;
   margin-top: -10px;
+  line-height: 1.5em;
+  padding-top: 0.5em; 
+  text-transform: capitalize;
+  font-weight: 800;
+  font-size: 1.2em;
+  font-family: 'Carrois Gothic', sans-serif;  
 }
-.document-length span {
-  font-size: 2em;
+.page-title span {
+  font-size: 1.5em;
   margin-left: 8px;
+  /* color: #ff9800; */
 }
 .documents{
-  font-size: 0.85em;
+  font-size: 0.9em;
   clear: both;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 .documents h5{
   font-size: 1.3em;
@@ -99,6 +106,7 @@ a[role="menuitem"], span[role="menuitem"]{
 .documents .three.columns{
   margin-bottom: 1em;
 }
+
 .document {
   height: 200px;
   padding: 5px;
@@ -148,7 +156,7 @@ a[role="menuitem"], span[role="menuitem"]{
 }
 .document-content .actions .two{
   width: 13.3333333333%;
-  margin-right: 15%;
+  margin-right: 1em;
 }
 .document-content .actions button{
   padding: 0px !important;
@@ -156,6 +164,24 @@ a[role="menuitem"], span[role="menuitem"]{
 }
 .document-access{
   padding-top: 15px;
+}
+button.access-icon{
+  padding: 0 !important;
+  height: 25px !important;
+  width: 24px !important;
+}
+button.access-icon > div > div:first-child{
+  max-width: 48px !important;  
+  margin-top: -16px !important;
+  padding: 0px 6px !important; 
+  border-radius: 0px !important;      
+}
+button.access-icon > div > div:first-child > div{
+  background-color: #1e1b38 !important; 
+}
+button.access-icon span{
+  color: #ff9800; 
+  text-transform: capitalize; 
 }
 .document-access h6{
   margin-bottom: 0px;
@@ -181,8 +207,19 @@ a[role="menuitem"], span[role="menuitem"]{
 .mce-widget button i{
   font-size: 11px
 }
-/* Profile */
-.profile-body {
+
+/* Profile and Access Pages */
+ #profile .page-title span, #profile .five, #profile .two{
+  display: none;
+} 
+#profile .home-tab{
+  padding-bottom: 20px;
+}
+#profile .profile-body{
+  max-width: 960px;
+  margin: auto;
+}
+.profile-body{
   padding-top: 20px;
 }
 .profile-body .back{
@@ -247,6 +284,27 @@ ul.pagination .active{
   color: #ff9800;
 }
 
+/* Not Found  */
+.not-found{
+  padding-top: 15em;
+}
+
+/* Footer */
+footer.container{
+  margin-top: 1.5em;
+}
+footer span{
+  font-size: 11px;
+  letter-spacing: 0.15em;
+}
+footer a {
+  color: #000013;
+  padding-left: 0.5em;
+}
+footer a:hover {
+  color: #ff9800;
+}
+
 /* Media Queries */
 @media (max-width: 480px) {
   .document-access-options > div {
@@ -265,6 +323,9 @@ ul.pagination .active{
   }
 }
 @media (min-width: 550px) {
+  .page-title p{
+    line-height: 1.1em;
+  }
   .documents .three{
     width: 46%;
   }
@@ -274,17 +335,15 @@ ul.pagination .active{
   .documents{
     font-size: 0.75em;
   }
-}
-@media (min-width: 600px) {
-  .home-tabs {
-    padding-left: 6.8%;
-    padding-right: 0px;
-  }
-  .home-tabs .columns {
+  .home-tab .columns {
     margin-bottom: 0px;
   }
 }
-@media (min-width: 750px) {
+@media (min-width: 724px) {
+  .page-title p{
+    line-height: 1em;
+    padding-top: 1em;
+  }
   .documents .three{
     width: 28.6666666667%;
   }
@@ -293,5 +352,13 @@ ul.pagination .active{
   }
   .document-content{
     height: 135px;    
+  }
+  .home-tab{
+    text-align: center;
+  }
+}
+@media (min-width: 1280px) {
+  .home-tab .columns:first-child{
+    margin-left: 2em;
   }
 }

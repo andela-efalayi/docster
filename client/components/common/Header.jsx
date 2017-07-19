@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import AppIcon from 'material-ui/svg-icons/image/center-focus-strong';
-
 import HeaderItems from '../common/HeaderItems.jsx';
 import {muiTheme1} from '../../muiTheme';
 
@@ -20,7 +20,10 @@ const Header = ({ currentUser, logoutUser }) => (
         className="main-header"
         title="Docster"
         iconElementLeft={
-          <IconButton><AppIcon viewBox='0 2 21 21' /></IconButton>}
+          <IconButton>
+            <Link to="/my-documents"><AppIcon viewBox='0 2 21 21' /></Link>
+          </IconButton>
+        }
       >
         <HeaderItems currentUser={currentUser} logoutUser={logoutUser} />
       </AppBar>

@@ -7,7 +7,8 @@ import UsersTable from '../tables/UsersTable.jsx';
 import { logoutUser } from '../../actions/Authenticate';
 import { muiTheme1 } from '../../muiTheme';
 import { getAllUsers } from '../../actions/GetAllUsers';
-import BackButton from '../common/BackButton.jsx';
+import PageNavigation from '../common/PageNavigation.jsx';
+
 /**
  * @class AllUsersPage
  * @extends {Component}
@@ -22,11 +23,14 @@ class AllUsersPage extends Component {
    */
   constructor(props, context){
     super(props, context);
-    this.state = this.props.auth.currentUser;
+    this.state = {
+      currentUser: this.props.auth.currentUser,
+      users: []
+    };
     this.logoutUser = this.logoutUser.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+    this.editRole = this.editRole.bind(this);
   }
-
 
   /**
    * @memberof AllUsersPage
@@ -34,6 +38,17 @@ class AllUsersPage extends Component {
    */
   componentWillMount() {
     this.props.getAllUsers();
+  }
+
+  /**
+   * @memberof AllUsersPage
+   * @param {object} nextProps
+   * @returns {void}
+   */
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      users: nextProps.users.rows
+    });
   }
   /**
    * @param {object} event 
@@ -46,6 +61,29 @@ class AllUsersPage extends Component {
     });
   }
 
+  /**
+   * @param {any} data 
+   * @memberof AllUsersPage
+   * @returns {void}
+   */
+  changePage(data) {
+    event.preventDefault();  
+    // console.log(data);  
+    // const offset = data.selected * QueryConstants.DEFAULT_LIMIT;
+    // this.props.getUserDocuments(this.state.user.id, offset);
+  }
+
+  /**
+   * @param {object} event 
+   * @memberof AllUsersPage
+   * @returns {void}
+   */
+  editRole(event){
+    event.preventDefault();
+    this.setState({
+      edit: true
+    });
+  }
   /**
    * Log user out of app and redirect to index page
    * @memberof AllUsersPage
@@ -62,22 +100,26 @@ class AllUsersPage extends Component {
    * @memberof AllUsersPage
    * @returns {object} react-component
    */
-  render() {
-  const users = this.props.allUsers;    
+  render() {  
     return(
       <div>
         <Header 
-          currentUser={this.state}
+          currentUser={this.state.currentUser}
           logoutUser={this.logoutUser} 
         />
         <div className="profile-body">
-          <div className="back container">
-            <BackButton />
+          <div className="container">
+            <PageNavigation
+              pageCount={1}
+              changePage={this.changePage}
+            />
           </div>
           <div className="container">
             <h3 className="center">Docster Users</h3>
             <MuiThemeProvider muiTheme={muiTheme1}>
-              <UsersTable users={users} />
+              <UsersTable
+                users={this.state.users}
+              />
             </MuiThemeProvider>
           </div>
         </div>
@@ -88,10 +130,11 @@ class AllUsersPage extends Component {
 
 // Set AllUsersPage proptypes
 AllUsersPage.propTypes = {
-  allUsers: PropTypes.array.isRequired,
+  users: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  getAllUsers: PropTypes.func.isRequired
+  getAllUsers: PropTypes.func.isRequired,
+  roles: PropTypes.object.isRequired
 }
 
 // Set AllUsersPage contexttypes
@@ -103,7 +146,8 @@ AllUsersPage.contextTypes = {
 const matchStateToProps = (state) => {
   return{
     auth: state.auth,
-    allUsers: state.users
+    users: state.users,
+    roles: state.roles
   }
 }
 

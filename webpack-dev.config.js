@@ -5,7 +5,7 @@ export default {
   devtool: 'eval-source-map',
   entry: [
     'webpack-hot-middleware/client',
-    path.join(__dirname, '/client/app.jsx')
+    path.join(__dirname, '/client/App.jsx')
   ],
   output: {
     path: path.resolve(__dirname, 'client/build'), // Path of output file
@@ -72,11 +72,7 @@ export default {
         options: {
           limit: 25000,
         },
-      },
-      {
-        test: /materialize-css\/bin\//,
-        loader: 'imports?jQuery=jquery,$=jquery,hammerjs'
-      }
+      }, 
     ]
   }
 };

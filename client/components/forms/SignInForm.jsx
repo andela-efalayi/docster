@@ -72,7 +72,7 @@ class SignInForm extends Component {
       const errors = {};      
       this.props.actions.loginUser(this.state)
       .then(() => {
-        this.context.router.history.push('/app');
+        this.context.router.history.push('/my-documents');
       })
       .catch(errorMessage => {
         errors.user = errorMessage;

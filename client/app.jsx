@@ -9,7 +9,7 @@ import './css/normalize.css';
 import './css/skeleton.css';
 import './css/main.css';
 
-import Routes from './routes';
+import Routes from './Routes.jsx';
 import setAuthorisationToken from './utils/SetAuthorisationToken';
 import { loginUserSuccess } from './actions/Authenticate';
 
@@ -23,10 +23,24 @@ if (localStorage.docsterToken) {
     .parse(localStorage.getItem('currentUser'))));
 }
 
-ReactDOM.render(
-  <Provider store={store} >
-    <BrowserRouter>
-      <Routes />
-    </BrowserRouter>
-  </Provider>,
+const App = () => {
+  return(
+    <main>
+      <Provider store={store} >
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
+      </Provider>
+      <footer className="container center">
+        <span>&copy; 2017 | 
+          <a href="https://github.com/andela-efalayi/">
+            Esther Falayi | Andela, Nigeria
+          </a>
+        </span>
+      </footer>
+    </main>
+  )
+};
+
+ReactDOM.render(<App />,
   document.getElementById('app'));

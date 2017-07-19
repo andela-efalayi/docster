@@ -22,7 +22,7 @@ describe(colors.green('RoleRoutes'), () => {
   // Create a user before tests are executed
   before((done) => {
     chai.request(server)
-    .post('/users')
+    .post('/api/v1/users')
     .send(administrator)
     .end((err, res) => {
       serverResponse = res.body;
@@ -31,10 +31,10 @@ describe(colors.green('RoleRoutes'), () => {
   });
 
   // Test if token exists
-  describe(colors.underline('POST /roles without token'), () => {
+  describe(colors.underline('POST /api/v1/roles without token'), () => {
     it('should give an error', (done) => {
       chai.request(server)
-      .post('/roles')
+      .post('/api/v1/roles')
       .send(newRole)
       .end((err, res) => {
         expect(res.status).to.equal(403);
@@ -44,12 +44,12 @@ describe(colors.green('RoleRoutes'), () => {
   });
 
   // Test that route create a role in the database
-  describe(colors.underline('POST /roles'), () => {
+  describe(colors.underline('POST /api/v1/roles'), () => {
     it('should create a role in the database', (done) => {
       chai.request(server)
-      .post('/roles')
+      .post('/api/v1/roles')
       .send(newRole)
-      .set('authorisation', 'Bearer '+serverResponse.token)
+      .set('Authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         createdRole = res.body.role;
         expect(res.status).to.equal(201);
@@ -60,11 +60,11 @@ describe(colors.green('RoleRoutes'), () => {
   });
 
   // Test that route can retrieve all roles from the database
-  describe(colors.underline('GET /roles'), () => {
+  describe(colors.underline('GET /api/v1/roles'), () => {
     it('should get all roles from the database', (done) => {
       chai.request(server)
-      .get('/roles')
-      .set('authorisation', 'Bearer '+serverResponse.token)
+      .get('/api/v1/roles')
+      .set('Authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(200);
         done();
@@ -73,11 +73,11 @@ describe(colors.green('RoleRoutes'), () => {
   });
 
   // Test that route can retrieve a role by id
-  describe(colors.underline('GET /roles/:roleId'), () => {
-    it('should create a role in the database', (done) => {
+  describe(colors.underline('GET /api/v1/roles/:roleId'), () => {
+    it('should get a role in the database', (done) => {
       chai.request(server)
-      .get(`/roles/${createdRole.id}`)
-      .set('authorisation', 'Bearer '+serverResponse.token)
+      .get(`/api/v1/roles/${createdRole.id}`)
+      .set('Authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.role.id).to.equal(createdRole.id);
@@ -86,8 +86,8 @@ describe(colors.green('RoleRoutes'), () => {
     });
     it('should return error if role does not exist', (done) => {
       chai.request(server)
-      .get('/roles/-1')
-      .set('authorisation', 'Bearer '+serverResponse.token)
+      .get('/api/v1/roles/-1')
+      .set('Authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(404);
         done();

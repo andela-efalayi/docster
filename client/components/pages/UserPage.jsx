@@ -40,7 +40,11 @@ class UserPage extends Component {
    * @return {void}
    */
   componentDidMount() {
-    this.props.getUserDocuments(this.state.user.id);
+    if (this.props.auth.isAuthenticated) {
+      this.props.getUserDocuments(this.state.user.id); 
+    } else {
+      this.context.router.history.push('/');
+    }
   }
 
   /**
@@ -105,18 +109,21 @@ class UserPage extends Component {
       }
     );
     return(
-      <div>
+      <div id="user-page">
         <Header currentUser={this.state.user} logoutUser={this.logoutUser} />
         <HomeTab
           numberOfDocuments={this.state.documentsCount}
           onInputChange={this.onInputChange}
           searchString={this.state.searchString}
-          placeholder="Search My Documents"
+          placeholder="Filter My Documents"
+          title="my documents"
         />
-        <PageNavigation
-          pageCount={this.state.pageCount}
-          changePage={this.changePage}
-        />
+        <div className="container">
+          <PageNavigation
+            pageCount={this.state.pageCount}
+            changePage={this.changePage}
+          />
+        </div>
         <div className="documents">
           <div className="container">
             <Documents documents={filtered} userId={this.state.user.id} />

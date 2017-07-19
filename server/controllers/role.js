@@ -1,4 +1,6 @@
 import Models from '../models';
+import QueryConstants from '../../constants/QueryConstants';
+import * as checkParam from '../validations/checkParam';
 
 const Role = Models.Role;
 
@@ -11,17 +13,21 @@ module.exports = {
    */
   createRole(req, res) {
     return Role
-      .create({
-        roleType: req.body.roleType
-      })
-      .then(role => res.status(201).send({
-        role,
-        message: 'User role created'
-      }))
-      .catch(error => res.status(400).send({
-        error,
-        message: 'An error occurred while creating this role.'
-      }));
+      .findOrCreate({
+        where: {
+          roleType: req.body.roleType
+        }
+      }).spread((role, created) => {
+        if(role && created === false){
+          return res.status(404).send({
+            message: 'Role exists'
+          });
+        }
+        return res.status(201).send({
+          role,
+          message: 'Role created'
+        });
+      });
   },
 
   /**
@@ -31,12 +37,24 @@ module.exports = {
    * @returns {object} res
    */
   getAllRoles(req, res) {
+    const limit = req.query.limit || QueryConstants.DEFAULT_LIMIT,
+      offset = req.query.offset || QueryConstants.DEFAULT_OFFSET;
     return Role
-      .findAll()
-      .then(roles => res.status(200).send({
-        roles
-      }))
-      .catch(error => res.status(400).send(error));
+      .findAndCountAll({
+        limit,
+        offset
+      })
+      .then((roles) => {
+        if(roles.count === 0) {
+          return res.status(200).send({
+            message: 'No roles in database'
+          })
+        }
+        return res.status(200).send({
+          roles,
+          message: 'Roles retrieved'
+        })
+      });
   },
 
   /**
@@ -46,22 +64,23 @@ module.exports = {
    * @returns {object} res
    */
   getRoleById(req, res) {
+    if(checkParam.isString(req.params.roleId)) {
+      return res.status(400).send({
+        message: 'RoleId must be numeric'
+      });
+    }
     return Role
       .findById(req.params.roleId)
       .then((role) => {
         if (!role) {
           return res.status(404).send({
-            message: 'Role not found.'
+            message: 'Role not found'
           });
         }
         return res.status(200).send({
           role,
-          message: 'Users retrieved successfully.'
+          message: 'Role retrieved'
         });
-      })
-      .catch(error => res.status(400).send({
-        error,
-        message: 'An error occured while fetching this role.'
-      }));
+      });
   }
 };

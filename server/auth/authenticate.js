@@ -27,9 +27,8 @@ export function authenticate(req, res, next) {
   }
 }
 
-
 /**
- * Check if a user is an admin
+ * Check if request from admin
  * @param {object} req 
  * @param {object} res 
  * @param {func} next 
@@ -40,8 +39,7 @@ export function isAdmin (req, res, next) {
     next();
   } else {
     res.status(403).send({
-      message: 'User is not a docster app admin'
+      message: 'User is not an admin'
     });
   }
-  
 }

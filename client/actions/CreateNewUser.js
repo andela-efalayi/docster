@@ -23,7 +23,7 @@ export function createNewUserSuccess(newUser) {
  */
 export function createNewUser(newUser) {
   return function(dispatch) {
-    return axios.post('/users', newUser)
+    return axios.post('/api/v1/users', newUser)
       .then(response => {
         const user = response.data.user;
         if (user.roleId !== 1) {
