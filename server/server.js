@@ -17,27 +17,34 @@ dotenv.config(); // dotenv
 const app = express();
 const webpackCompiler = webpack(webpackConfig);
 const secret = process.env.API_SECRET;
+const PORT = process.env.PORT || 2700;
 
-app.use(webpackMiddleware(webpackCompiler, {
-  hot: true,
-  colors: true,
-  publicPath: webpackConfig.output.publicPath,
-  noInfo: true
-}));
-app.use(webpackHotMiddleware(webpackCompiler, {
-  log: false
-}));
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-routes(app);
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './index.html'));
-});
 app.set('superSecret', secret);
 
-const PORT = process.env.PORT || 2700;
+routes(app);
+
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static('build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/index.html'));
+  });
+} else {
+  app.use(webpackMiddleware(webpackCompiler, {
+    hot: true,
+    colors: true,
+    publicPath: webpackConfig.output.publicPath,
+    noInfo: true
+  }));
+  app.use(webpackHotMiddleware(webpackCompiler, {
+    log: false
+  }));
+  app.use(logger('dev'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build/public/index.html'));
+  });
+}
 
 app.listen(PORT, () => {
   console.log(colors.rainbow(`Docster is running on localhost:${PORT}`));

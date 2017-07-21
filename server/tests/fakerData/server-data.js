@@ -1,4 +1,5 @@
 import faker from 'faker';
+import { generateToken } from '../../auth/token';
 
 const serverData = {
   appUser: {
@@ -43,6 +44,11 @@ const serverData = {
     password: "dummypassword",
     roleId: 1
   },
+  adminToken: generateToken({
+    id: 8,
+    userName: "admin",
+    roleId: 1
+  }),
   newDocumentContent: faker.lorem.paragraph(),
   newFullName: faker.name.findName(),
   userRole: {

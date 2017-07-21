@@ -93,6 +93,9 @@ a[role="menuitem"], span[role="menuitem"]{
   margin-left: 8px;
   /* color: #ff9800; */
 }
+.no-documents{
+  padding: 5em 0em;
+}
 .documents{
   font-size: 0.9em;
   clear: both;
@@ -235,6 +238,14 @@ button.access-icon span{
   font-size: 1em !important;
   font-weight: 800 !important;
 }
+#edit{
+  cursor: pointer;
+  padding-bottom: 0px;
+}
+#edit svg{
+  height: 12px;
+  width: 12px;
+}
 
 /* AppToolbar */
 .app-toolbar {
@@ -286,7 +297,8 @@ ul.pagination .active{
 
 /* Not Found  */
 .not-found{
-  padding-top: 15em;
+  padding: 12em 0em 8em 0em;
+
 }
 
 /* Footer */

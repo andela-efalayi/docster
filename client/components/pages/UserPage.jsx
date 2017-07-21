@@ -7,6 +7,8 @@ import Documents from '../common/Documents.jsx';
 import PageNavigation from '../common/PageNavigation.jsx';
 import { logoutUser } from '../../actions/Authenticate';
 import { getUserDocuments } from '../../actions/GetUserDocuments';
+import { getPublicDocuments } from '../../actions/GetPublicDocuments';
+import { getRoleDocuments } from '../../actions/GetRoleDocuments';
 import QueryConstants from '../../../constants/QueryConstants';
 
 /**
@@ -27,6 +29,7 @@ class UserPage extends Component {
       user: this.props.auth.currentUser,
       searchString: '',
       documents: [],
+      pageTitle: '',
       documentsCount: 0,
       pageCount: 0
     };
@@ -40,10 +43,15 @@ class UserPage extends Component {
    * @return {void}
    */
   componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.getUserDocuments(this.state.user.id); 
-    } else {
-      this.context.router.history.push('/');
+    const access = this.props.match.url;
+    if( access === '/public-documents') {
+      this.props.getPublicDocuments();
+    }
+    if( access === '/role-documents') {
+      this.props.getRoleDocuments();
+    }
+    if( access === '/my-documents') {
+      this.props.getUserDocuments(this.state.user.id);   
     }
   }
 
@@ -53,9 +61,22 @@ class UserPage extends Component {
    * @returns {void}
    */
   componentWillReceiveProps(nextProps) {
+    const access = nextProps.match.url;    
+    if(nextProps.match.url !== this.props.match.url){
+      if( access === '/public-documents') {
+        this.props.getPublicDocuments();
+      }
+      if( access === '/role-documents') {
+        this.props.getRoleDocuments();
+      }
+      if( access === '/my-documents') {
+        this.props.getUserDocuments(this.state.user.id);   
+      }
+    }
     this.setState({
       documents: nextProps.documents.rows,
       documentsCount: nextProps.documents.count,
+      pageTitle: access.split("/")[1].replace('-', ' '),
       pageCount: Math.ceil(
         nextProps.documents.count / QueryConstants.DEFAULT_LIMIT)
     });
@@ -102,12 +123,17 @@ class UserPage extends Component {
    * @returns {object} react-component
    */
   render() {
-    let filtered = this.state.documents.filter(
+    let filteredDocuments = this.state.documents.filter(
       (document) => {
         return document.title.toLowerCase()
           .indexOf(this.state.searchString) !== -1
       }
     );
+    const displayDocuments = (filteredDocuments.length > 0) ? (<Documents
+      documents={filteredDocuments}
+      userId={this.state.user.id}
+    />) : 
+    (<div className="center no-documents"><h4>no documents</h4></div>)
     return(
       <div id="user-page">
         <Header currentUser={this.state.user} logoutUser={this.logoutUser} />
@@ -116,7 +142,7 @@ class UserPage extends Component {
           onInputChange={this.onInputChange}
           searchString={this.state.searchString}
           placeholder="Filter My Documents"
-          title="my documents"
+          title={this.state.pageTitle}
         />
         <div className="container">
           <PageNavigation
@@ -126,7 +152,7 @@ class UserPage extends Component {
         </div>
         <div className="documents">
           <div className="container">
-            <Documents documents={filtered} userId={this.state.user.id} />
+            {displayDocuments}
           </div>
         </div>
       </div>
@@ -138,8 +164,11 @@ class UserPage extends Component {
 UserPage.propTypes = {
   auth: PropTypes.object.isRequired,
   logoutUser: PropTypes.func.isRequired,
+  getPublicDocuments: PropTypes.func.isRequired,
+  getRoleDocuments: PropTypes.func.isRequired,
   getUserDocuments: PropTypes.func.isRequired,
-  documents: PropTypes.object.isRequired
+  documents: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
 }
 
 // Set UserPage contexttypes
@@ -157,4 +186,6 @@ const matchStateToProps = (state) => {
 
 // Connect UserPage to store
 export default 
-  connect(matchStateToProps, { logoutUser, getUserDocuments })(UserPage);
+  connect(matchStateToProps,
+    { logoutUser, getPublicDocuments,
+      getRoleDocuments, getUserDocuments })(UserPage);

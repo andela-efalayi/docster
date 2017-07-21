@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Index from './components/Index.jsx';
 import UserPage from './components/pages/UserPage.jsx';
 import ProfilePage from './components/pages/ProfilePage.jsx';
-import AccessPage from './components//pages/AccessPage.jsx';
 import AllUsersPage from './components//pages/AllUsersPage.jsx';
 import AllRolesPage from './components/pages/AllRolesPage.jsx';
 import AccessDeniedPage from './components/pages/AccessDeniedPage.jsx';
@@ -50,7 +49,8 @@ const Routes = () => (
     <Switch>
       <Route exact path="/" component={Index} />
       <RequireToken exact path="/my-documents" component={UserPage} />
-      <RequireToken path="/my-documents/:access" component={AccessPage} /> 
+      <RequireToken exact path="/public-documents" component={UserPage} />
+      <RequireToken exact path="/role-documents" component={UserPage} />      
       <RequireToken path="/profile" component={ProfilePage} />        
       <AdminRoute exact path="/allusers" component={AllUsersPage} />
       <AdminRoute exact path="/allroles" component={AllRolesPage} /> 

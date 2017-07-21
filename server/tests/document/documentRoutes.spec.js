@@ -8,6 +8,7 @@ const expect = chai.expect;
 const assert = chai.assert;
 const documentOwner = serverData.documentOwner;
 const newDocument = serverData.newPublicDocument;
+const adminToken = serverData.adminToken;
 
 let createdDocument;
 let createdUser;
@@ -75,6 +76,16 @@ describe(colors.green('DocumentRoutes'), () => {
         done();
       });
     });
+     it('should get all documents if user is an admin', (done) => {
+      chai.request(server)
+      .get('/api/v1/documents')
+      .set('Authorisation', 'Bearer '+adminToken)
+      .end((err, res) => {
+        assert.isDefined(res.body.pageMetaData);
+        assert.isDefined(res.body.documents.rows);        
+        done();
+      });
+    });
   });
 
   // Test that route gets public documents
@@ -84,7 +95,8 @@ describe(colors.green('DocumentRoutes'), () => {
       .get('/api/v1/public-documents')
       .set('Authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
-        
+        expect(res.status).to.equal(200);
+        expect(res.body.documents).to.have.all.keys('count', 'rows');
         done();
       });
     });
@@ -107,7 +119,7 @@ describe(colors.green('DocumentRoutes'), () => {
   //  Test that route can get documents by id
   describe(colors.underline('GET /api/v1/documents/:documentId'),
   () => {
-    it('should get all documents from the database', (done) => {
+    it('should get document with specified id from the database', (done) => {
       chai.request(server)
       .get(`/api/v1/documents/${createdDocument.id}`)
       .set('Authorisation', 'Bearer '+serverResponse.token)

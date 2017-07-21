@@ -1,10 +1,9 @@
 import Models from '../models';
 import QueryConstants from '../../constants/QueryConstants';
-import * as checkParam from '../validations/checkParam';
+import setPageMetaData from '../utils/setPageMetaData';
 
 const Document = Models.Document;
 module.exports = {
-
   /**
    * Create a new document
    * @param {object} req 
@@ -43,8 +42,11 @@ module.exports = {
             message: 'No documents available'
           });
         }
+      const pageMetaData = setPageMetaData(documents.count,
+        limit, offset);        
         return res.status(200).send({
           documents,
+          pageMetaData,
           message: 'All documents retrieved'
         });
       });
@@ -69,6 +71,7 @@ module.exports = {
             message: 'No public documents available'
           });
         }
+        
         return res.status(200).send({
           documents,
           message: 'Public documents retrieved'

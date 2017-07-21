@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt-nodejs';
 import Models from '../models';
 import QueryConstants from '../../constants/QueryConstants';
 import ServerConstants from '../../constants/ServerConstants';
+import setPageMetaData from '../utils/setPageMetaData';
 import * as auth from '../auth/token';
 
 const User = Models.User;
@@ -119,8 +120,11 @@ module.exports = {
             message: 'No users available'
           });
         }
+        const pageMetaData = setPageMetaData(users.count,
+        limit, offset); 
         return res.status(200).send({
           users,
+          pageMetaData,
           message: 'Users retrieved'
         });
       });
@@ -169,8 +173,11 @@ module.exports = {
           message: 'No documents available'
         });
       }
+      const pageMetaData = setPageMetaData(documents.count,
+        limit, offset); 
       return res.status(200).send({
         documents,
+        pageMetaData,
         message: "Documents retrieved"
       });
     });

@@ -1,6 +1,5 @@
 import Models from '../models';
 import QueryConstants from '../../constants/QueryConstants';
-import * as checkParam from '../validations/checkParam';
 
 const Role = Models.Role;
 
@@ -64,7 +63,7 @@ module.exports = {
    * @returns {object} res
    */
   getRoleById(req, res) {
-    if(checkParam.isString(req.params.roleId)) {
+    if(isNaN(req.params.roleId) === true) {
       return res.status(400).send({
         message: 'RoleId must be numeric'
       });
