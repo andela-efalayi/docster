@@ -14,7 +14,7 @@
     "build:refill:server": "NODE_ENV=production sequelize db:migrate && sequelize db:seed:all",
     "build:client": "NODE_ENV=production webpack --config webpack-production.config.babel.js",
     "build:db": "npm run build:reset:server && npm run build:refill:server",
-    "build:server": "babel server -d build --copy-files --ignore tests",
+    "build:server": "babel server -d build/server --copy-files --ignore tests",
     "prebuild": "rimraf build && mkdir build",
     "build": "npm run build:db && npm run build:client && npm run build:server",
     "postinstall": "npm run prebuild && npm run build",
