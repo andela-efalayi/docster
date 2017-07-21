@@ -8,7 +8,12 @@
   "scripts": {
     "build:reset:server": "NODE_ENV=production ./node_modules/.bin/sequelize db:migrate:undo:all",
     "build:refill:server": "NODE_ENV=production ./node_modules/.bin/sequelize db:migrate && ./node_modules/.bin/sequelize db:seed:all",
-    "build": "babel server -d dist",
+    "build:client": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack-production.config.babel.js",
+    "build:db": "npm run build:reset:server && npm run build:refill:server",
+    "build:server": "babel server -d build --copy-files --ignore tests",
+    "prebuild": "rm -R build",
+    "build": "npm run build:db && npm run build:client && npm run build:server",
+    "postinstall": "npm run prebuild && npm run build",
     "reset:db": "sequelize db:migrate:undo:all",
     "seed:all": "sequelize db:migrate && sequelize db:seed:all",
     "fill:db": "npm run reset:db && npm run seed:all",
@@ -17,7 +22,7 @@
     "server:test": "NODE_ENV=test npm run fill:db && npm run mocha",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "start:dev": "nodemon --watch server server/server.js --exec babel-node",
-    "start": "npm run fill:db && babel-node server/server.js",
+    "start": "node build/server/server.js",
     "test": "npm run server-test"
   },
   "jest": {
