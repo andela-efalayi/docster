@@ -6,8 +6,8 @@
   "license": "ISC",
   "main": "server.js",
   "scripts": {
-    "build:reset:server": "NODE_ENV=production ./node_modules/.bin/sequelize db:migrate:undo:all",
-    "build:refill:server": "NODE_ENV=production ./node_modules/.bin/sequelize db:migrate && ./node_modules/.bin/sequelize db:seed:all",
+    "build:reset:server": "NODE_ENV=production sequelize db:migrate:undo:all",
+    "build:refill:server": "NODE_ENV=production sequelize db:migrate && sequelize db:seed:all",
     "build:client": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack-production.config.babel.js",
     "build:db": "npm run build:reset:server && npm run build:refill:server",
     "build:server": "babel server -d build --copy-files --ignore tests",
