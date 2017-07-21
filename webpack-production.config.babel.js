@@ -5,10 +5,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
   devtool: 'source-map',
-  entry: [
-    'babel-polyfill',
-    './client/App.jsx'
-  ],
+  entry: './client/App.jsx',
   output: {
     path: path.resolve(__dirname, 'build/public'), // Path of output file
     publicPath: '/',
