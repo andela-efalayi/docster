@@ -6,7 +6,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 export default {
   devtool: 'source-map',
   entry: [
-    path.join(__dirname, '/client/App.jsx')
+    './client/App.jsx'
   ],
   output: {
     path: path.resolve(__dirname, 'build/public'), // Path of output file
