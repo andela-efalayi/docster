@@ -5,6 +5,10 @@
   "author": "Esther Falayi",
   "license": "ISC",
   "main": "server.js",
+  "engines": {
+    "node": "7.9.0",
+    "npm": "4.2.0"
+  },
   "scripts": {
     "build:reset:server": "NODE_ENV=production sequelize db:migrate:undo:all",
     "build:refill:server": "NODE_ENV=production sequelize db:migrate && sequelize db:seed:all",
