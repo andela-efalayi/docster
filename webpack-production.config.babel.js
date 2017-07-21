@@ -4,7 +4,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
   entry: './client/App.jsx',
   output: {
     path: path.resolve(__dirname, 'build/public'), // Path of output file
