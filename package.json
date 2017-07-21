@@ -8,7 +8,7 @@
   "scripts": {
     "build:reset:server": "NODE_ENV=production sequelize db:migrate:undo:all",
     "build:refill:server": "NODE_ENV=production sequelize db:migrate && sequelize db:seed:all",
-    "build:client": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack-production.config.babel.js",
+    "build:client": "NODE_ENV=production webpack --config webpack-production.config.babel.js",
     "build:db": "npm run build:reset:server && npm run build:refill:server",
     "build:server": "babel server -d build --copy-files --ignore tests",
     "prebuild": "rimraf build && mkdir build",
