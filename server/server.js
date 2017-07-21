@@ -20,13 +20,16 @@ app.set('superSecret', secret);
 routes(app);
 
 if(process.env.NODE_ENV === 'production') {
+  console.log("production");
+  
   app.use(express.static('build'));
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
   });
- } //else {
-//   devServer(app);
-// }
+} else {
+  console.log("devlopement");
+  devServer(app);
+}
 
 app.listen(PORT, () => {
   console.log(colors.rainbow(`Docster is running on localhost:${PORT}`));
