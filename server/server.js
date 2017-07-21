@@ -24,9 +24,9 @@ if(process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
   });
-} else {
-  devServer(app);
-}
+ } //else {
+//   devServer(app);
+// }
 
 app.listen(PORT, () => {
   console.log(colors.rainbow(`Docster is running on localhost:${PORT}`));
