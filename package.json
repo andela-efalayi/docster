@@ -10,15 +10,15 @@
     "npm": "4.2.0"
   },
   "scripts": {
+    "copy:constants": "cp -R constants build/constants",    
     "build:reset:server": "NODE_ENV=production sequelize db:migrate:undo:all",
     "build:refill:server": "NODE_ENV=production sequelize db:migrate && sequelize db:seed:all",
     "build:client": "NODE_ENV=production webpack --config webpack-production.config.babel.js",
     "build:db": "npm run build:reset:server && npm run build:refill:server",
     "build:server": "babel server -d build/server --copy-files --ignore tests",
-    "prebuild": "rimraf build && mkdir build && --",
+    "prebuild": "rimraf build && mkdir build && npm run copy:constants",
     "build": "npm run build:db && npm run build:client && npm run build:server",
-    "copy:constants": "cp -R constants build/constants",
-    "postinstall": "npm run prebuild && npm run build && npm run copy:constants",
+    "postinstall": "npm run prebuild && npm run build",
     "reset:db": "sequelize db:migrate:undo:all",
     "seed:all": "sequelize db:migrate && sequelize db:seed:all",
     "fill:db": "npm run reset:db && npm run seed:all",
