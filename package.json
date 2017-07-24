@@ -9,7 +9,7 @@
     "node": "7.9.0",
     "npm": "4.2.0"
   },
-  "scripts": {  
+  "scripts": {
     "build:reset:server": "NODE_ENV=production sequelize db:migrate:undo:all",
     "build:refill:server": "NODE_ENV=production sequelize db:migrate && NODE_ENV=production sequelize db:seed:all",
     "build:client": "NODE_ENV=production webpack --config webpack-production.config.babel.js",
@@ -68,12 +68,14 @@
     "jest": "^20.0.4",
     "mocha": "^3.4.2",
     "moxios": "^0.4.0",
+    "nightwatch": "^0.9.16",
     "nock": "^9.0.13",
     "nodemon": "^1.11.0",
     "nyc": "^11.0.2",
     "react-hot-loader": "^1.3.1",
     "react-test-renderer": "^15.6.1",
     "redux-mock-store": "^1.2.3",
+    "selenium-standalone": "^6.5.0",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.8",
     "webpack": "^2.6.1",
