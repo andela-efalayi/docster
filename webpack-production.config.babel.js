@@ -7,7 +7,7 @@ export default {
   devtool: 'source-map',
   entry: [
     'babel-polyfill',
-    path.join(__dirname, '/client/App.jsx')
+    path.join(__dirname, '/client/Client.jsx')
   ],
   output: {
     path: path.resolve(__dirname, 'build/public'), // Path of output file

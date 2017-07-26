@@ -6,7 +6,7 @@ export default {
   devtool: 'eval-source-map',
   entry: [
     'webpack-hot-middleware/client',
-    path.join(__dirname, '/client/App.jsx')
+    path.join(__dirname, '/client/Client.jsx')
   ],
   output: {
     path: path.resolve(__dirname, 'build/public'), // Path of output file
