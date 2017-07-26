@@ -26,7 +26,7 @@ module.exports = {
       fullName: 'Esther Falayi',
       userName: '@estherfalayi',
       email: 'admin@docster.com',
-      password: bcrypt.hashSync(process.env.PASSWORD, salt),
+      password: bcrypt.hashSync(process.env.API_SECRET, salt),
       roleId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
