@@ -45,8 +45,10 @@ const serverData = {
     roleId: 1
   },
   adminToken: generateToken({
-    id: 8,
-    userName: "admin",
+    id: 10,
+    email: 'dummy.admin@mail.com',
+    fullName: 'admin fullname',
+    userName: 'username',
     roleId: 1
   }),
   newDocumentContent: faker.lorem.paragraph(),

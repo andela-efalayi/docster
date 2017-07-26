@@ -133,8 +133,7 @@ AllUsersPage.propTypes = {
   users: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  getAllUsers: PropTypes.func.isRequired,
-  roles: PropTypes.object.isRequired
+  getAllUsers: PropTypes.func.isRequired
 }
 
 // Set AllUsersPage contexttypes
@@ -146,8 +145,7 @@ AllUsersPage.contextTypes = {
 const matchStateToProps = (state) => {
   return{
     auth: state.auth,
-    users: state.users,
-    roles: state.roles
+    users: state.users
   }
 }
 

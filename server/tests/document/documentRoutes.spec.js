@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import colors from 'colors';
+import { decodeToken } from '../../auth/token';
 import serverData from '../fakerData/server-data';
 import server from '../../server';
 
@@ -14,7 +15,6 @@ let createdDocument;
 let createdUser;
 let serverResponse;
 
-process.env.NODE_ENV = 'test';
 chai.use(chaiHttp);
 
 /*
@@ -28,7 +28,7 @@ describe(colors.green('DocumentRoutes'), () => {
     .send(documentOwner)
     .end((err, res) => {
       serverResponse = res.body;
-      createdUser = serverResponse.user;
+      createdUser = decodeToken(serverResponse.token);
       newDocument.userId = createdUser.id;
       done();
     });
@@ -48,20 +48,6 @@ describe(colors.green('DocumentRoutes'), () => {
         done();
       });
     });
-
-    // Test that route does not create a document twice
-    // it('should not create a document twice', (done) => {
-    //   chai.request(server)
-    //   .post('/api/v1/documents')
-    //   .send(newDocument)
-    //   .set('authorisation', 'Bearer '+serverResponse.token)
-    //   .end((err, res) => {
-    //     expect(res.status).to.equal(400);
-    //     expect(res.body.message).to
-    //     .equal('An error occurred while creating document');
-    //     done();
-    //   });
-    // });
   });
 
   // Test that route returns an error if request is not from an admin
@@ -177,16 +163,6 @@ describe(colors.green('DocumentRoutes'), () => {
         done();
       });
     });
-    //  it('should give an error for an invalid document id', (done) => {
-    //   chai.request(server)
-    //   .put('/api/v1/documents/esther')
-    //   .send({ content: 'content for an invalid document id' })
-    //   .set('Authorisation', 'Bearer '+serverResponse.token)
-    //   .end((err, res) => {
-    //     expect(res.status).to.equal(400);
-    //     done();
-    //   });
-    // });
   });
 
   //  Test that a particular document can be deleted

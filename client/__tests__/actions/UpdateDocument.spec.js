@@ -7,14 +7,14 @@ import { publicDocument, updatedDocument } from '../../__mocks__/mockData'
 
 const configureMockStore = reduxStore([thunk]);
 
-describe('Authenticate.js', () =>{
+describe('UpdateDocument.js', () =>{
   beforeEach(() => {
     moxios.install();
   });
   afterEach(() => {
     moxios.uninstall();
   });
-  it('should login in a user when loginUser function is called', () => {
+  it('should update a document when updateDocument function is called', () => {
     moxios.stubRequest(`/api/v1/documents/${publicDocument.id}`, {
       status: 200,
       response: {

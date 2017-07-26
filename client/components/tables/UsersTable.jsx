@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import orderBy  from 'lodash/orderBy';
-import setRoleType from '../../utils/SetRoleType';
+import EditRole from '../common/EditRole.jsx';
 
 const UsersTable = ({ users }) => {
   const orderedUsersList = orderBy(users, ['id'], ['asc']);
@@ -10,8 +10,7 @@ const UsersTable = ({ users }) => {
       <thead>
         <tr>
           <th>Full Name</th>
-          <th>Email</th>
-          <th>UserId</th>          
+          <th>Email</th>         
           <th>Role</th>
         </tr>
       </thead>
@@ -21,8 +20,7 @@ const UsersTable = ({ users }) => {
             <tr key={user.id}>
               <td>{user.fullName}</td>
               <td>{user.email}</td>
-              <td>{user.id}</td>
-              <td>{setRoleType(user.roleId)}</td>
+              <td><EditRole user={[user.id, user.roleId]} /></td>
             </tr>
           ))
         }
@@ -34,5 +32,6 @@ const UsersTable = ({ users }) => {
 UsersTable.propTypes = {
   users: PropTypes.array.isRequired
 }
+
 
 export default UsersTable;

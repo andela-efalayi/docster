@@ -167,6 +167,7 @@ a[role="menuitem"], span[role="menuitem"]{
 }
 .document-access{
   padding-top: 15px;
+  margin-bottom: 15px;
 }
 button.access-icon{
   padding: 0 !important;
@@ -186,13 +187,8 @@ button.access-icon span{
   color: #ff9800; 
   text-transform: capitalize; 
 }
-.document-access h6{
-  margin-bottom: 0px;
-  font-size: 14px;
-  font-family: 'Carrois Gothic', sans-serif !important;
-}
 .document-access-options{
-  padding-top: 15px;
+  padding-top: 2px;
   font-size: 13px !important;
 }
 .document-access-options > div {
@@ -200,10 +196,13 @@ button.access-icon span{
   float: left;
   margin-right: 35px;
 }
+.document-access-options > div > div > div{
+  margin-right: 0px !important;
+}
 
 /* Tinymce */
 .mce-tinymce.mce-panel{
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 .mce-menubar .mce-menubtn button,
 .mce-container-body.mce-flow-layout button,
@@ -321,7 +320,6 @@ footer a:hover {
 @media (max-width: 480px) {
   .document-access-options > div {
     width: 100% !important;
-    margin-bottom: 8px;
   }
 }
 @media (min-width: 481px) {

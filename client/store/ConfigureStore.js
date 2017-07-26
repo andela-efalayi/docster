@@ -1,17 +1,5 @@
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import rootReducer from '../reducers/RootReducer';
-
-
-/**
- * @param {object} initialState 
- * @returns {func} createStore
- */
-export default function configureStore(initialState) {
-  return createStore(
-    rootReducer,
-    initialState,
-    composeWithDevTools(applyMiddleware(thunk))
-  );
+if(process.env.NODE_ENV === 'production') {
+  module.exports = require('./ConfigureStore.prod');
+} else {
+  module.exports = require('./ConfigureStore.dev');
 }

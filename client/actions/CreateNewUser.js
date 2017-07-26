@@ -3,6 +3,7 @@ import ActionTypes from '../../constants/ActionTypes';
 import { loginUserSuccess } from '../actions/Authenticate';
 import setAuthorisationToken from '../utils/SetAuthorisationToken';
 import getServerError from '../utils/GetServerError';
+import decodeToken from '../utils/DecodeToken';
 
 /**
  * Set newUser if new user creation is successful
@@ -25,15 +26,11 @@ export function createNewUser(newUser) {
   return function(dispatch) {
     return axios.post('/api/v1/users', newUser)
       .then(response => {
-        const user = response.data.user;
-        if (user.roleId !== 1) {
-          const token = response.data.token;
-          localStorage.setItem('docsterToken', token);
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          setAuthorisationToken(token);
-          dispatch(loginUserSuccess(user));
-        }
-        // dispatch(createNewUserSuccess(user));
+        const token = response.data.token;
+        const user = decodeToken(token);        
+        localStorage.setItem('docsterToken', token);
+        setAuthorisationToken(token);
+        dispatch(loginUserSuccess(user));
       })
       .catch(error => {
         const serverError = getServerError(error)

@@ -4,15 +4,14 @@ import getServerError from '../utils/GetServerError';
 
 /**
  * Update user's details
- * @param {object} user 
+ * @param {object} userUpdate 
  * @returns {func} dispatch
  */
-export default function updateProfile(user) {
+export default function updateUser(userUpdate) {
   return function(dispatch) {
-    return axios.put(`/api/v1/users/${user.id}`, user)
+    return axios.put(`/api/v1/users/${userUpdate.id}`, userUpdate)
       .then(response => {
         const updatedUser = response.data.userWithUpdate;
-        localStorage.setItem('currentUser', JSON.stringify(updatedUser));
         dispatch(loginUserSuccess(updatedUser));
       })
       .catch(response => {

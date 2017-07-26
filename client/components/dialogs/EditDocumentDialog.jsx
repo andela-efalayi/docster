@@ -18,7 +18,7 @@ import { updateDocument } from '../../actions/UpdateDocument';
  * @class CreateDocumentDialog
  * @extends {React.Component}
  */
-class EditDocumentDialog extends Component {
+export class EditDocumentDialog extends Component {
 
   /**
    * Creates an instance of CreateDocumentDialog
@@ -148,14 +148,11 @@ class EditDocumentDialog extends Component {
 
 EditDocumentDialog.propTypes = {
   document: PropTypes.object.isRequired,
-  updateDocument: PropTypes.func.isRequired
+  updateDocument: PropTypes.func
 }
-
-const mapStateToProps = (state) => {
-  return {
-    documents: state.documents
-  }
-};
+EditDocumentDialog.defaultProps = {
+  updateDocument: null
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -163,4 +160,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 export default 
-  connect(mapStateToProps, mapDispatchToProps)(EditDocumentDialog);
+  connect(null, mapDispatchToProps)(EditDocumentDialog);

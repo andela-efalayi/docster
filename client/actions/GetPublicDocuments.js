@@ -21,7 +21,11 @@ export function getPublicDocuments() {
   return function(dispatch) {
     return axios.get(`/api/v1/public-documents`)
       .then(response => {
-        dispatch(getPublicDocumentsSuccess(response.data.documents));
+        if(!response.data.documents){
+          dispatch(getPublicDocumentsSuccess({}));
+        } else {
+          dispatch(getPublicDocumentsSuccess(response.data.documents)); 
+        }
       })
       .catch(error => {
         throw(error);

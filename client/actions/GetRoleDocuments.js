@@ -21,7 +21,11 @@ export function getRoleDocuments() {
   return function(dispatch) {
     return axios.get(`/api/v1/role-documents`)
       .then(response => {
-        dispatch(getRoleDocumentsSuccess(response.data.documents));
+        if(!response.data.documents){
+          dispatch(getRoleDocumentsSuccess({}));
+        } else {
+          dispatch(getRoleDocumentsSuccess(response.data.documents)); 
+        }
       })
       .catch(error => {
         let errorMessage = JSON.parse(JSON.stringify(error));

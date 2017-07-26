@@ -15,9 +15,6 @@ newDocument.slug = newDocument.title;
 let currentUser;
 let createdDocument;
 
-process.env.NODE_ENV = 'test';
-
-
 /*
   Test Document Model
 */
@@ -39,23 +36,27 @@ describe(colors.green('DocumentModel'), () => {
       .then((document) => {
         createdDocument = document.dataValues;
         assert.exists(document);
+        expect(document).to.be.an('object');
+        done();        
       });
-      done();
     });
 
     // Test if created document has a title, slug, and userId
     describe(colors.underline('Created document'), () => {
-      it('should have a title', () => {
+      it('should have a title', (done) => {
         expect(createdDocument.title).to.be.a('string');
+        done();
       });
-      it('should have a title slug', () => {
+      it('should have a title slug', (done) => {
         const titleSlug = createdDocument.title.replace(/[" "]/g, '-');
         expect(createdDocument.slug).to.be.a('string');
         expect(createdDocument.slug).to.equal(titleSlug);
+        done();
       });
-      it('should have the correct userId', () => {
+      it('should have the correct userId', (done) => {
         assert.exists(createdDocument.userId);
         expect(createdDocument.userId).to.equal(currentUser.id);
+        done();
       });
     });
     it('should require a title field to create a document', (done) => {

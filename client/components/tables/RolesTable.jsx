@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import getDate from '../../utils/GetDate';
-import EditRole from '../common/EditRole.jsx';
 
 /* 
   Roles Table
@@ -13,7 +12,6 @@ const RolesTable = ({ roles }) => {
         <tr>
           <th>ID</th>
           <th>Role Type</th>
-          <th />
         </tr>
       </thead>
       <tbody>
@@ -22,7 +20,6 @@ const RolesTable = ({ roles }) => {
             <tr key={role.id}>
               <td>{role.id}</td>
               <td>{role.roleType}</td>
-              <td><EditRole role={role} /></td>
             </tr>
           ))
         }

@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import colors from 'colors';
+import { decodeToken } from '../../auth/token';
 import serverData from '../fakerData/server-data';
 import server from '../../server';
 
@@ -36,7 +37,7 @@ describe(colors.green('UserRoutes'), () => {
       .send(newuser)
       .end((err, res) => {
         serverResponse = res.body;
-        createdUser = serverResponse.user;
+        createdUser = decodeToken(serverResponse.token);
         expect(res.status).to.equal(201);
         expect(serverResponse.message)
         .to.equal('User created');
