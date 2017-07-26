@@ -18,7 +18,7 @@ app.set('superSecret', secret);
 
 routes(app);
 
-app.use(express.static('build'));
+app.use(express.static('build/public'));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
