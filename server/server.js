@@ -1,4 +1,4 @@
-/* eslint-disable no-console*/
+/*eslint-disable no-console*/
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
@@ -18,12 +18,10 @@ app.set('superSecret', secret);
 
 routes(app);
 
-if(process.env.NODE_ENV === 'production') {
-  app.use(express.static('build/public'));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
-  });
- }
+app.use(express.static('build/public'));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(colors.rainbow(`Docster is running on port:${PORT}`));

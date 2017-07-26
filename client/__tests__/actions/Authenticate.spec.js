@@ -19,15 +19,14 @@ describe('Authenticate.js', () =>{
     moxios.stubRequest('/api/v1/users/login', {
       status: 200,
       response: {
-        user: currentUser,
         token
       }
     });
     const expectedAction = [{
-      currentUser,      
+      currentUser,    
       type: ActionTypes.SET_CURRENT_USER,
     }];
-    const store = configureMockStore();
+    const store = configureMockStore({});
     return store.dispatch(Authenticate.loginUser(dummyUser))
     .then(() => { 
       expect(store.getActions()).toEqual(expectedAction);

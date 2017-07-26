@@ -15,7 +15,7 @@ export function deleteDocumentSuccess(document) {
 }
 
 /**
- * @param {any} document 
+ * @param {object} document 
  * @returns {func} dispatch
  */
 export function deleteDocument(document){

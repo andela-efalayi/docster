@@ -2,12 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'; 
 import { BrowserRouter } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import configureStore from './store/ConfigureStore';
-import './css/normalize.css';
-import './css/skeleton.css';
-import './css/main.css';
+import '../node_modules/jquery/dist/jquery.js';
+import '../node_modules/toastr/build/toastr.min.js';
+import '../node_modules/toastr/build/toastr.css';
+import './styles/normalize.scss';
+import './styles/skeleton.scss';
+import './styles/main.scss';
 
 import Routes from './Routes.jsx';
 import setAuthorisationToken from './utils/SetAuthorisationToken';
@@ -18,9 +22,9 @@ injectTapEventPlugin();
 const store = configureStore();
 
 if (localStorage.docsterToken) {
-  setAuthorisationToken(localStorage.getItem('docsterToken'));
-  store.dispatch(loginUserSuccess(JSON
-    .parse(localStorage.getItem('currentUser'))));
+  const token = localStorage.getItem('docsterToken');
+  setAuthorisationToken(token);
+  store.dispatch(loginUserSuccess(jwt.decode(token).data));
 }
 
 const App = () => {

@@ -10,6 +10,8 @@ export function generateToken(user) {
   return jwt.sign({
     data: {
       id: user.id,
+      email: user.email,
+      fullName: user.fullName,
       userName: user.userName,
       roleId: user.roleId
     }
@@ -32,4 +34,13 @@ export function verifyToken (token) {
     });
   });
   return verificationPromise;
+}
+
+/**
+ * Decode jwt token
+ * @param {string} token 
+ * @returns {object} decoded data
+ */
+export function decodeToken (token) {
+  return jwt.decode(token).data;
 }

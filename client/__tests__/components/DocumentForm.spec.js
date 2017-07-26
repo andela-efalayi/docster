@@ -16,7 +16,6 @@ describe('DocumentForm.jsx', () => {
   );
   it('should render a form for creating and editing a document', () => {
     expect(documentForm.find('form')).toHaveLength(1);
-    expect(documentForm.find('.twelve.columns')).toHaveLength(2);
     expect(documentForm.find('.twelve.columns').nodes[0]
     .props.children[0].type).toEqual('label');
     expect(documentForm.find('.twelve.columns')

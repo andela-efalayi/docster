@@ -1,19 +1,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import AccessRadioButton from '../../components/common/AccessRadioButtons.jsx';
+import DocumentAccessOptions from '../../components/common/DocumentAccessOptions.jsx';
 
 describe('AccessRadioButton.jsx', () => {
   const onOptiontChangeMock = jest.fn();
   it('should display a radiobutton', () => {
-    const accessRadioButton = shallow(
-      <AccessRadioButton
+    const documentAccessOptions = shallow(
+      <DocumentAccessOptions
         access='role'
         onOptionChange={onOptiontChangeMock}
       />
     );
-    expect(accessRadioButton
+    expect(documentAccessOptions
       .find('.document-access-options')).toHaveLength(1);
-    expect(accessRadioButton
+    expect(documentAccessOptions
       .find('.document-access-options').node.props.defaultSelected)
       .toEqual('role');
   });

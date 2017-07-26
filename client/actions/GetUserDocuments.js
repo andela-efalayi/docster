@@ -26,7 +26,11 @@ export function getUserDocuments(userId, offset) {
       }
     })
       .then(response => {
-        dispatch(getUserDocumentsSuccess(response.data.documents));
+        if(!response.data.documents){
+          dispatch(getUserDocumentsSuccess({}));
+        } else {
+          dispatch(getUserDocumentsSuccess(response.data.documents)); 
+        }
       })
       .catch(error => {
         throw(error);

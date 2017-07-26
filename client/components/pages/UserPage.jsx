@@ -123,17 +123,16 @@ class UserPage extends Component {
    * @returns {object} react-component
    */
   render() {
-    let filteredDocuments = this.state.documents.filter(
-      (document) => {
-        return document.title.toLowerCase()
-          .indexOf(this.state.searchString) !== -1
-      }
-    );
-    const displayDocuments = (filteredDocuments.length > 0) ? (<Documents
-      documents={filteredDocuments}
+    const documents = this.state.documents;
+    const displayDocuments = (typeof documents === 'undefined') ? 
+    (<div className="center no-documents">
+      <h4>no documents</h4>
+    </div>) : 
+    (<Documents
+      documents={documents}
       userId={this.state.user.id}
-    />) : 
-    (<div className="center no-documents"><h4>no documents</h4></div>)
+    />); 
+    
     return(
       <div id="user-page">
         <Header currentUser={this.state.user} logoutUser={this.logoutUser} />

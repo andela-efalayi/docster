@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AccessRadioButtons from '../common/AccessRadioButtons.jsx';
+import DocumentAccessOptions from '../common/DocumentAccessOptions.jsx';
 import TextInputField from '../common/TextInputField.jsx';
 import Tinymce from './Tinymce.jsx';
 
@@ -21,19 +21,19 @@ const DocumentForm = ({ document, onInputChange, onEditorChange }) => (
           onInputChange={onInputChange}
         />
       </div>
+      <div className="twelve columns document-access">
+        <label htmlFor="accessRadioButtons">Access</label>
+        <DocumentAccessOptions
+          access={document.access}
+          onOptionChange={onInputChange}
+        />
+      </div>
       <div className="twelve columns">
         <label htmlFor="content">Content</label>
         <Tinymce
           id="content"
           value={document.content || ""}
           onEditorChange={onEditorChange}
-        />
-      </div>
-      <div className="document-access">
-        <h6>Access</h6>
-        <AccessRadioButtons
-          access={document.access}
-          onOptionChange={onInputChange}
         />
       </div>
     </div>

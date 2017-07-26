@@ -6,8 +6,7 @@ import HomeTab from '../common/HomeTab.jsx';
 
 import UserForm from '../forms/UserForm.jsx';
 import { logoutUser } from '../../actions/Authenticate';
-import updateProfile from '../../actions/UpdateProfile';
-import { checkIfEmpty } from '../../utils/Validate';
+import updateUser from '../../actions/UpdateUser';
 import showToast from '../../utils/ShowToast';
 
 /**
@@ -25,13 +24,11 @@ class ProfilePage extends Component {
   constructor(props, context){
     super(props, context);
     this.state = {
-      user: this.props.auth.currentUser,
-      typedPassord: ''
+      user: this.props.auth.currentUser
     };
     this.logoutUser = this.logoutUser.bind(this);
-    this.updateUser = this.updateUser.bind(this);
+    this.updateProfile = this.updateProfile.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
-    this.onPasswordFieldChange = this.onPasswordFieldChange.bind(this);
   }
 
   /**
@@ -45,18 +42,6 @@ class ProfilePage extends Component {
     user[field] = event.target.value;
     this.setState({
       user
-    });
-  }
-  
-  /**
-   * @param {object} event 
-   * @memberof ProfilePage
-   * @returns {void}
-   */
-  onPasswordFieldChange(event) {
-    const typedPassord = event.target.value;
-    this.setState({
-      typedPassord
     });
   }
 
@@ -76,12 +61,13 @@ class ProfilePage extends Component {
    * @memberof ProfilePage
    * @returns {void}
    */
-  updateUser() {
-    this.props.updateProfile(this.state.user)
+  updateProfile() {
+    this.props.updateUser(this.state.user)
     .then(() => {
       this.setState({
         state: this.props.auth.currentUser
       });
+      showToast('Profile updated', 'success');      
     })
     .catch(errorMessage => {
       showToast(errorMessage, 'error');
@@ -103,10 +89,8 @@ class ProfilePage extends Component {
         <div className="profile-body">
           <UserForm 
             userDetails={this.state.user} 
-            updateUser={this.updateUser}
+            updateProfile={this.updateProfile}
             onInputChange={this.onInputChange}
-            onPasswordFieldChange={this.onPasswordFieldChange}
-            disabled={checkIfEmpty(this.state.typedPassord)}
           />
         </div>
       </div>
@@ -118,7 +102,7 @@ class ProfilePage extends Component {
 ProfilePage.propTypes = {
   auth: PropTypes.object.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  updateProfile: PropTypes.func.isRequired
+  updateUser: PropTypes.func.isRequired
 }
 
 // Set UserPage contexttypes
@@ -134,4 +118,4 @@ const matchStateToProps = (state) => {
 }
 
 export default 
-  connect(matchStateToProps, { logoutUser, updateProfile })(ProfilePage);
+  connect(matchStateToProps, { logoutUser, updateUser })(ProfilePage);

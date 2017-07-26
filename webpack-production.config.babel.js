@@ -4,8 +4,16 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
+<<<<<<< HEAD
   devtool: 'eval-source-map',
   entry: './client/Index.jsx',
+=======
+  devtool: 'source-map',
+  entry: [
+    'babel-polyfill',
+    path.join(__dirname, '/client/Client.jsx')
+  ],
+>>>>>>> bb7b3c002609ea5835de8d29094e54dcfa01b333
   output: {
     path: path.resolve(__dirname, 'build/public'), // Path of output file
     publicPath: '/',
@@ -15,9 +23,6 @@ export default {
     alias: {
       jquery: path.resolve(__dirname, 'node_modules/jquery/dist/jquery.js')
     }
-  },
-  resolveLoader: {
-    moduleExtensions: ['-loader']
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
@@ -31,7 +36,7 @@ export default {
       'window.jQuery': 'jquery',
       Hammer: 'hammerjs/hammer'
     }),
-    new ExtractTextPlugin('static/css/main.css'),
+    new ExtractTextPlugin('static/styles/main.css'),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         screw_ie8: true,
@@ -73,38 +78,45 @@ export default {
       {
         test: /\.jsx?$/,
         include: path.join(__dirname, 'client'),
-        loaders: ['babel']
+        loaders: ['babel-loader']
       },
       {
         test: /(\.css)$/,
         loaders: ExtractTextPlugin.extract({
-          fallback: ['style'],
-          use: 'css?sourceMap!sass'
+          fallback: 'style-loader',
+          use: 'css-loader?sourceMap!sass-loader'
+        })
+      },
+      {
+        test: /(\.scss)$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader?sourceMap!sass-loader'
         })
       },
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file'
+        loader: 'file-loader'
       },
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&mimetype=application/font-woff'
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
       },
       {
         test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&mimetype=application/font-woff'
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
       },
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&mimetype=application/octet-stream'
+        loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&mimetype=image/svg+xml'
+        loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
       },
       {
         test: /\.(jpg|png|svg)$/,
-        loader: 'url',
+        loader: 'url-loader',
         options: {
           limit: 25000,
         },

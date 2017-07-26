@@ -2,6 +2,7 @@ import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
 import setAuthorisationToken from '../utils/SetAuthorisationToken';
 import getServerError from '../utils/GetServerError';
+import decodeToken from '../utils/DecodeToken';
 
 /**
  * Set currentUser if login is successful
@@ -25,9 +26,8 @@ export function loginUser(userCredentials) {
     return axios.post('/api/v1/users/login', userCredentials)
       .then(response => {
         const token = response.data.token;
-        const currentUser = response.data.user;
+        const currentUser = decodeToken(token);
         localStorage.setItem('docsterToken', token);
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
         setAuthorisationToken(token);
         dispatch(loginUserSuccess(currentUser));        
       })

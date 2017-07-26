@@ -17,7 +17,7 @@ import showToast from '../../utils/ShowToast';
  * @class CreateDocumentDialog
  * @extends {React.Component}
  */
-class DeleteDocumentAlert extends Component {
+export class DeleteDocumentAlert extends Component {
 
   /**
    * Creates an instance of CreateDocumentDialog.
@@ -119,14 +119,11 @@ class DeleteDocumentAlert extends Component {
 
 DeleteDocumentAlert.propTypes = {
   document: PropTypes.object.isRequired,
-  deleteDocument: PropTypes.func.isRequired
+  deleteDocument: PropTypes.func
 }
-
-const mapStateToProps = (state) => {
-  return {
-    documents: state.documents
-  }
-};
+DeleteDocumentAlert.defaultProps = {
+  deleteDocument: null
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -134,4 +131,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 export default 
-  connect(mapStateToProps, mapDispatchToProps)(DeleteDocumentAlert);
+  connect(null, mapDispatchToProps)(DeleteDocumentAlert);

@@ -7,6 +7,7 @@ import * as auth from '../auth/token';
 
 const User = Models.User;
 const Document = Models.Document;
+const Role = Models.Role;
 const attributes = ServerConstants.USER_ATTRIBUTES;
 
 module.exports = {
@@ -42,7 +43,6 @@ module.exports = {
           user.password = undefined; // remove password from user attributes
           const token = auth.generateToken(user);
           return res.status(201).send({
-            user,
             token,
             message: 'User is logged in'
           });
@@ -91,7 +91,6 @@ module.exports = {
         const token = auth.generateToken(user); 
         user.password = undefined;       
         return res.status(201).send({
-          user,
           token,
           created,
           message: 'User created'
@@ -190,7 +189,43 @@ module.exports = {
    * @returns {object} res
    */
   updateUser(req, res) {
-    return User
+    if(req.body.newRole) {
+      if(req.currentUser.roleId !== 1) {
+        res.status(403).send({
+          message: 'User is not an admin'
+        });
+      }
+      else {
+        return Role.find({
+          where: {
+            roleType: req.body.newRole
+          }
+        }).then((role) => {
+          if(!role) {
+            return res.status(404).send({
+              message: 'User does not exist'
+            });
+          }
+          User.findById(req.params.userId).then((user) => {
+            if (!user) {
+              return res.status(404).send({
+                message: 'User does not exist'
+              });
+            }
+            return user.update({
+              roleId: role.id
+            }).then((userWithUpdate) => {
+                userWithUpdate.password = undefined;
+                res.status(200).send({
+                userWithUpdate,
+                message: 'User updated'
+              });
+            });
+         });
+        });
+      }
+    } else {
+      return User
       .findById(req.params.userId)
       .then((user) => {
         if (!user) {
@@ -220,6 +255,7 @@ module.exports = {
             });
           });
       });
+    }
   },
 
   /**
