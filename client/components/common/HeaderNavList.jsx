@@ -61,7 +61,11 @@ const HeaderNavList = (props) => {
         primaryText="Profile"
         containerElement={<Link to='/profile' />}
       />
-      <MenuItem primaryText="Log out" onClick={logoutUser} />
+      <MenuItem
+        className="signout"
+        primaryText="Log out"
+        onClick={logoutUser}
+      />
     </IconMenu>
   );
 };

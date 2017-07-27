@@ -11,6 +11,7 @@ const ActionTypes = keyMirror({
   GET_USER_DOCUMENTS: null,
   SET_CURRENT_USER: null,
   SEARCH_ALL_DOCUMENTS: null,
+  SEARCH_ALL_USERS: null,
   UPDATE_DOCUMENT: null,
   UPDATE_PROFILE: null
 });

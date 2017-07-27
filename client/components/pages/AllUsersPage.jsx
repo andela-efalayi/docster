@@ -8,6 +8,7 @@ import { logoutUser } from '../../actions/Authenticate';
 import { muiTheme1 } from '../../muiTheme';
 import { getAllUsers } from '../../actions/GetAllUsers';
 import PageNavigation from '../common/PageNavigation.jsx';
+import QueryConstants from '../../../constants/QueryConstants';
 
 /**
  * @class AllUsersPage
@@ -25,11 +26,14 @@ class AllUsersPage extends Component {
     super(props, context);
     this.state = {
       currentUser: this.props.auth.currentUser,
-      users: []
+      users: [],
+      usersCount: 0,
+      pageCount: 0
     };
     this.logoutUser = this.logoutUser.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.editRole = this.editRole.bind(this);
+    this.changePage = this.changePage.bind(this);
   }
 
   /**
@@ -47,7 +51,10 @@ class AllUsersPage extends Component {
    */
   componentWillReceiveProps(nextProps) {
     this.setState({
-      users: nextProps.users.rows
+      users: nextProps.users.rows,
+      usersCount: nextProps.users.count,
+      pageCount: Math.ceil(
+        nextProps.users.count / QueryConstants.DEFAULT_LIMIT)
     });
   }
   /**
@@ -68,9 +75,8 @@ class AllUsersPage extends Component {
    */
   changePage(data) {
     event.preventDefault();  
-    // console.log(data);  
-    // const offset = data.selected * QueryConstants.DEFAULT_LIMIT;
-    // this.props.getUserDocuments(this.state.user.id, offset);
+    const offset = data.selected * QueryConstants.DEFAULT_LIMIT;
+    this.props.getAllUsers(offset);
   }
 
   /**
@@ -110,7 +116,7 @@ class AllUsersPage extends Component {
         <div className="profile-body">
           <div className="container">
             <PageNavigation
-              pageCount={1}
+              pageCount={this.state.pageCount}
               changePage={this.changePage}
             />
           </div>

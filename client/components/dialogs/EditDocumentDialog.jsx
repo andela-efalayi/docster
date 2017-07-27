@@ -108,6 +108,7 @@ export class EditDocumentDialog extends Component {
         onTouchTap={this.closeDialog}
       />,
       <RaisedButton
+        className="update-document-btn"
         label="update document"
         primary
         keyboardFocused
@@ -118,6 +119,7 @@ export class EditDocumentDialog extends Component {
       <div>
         <MuiThemeProvider muiTheme={muiTheme1}>
           <IconButton
+            className="open-edit-document-dialog"
             onClick={this.openDialog}
           >
             <ModeEdit color={blue600} />
@@ -126,6 +128,7 @@ export class EditDocumentDialog extends Component {
         <MuiThemeProvider muiTheme={muiTheme2}>
           <div className="container">
             <Dialog
+              className="edit-document-dialog"
               title={`Editing document: ${this.state.title}`}
               actions={actions}
               modal={false}

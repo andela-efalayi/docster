@@ -22,12 +22,14 @@
     "reset:db": "sequelize db:migrate:undo:all",
     "seed:all": "sequelize db:migrate && sequelize db:seed:all",
     "fill:db": "npm run reset:db && npm run seed:all",
-    "client:test": "jest ./client/__tests__ --coverage ",
+    "client:test": "jest ./client/__tests__  --coverage ",
     "mocha": "NODE_ENV=test nyc --reporter=html --reporter=lcov --reporter=text mocha --timeout 15000 --compilers js:babel-register ./server/tests/**/*.spec.js",
     "server:test": "NODE_ENV=test npm run fill:db && npm run mocha",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "start:dev": "nodemon --watch server server/devServer.js --exec babel-node",
     "start": "node build/server/server.js",
+    "e2e:setup":"./node_modules/.bin/selenium-standalone install",
+    "e2e:test": "node_modules/.bin/nightwatch",
     "test": "npm run server-test"
   },
   "jest": {
@@ -38,6 +40,7 @@
     "globals": {
       "window": true
     },
+    "modulePathIgnorePatterns": ["<rootDir>/client/__tests__/e2e/"],
     "setupFiles": [
       "<rootDir>/client/__mocks__/localStorageMock.js"
     ]

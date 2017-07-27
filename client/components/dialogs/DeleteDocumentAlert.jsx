@@ -83,6 +83,7 @@ export class DeleteDocumentAlert extends Component {
         onTouchTap={this.closeDialog}
       />,
       <RaisedButton
+        className="delete-document-btn"
         label="delete document"
         secondary
         keyboardFocused
@@ -93,6 +94,7 @@ export class DeleteDocumentAlert extends Component {
       <div>
         <MuiThemeProvider muiTheme={muiTheme1}>
           <IconButton
+            className="open-delete-dialog"
             onClick={this.openDialog}
           >
             <ActionDelete color={red500} />
@@ -101,6 +103,7 @@ export class DeleteDocumentAlert extends Component {
         <MuiThemeProvider muiTheme={muiTheme2}>
           <div className="container">
             <Dialog
+              className="delete-document-dialog"
               title={`Delete document: ${this.state.document.title}`}
               actions={actions}
               modal={false}

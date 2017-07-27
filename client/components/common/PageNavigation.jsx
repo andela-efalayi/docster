@@ -14,7 +14,7 @@ const PageNavigation = ({ pageCount, changePage}) => {
       breakLabel={<a href="">...</a>}
       breakClassName={'page-ellipsis'}
       pageCount={pageCount}
-      marginPagesDisplayed={3}
+      marginPagesDisplayed={1}
       onPageChange={changePage}
       containerClassName={'pagination u-pull-right'}
       activeClassName={'active'}
