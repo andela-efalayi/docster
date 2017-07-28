@@ -47,7 +47,7 @@ To make development easier, some NPM scripts were written:
 ```
 *** 
 ###### API Documentation
-This was done with Swagger.
+[API documentation](https://docster-dms.herokuapp.com/documentation/#introduction) was compiled using Slate.
 
 ***
 #### Contribution

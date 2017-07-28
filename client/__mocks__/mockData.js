@@ -61,3 +61,9 @@ export const newPublicDocument = {
   content: faker.lorem.paragraph(),
   access: 'public'
 }
+export const error = {
+  response: {
+    status: 400,
+    message: 'an error occurred'
+  }
+}

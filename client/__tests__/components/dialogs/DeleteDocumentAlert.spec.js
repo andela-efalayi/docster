@@ -14,7 +14,15 @@ describe('DeleteDocumentAlert.jsx', () => {
   });
   const deleteDocumentAlert = 
   shallow(<DeleteDocumentAlert document={publicDocument} {...props} />);
-  it('should run', () => {
-    // console.log(deleteDocumentAlert.find('label'));
+  const openDialogMock = jest.fn(() => {
+    deleteDocumentAlert.setState({
+      open: true
+    });
+  });
+  it('should render a button which opens a modal when clicked', () => {
+    expect(deleteDocumentAlert.find('.open-delete-dialog').length).toEqual(1);
+    deleteDocumentAlert.find('.open-delete-dialog')
+    .simulate('click', openDialogMock());
+    expect(openDialogMock).toHaveBeenCalled();
   });
 });

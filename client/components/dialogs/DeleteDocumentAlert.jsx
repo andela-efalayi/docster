@@ -78,6 +78,7 @@ export class DeleteDocumentAlert extends Component {
   render() {
     const actions = [
       <FlatButton
+        className="cancel-dialog-btn"
         label="Cancel"
         primary
         onTouchTap={this.closeDialog}
