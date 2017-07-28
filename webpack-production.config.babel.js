@@ -4,16 +4,11 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
-<<<<<<< HEAD
-  devtool: 'eval-source-map',
-  entry: './client/Index.jsx',
-=======
   devtool: 'source-map',
   entry: [
     'babel-polyfill',
     path.join(__dirname, '/client/Client.jsx')
   ],
->>>>>>> bb7b3c002609ea5835de8d29094e54dcfa01b333
   output: {
     path: path.resolve(__dirname, 'build/public'), // Path of output file
     publicPath: '/',

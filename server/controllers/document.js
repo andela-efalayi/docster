@@ -4,6 +4,7 @@ import setPageMetaData from '../utils/setPageMetaData';
 
 const Document = Models.Document;
 module.exports = {
+
   /**
    * Create a new document
    * @param {object} req 
@@ -17,12 +18,18 @@ module.exports = {
         slug: req.body.slug || req.body.title,
         content: req.body.content,
         access: req.body.access,
-        userId: req.body.userId
+        userId: req.currentUser.id
       })
       .then(newDocument => res.status(200).send({
         newDocument,
         message: 'Document created'
-      }));
+      }))
+      .catch((error) => {
+        const errorMessage = error.errors[0].message;
+        return res.status(400).send({
+          errorMessage
+        });
+      });
   },
 
   /**

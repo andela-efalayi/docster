@@ -12,7 +12,7 @@
   "scripts": {
     "build:reset:server": "NODE_ENV=production sequelize db:migrate:undo:all",
     "build:refill:server": "NODE_ENV=production sequelize db:migrate && NODE_ENV=production sequelize db:seed:all",
-    "build:client": "NODE_ENV=production webpack --config webpack-production.config.babel.js",
+    "build:client": "NODE_ENV=production webpack --config webpack-production.config.babel.js && cp -R documentation build/public",
     "build:db": "npm run build:reset:server && npm run build:refill:server",
     "build:server": "babel server -d build/server --copy-files --ignore tests,devServer.js",
     "build:constants": "babel constants -d build/constants --copy-files",

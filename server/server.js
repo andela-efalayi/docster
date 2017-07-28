@@ -22,6 +22,9 @@ app.use(express.static('build/public'));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
+app.get('/api-documentation', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/documentation/index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(colors.rainbow(`Docster is running on port:${PORT}`));
