@@ -119,6 +119,7 @@ class CreateDocumentDialog extends Component {
         onTouchTap={this.closeDialog}
       />,
       <RaisedButton
+        className="create-document-btn"
         label="Create document"
         primary
         keyboardFocused
@@ -128,7 +129,8 @@ class CreateDocumentDialog extends Component {
     return (
       <div>
         <MuiThemeProvider muiTheme={muiTheme1}>
-          <RaisedButton 
+          <RaisedButton
+            className="open-create-document-dialog" 
             label="create document" 
             onTouchTap={this.openDialog} 
             primary
@@ -138,6 +140,7 @@ class CreateDocumentDialog extends Component {
         <MuiThemeProvider muiTheme={muiTheme2}>
           <div className="container">
             <Dialog
+              className="create-document-dialog"
               title="New Document"
               actions={actions}
               modal={false}

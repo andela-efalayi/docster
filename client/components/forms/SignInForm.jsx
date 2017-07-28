@@ -95,26 +95,31 @@ class SignInForm extends Component {
         <h5 className="center">Existing User</h5>
         <form>
           <div className="row">
-            <TextInputField
-              error={this.state.errors.user}
-              type="text"
-              name="user"
-              value={this.state.user}
-              placeholder="Username or Email"
-              onInputChange={this.onInputChange}
-            />
-            <TextInputField
-              error={this.state.errors.password}
-              type="password"
-              name="password"
-              value={this.state.password}
-              placeholder="Password"
-              onInputChange={this.onInputChange}
-            />
+            <div id="username-or-email">
+              <TextInputField
+                error={this.state.errors.user}
+                type="text"
+                name="user"
+                value={this.state.user}
+                placeholder="Username or Email"
+                onInputChange={this.onInputChange}
+              />
+            </div>
+            <div id="password-field">
+              <TextInputField
+                error={this.state.errors.password}
+                type="password"
+                name="password"
+                value={this.state.password}
+                placeholder="Password"
+                onInputChange={this.onInputChange}
+              />
+            </div>
           </div>
         </form>
         <MuiThemeProvider muiTheme={muiTheme1}>
           <RaisedButton
+            className="signin-btn"
             label="Sign In"
             fullWidth
             primary

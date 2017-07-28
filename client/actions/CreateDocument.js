@@ -25,11 +25,11 @@ export function createDocument(newDocument) {
         dispatch(createDocumentSuccess(response.data.newDocument));
       })
       .catch(error => {
-        const serverError = getServerError(error).data;
-        if(serverError.error){
-          throw(serverError.error.errors[0].message);
-        }
-        throw(serverError.message);
+        // const serverError = getServerError(error).data;
+        // if(serverError.error){
+        //   throw(serverError.error.errors[0].message);
+        // }
+        throw(error);
       });
   }
 }

@@ -95,6 +95,11 @@ module.exports = {
           created,
           message: 'User created'
         });
+      })
+      .catch((error) => {
+        return res.status(400).send({
+          error
+        });
       });
   },
 

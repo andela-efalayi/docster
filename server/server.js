@@ -1,4 +1,4 @@
-/* eslint-disable no-console*/
+/*eslint-disable no-console*/
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
@@ -21,6 +21,9 @@ routes(app);
 app.use(express.static('build/public'));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
+});
+app.get('/api-documentation', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/documentation/index.html'));
 });
 
 app.listen(PORT, () => {

@@ -1,3 +1,5 @@
+import faker from 'faker';
+
 export const pageCount = 10;
 export const successMessage = "success";
 export const textInputFieldError = 'This field is required';
@@ -48,3 +50,14 @@ export const textInputFieldProps = {
   placeholder: 'Jest client test',
   value: 'Jest client test value'
 };
+export const newUser = {
+  fullName: faker.name.findName(),
+  userName: faker.internet.userName(),
+  email: faker.internet.email(),
+  password: faker.internet.password()
+}
+export const newPublicDocument = {
+  title: faker.lorem.word(),
+  content: faker.lorem.paragraph(),
+  access: 'public'
+}

@@ -25,7 +25,7 @@ export function formIsValid(formData) {
       case 'confirmPassword': 
         if(!Validator.equals(formData['password'],
           formData['confirmPassword'])) {
-          errors.confirmPassword = "Passwords do not match";
+          errors.confirmPassword = 'Passwords do not match';
         }
         break;
       case 'user': 
