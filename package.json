@@ -66,7 +66,6 @@
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.0.1",
     "eslint-watch": "^3.1.0",
-    "faker": "^4.1.0",
     "file-loader": "^0.11.2",
     "jest": "^20.0.4",
     "mocha": "^3.4.2",
@@ -80,10 +79,7 @@
     "redux-mock-store": "^1.2.3",
     "selenium-standalone": "^6.5.0",
     "style-loader": "^0.18.2",
-    "url-loader": "^0.5.8",
-    "webpack": "^2.6.1",
-    "webpack-dev-middleware": "^2.18.0",
-    "webpack-hot-middleware": "^2.18.0"
+    "url-loader": "^0.5.8"
   },
   "dependencies": {
     "axios": "^0.16.2",
@@ -104,6 +100,7 @@
     "dotenv-webpack": "^1.5.0",
     "express": "^4.15.3",
     "extract-text-webpack-plugin": "^2.1.2",
+    "faker": "^4.1.0",    
     "file-loader": "^0.11.2",
     "hammerjs": "^2.0.8",
     "html-react-parser": "^0.3.5",
@@ -136,6 +133,8 @@
     "transfer-webpack-plugin": "^0.1.4",
     "url-loader": "^0.5.8",
     "validator": "^7.1.0",
-    "webpack": "^2.6.1"
+    "webpack": "^2.6.1",
+    "webpack-dev-middleware": "^2.18.0",
+    "webpack-hot-middleware": "^2.18.0"
   }
 }
