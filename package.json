@@ -12,6 +12,13 @@
   "scripts": {
     "start:dev": "nodemon --watch server server/devServer.js --exec babel-node",
     "start": "node build/server/server.js",
+    "reset:db": "sequelize db:migrate:undo:all",
+    "seed:all": "sequelize db:migrate && sequelize db:seed:all",
+    "fill:db": "npm run reset:db && npm run seed:all",
+    "client:test": "jest ./client/__tests__  --coverage ",
+    "mocha": "NODE_ENV=test nyc --reporter=html --reporter=lcov --reporter=text mocha --timeout 15000 --compilers js:babel-register ./server/tests/**/*.spec.js",
+    "server:test": "NODE_ENV=test npm run fill:db && npm run mocha",
+    "e2e:setup": "./node_modules/.bin/selenium-standalone install",    
     "e2e:test": "node_modules/.bin/nightwatch",
     "test": "npm run server-test",
     "build:reset:server": "NODE_ENV=production sequelize db:migrate:undo:all",
@@ -23,14 +30,7 @@
     "prebuild": "rimraf build && mkdir build",
     "build": "npm run build:db && npm run build:constants && npm run build:client && npm run build:server",
     "postinstall": "npm run prebuild && npm run build",
-    "reset:db": "sequelize db:migrate:undo:all",
-    "seed:all": "sequelize db:migrate && sequelize db:seed:all",
-    "fill:db": "npm run reset:db && npm run seed:all",
-    "client:test": "jest ./client/__tests__  --coverage ",
-    "mocha": "NODE_ENV=test nyc --reporter=html --reporter=lcov --reporter=text mocha --timeout 15000 --compilers js:babel-register ./server/tests/**/*.spec.js",
-    "server:test": "NODE_ENV=test npm run fill:db && npm run mocha",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "e2e:setup": "./node_modules/.bin/selenium-standalone install" 
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "jest": {
     "transform": {
