@@ -20,7 +20,7 @@
     "server:test": "NODE_ENV=test npm run fill:db && npm run mocha",
     "e2e:setup": "./node_modules/.bin/selenium-standalone install",    
     "e2e:test": "node_modules/.bin/nightwatch",
-    "test": "npm run server-test",
+    "test": "npm run server:test",
     "build:reset:server": "NODE_ENV=production sequelize db:migrate:undo:all",
     "build:refill:server": "NODE_ENV=production sequelize db:migrate && NODE_ENV=production sequelize db:seed:all",
     "build:client": "NODE_ENV=production webpack --config webpack-production.config.babel.js && cp -R documentation build/public",
