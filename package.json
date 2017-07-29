@@ -10,6 +10,10 @@
     "npm": "4.2.0"
   },
   "scripts": {
+    "start:dev": "nodemon --watch server server/devServer.js --exec babel-node",
+    "start": "node build/server/server.js",
+    "e2e:test": "node_modules/.bin/nightwatch",
+    "test": "npm run server-test",
     "build:reset:server": "NODE_ENV=production sequelize db:migrate:undo:all",
     "build:refill:server": "NODE_ENV=production sequelize db:migrate && NODE_ENV=production sequelize db:seed:all",
     "build:client": "NODE_ENV=production webpack --config webpack-production.config.babel.js && cp -R documentation build/public",
@@ -26,11 +30,7 @@
     "mocha": "NODE_ENV=test nyc --reporter=html --reporter=lcov --reporter=text mocha --timeout 15000 --compilers js:babel-register ./server/tests/**/*.spec.js",
     "server:test": "NODE_ENV=test npm run fill:db && npm run mocha",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "start:dev": "nodemon --watch server server/devServer.js --exec babel-node",
-    "start": "node build/server/server.js",
-    "e2e:setup": "./node_modules/.bin/selenium-standalone install",
-    "e2e:test": "node_modules/.bin/nightwatch",
-    "test": "npm run server-test"
+    "e2e:setup": "./node_modules/.bin/selenium-standalone install" 
   },
   "jest": {
     "transform": {
