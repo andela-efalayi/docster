@@ -27,10 +27,12 @@ class CreateDocumentDialog extends Component {
     super(props);
     this.state = {
       open: false,
-      title: '',
-      content: '',
-      access: '',
       userId: this.props.user.id,
+      newDocument: {
+        access: '',
+        content: '',
+        title: ''
+      },
       errors: {}
     };
     this.openDialog = this.openDialog.bind(this);
@@ -46,8 +48,13 @@ class CreateDocumentDialog extends Component {
    * @returns {void}
    */
   onInputChange(event) {
+    const newDocument = this.state.newDocument;
+
     this.setState({
-      [event.target.name]: event.target.value
+      newDocument: {
+        ...newDocument,
+        [event.target.name]: event.target.value
+      }
     });
   }
 
@@ -57,9 +64,13 @@ class CreateDocumentDialog extends Component {
    * @returns {void}
    */
   onEditorChange() {
+    const newDocument = this.state.newDocument;
     this.setState({
-      content: tinymce.activeEditor.getContent(),
-    })
+      newDocument: {
+        ...newDocument,
+        content: tinymce.activeEditor.getContent()
+      }
+    });
   }
 
   /**
@@ -68,15 +79,17 @@ class CreateDocumentDialog extends Component {
    * @returns {void}
    */
   createDocument() {
-    const { isValid } = formIsValid(this.state);
+    const { isValid } = formIsValid(this.state.newDocument);
     if(isValid === true) {
-      this.props.createDocument(this.state).then(() => {
+      this.props.createDocument(this.state.newDocument).then(() => {
         showToast('Document was successfully created.', 'success');
         this.setState({
           open: false,
-          title: '',
-          content: '',
-          access: ''
+          newDocument: {
+            access: '',
+            content: '',
+            title: ''
+          }
         });
       })
       .catch(errorMessage => {
@@ -84,8 +97,8 @@ class CreateDocumentDialog extends Component {
       });
     }
     else{
-      showToast('Your document has to have a title, content and '+
-      'an access attribute. Please fill all required fields.','warning');
+      showToast('Your document must have a title, content and '+
+      'an access attribute.','warning');
     }
   }
 
@@ -151,7 +164,7 @@ class CreateDocumentDialog extends Component {
               <DocumentForm 
                 onInputChange={this.onInputChange} 
                 onEditorChange={this.onEditorChange}
-                document={this.state} 
+                document={this.state.newDocument} 
               />
             </Dialog>
           </div>

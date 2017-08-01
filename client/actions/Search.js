@@ -1,5 +1,6 @@
 import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
+import getServerError from '../utils/GetServerError';
 
 /**
  * @param {object} documents 
@@ -40,7 +41,8 @@ export function searchDocuments(searchString) {
         dispatch(searchDocumentsSuccess(documents));
       })
       .catch(error => {
-        throw(error);
+        const serverError = getServerError(error);
+        throw(serverError);
       });
   }
 }
@@ -62,7 +64,8 @@ export function searchUsers(searchString) {
         dispatch(searchUsersSuccess(users));
       })
       .catch(error => {
-        throw(error);
+        const serverError = getServerError(error);
+        throw(serverError);
       });
   }
 }

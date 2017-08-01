@@ -14,9 +14,9 @@ export default function updateUser(userUpdate) {
         const updatedUser = response.data.userWithUpdate;
         dispatch(loginUserSuccess(updatedUser));
       })
-      .catch(response => {
-        const errorMessage = getServerError(response);
-        throw(errorMessage.data.dbError[0].message);
+      .catch(error => {
+        const serverError = getServerError(error);
+        throw(serverError);
       });
   }
 }

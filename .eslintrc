@@ -5,7 +5,8 @@
     "react"
   ],
   "globals": {
-    "tinymce": true
+    "tinymce": true,
+    "before": true
   },
   "parserOptions": {
     "ecmaVersion": 6,
@@ -33,6 +34,7 @@
     "curly": ["error", "multi-line"],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
     "import/extensions": 0,
+    "import/no-named-as-default": 0,
     "react/forbid-prop-types": [1, {"forbid": ["any"]}],
     "react/react-in-jsx-scope": 1,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],

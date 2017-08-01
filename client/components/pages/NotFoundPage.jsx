@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+/* 
+  NotFoundPage
+  This is shown when a route is not available or does not exist
+*/
 const NotFoundPage = () => (
   <div className="container center">
     <div className="not-found">

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
-
+import getServerError from '../utils/GetServerError';
 
 /**
  * @param {object} users
@@ -30,7 +30,8 @@ export function getAllUsers(offset) {
         dispatch(getAllUsersSuccess(users));
       })
       .catch(error => {
-        throw(error);
+        const serverError = getServerError(error);
+        throw(serverError);
       });
   }
 }

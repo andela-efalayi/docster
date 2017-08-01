@@ -42,7 +42,7 @@ module.exports = {
         if (bcrypt.compareSync(req.body.password, user.password) === true) {
           user.password = undefined; // remove password from user attributes
           const token = auth.generateToken(user);
-          return res.status(201).send({
+          return res.status(200).send({
             token,
             message: 'User is logged in'
           });
@@ -97,7 +97,7 @@ module.exports = {
         });
       })
       .catch((error) => {
-        return res.status(400).send({
+        return res.status(500).send({
           error
         });
       });
@@ -143,7 +143,7 @@ module.exports = {
   getUserById(req, res) {
     return User
       .find({
-        where: { id: req.params.userId },
+        where: { id: req.params.id },
         attributes
       })
       .then((user) => {
@@ -167,7 +167,7 @@ module.exports = {
       offset = req.query.offset || QueryConstants.DEFAULT_OFFSET;
     return Document
     .findAndCountAll({
-      where: { userId: req.params.userId },
+      where: { userId: req.params.id },
       offset,
       limit,
     })
@@ -194,7 +194,7 @@ module.exports = {
    * @returns {object} res
    */
   updateUser(req, res) {
-    if(req.body.newRole) {
+    if(req.body.role) {
       if(req.currentUser.roleId !== 1) {
         res.status(403).send({
           message: 'User is not an admin'
@@ -203,15 +203,15 @@ module.exports = {
       else {
         return Role.find({
           where: {
-            roleType: req.body.newRole
+            roleType: req.body.role
           }
         }).then((role) => {
           if(!role) {
             return res.status(404).send({
-              message: 'User does not exist'
+              message: 'Role does not exist'
             });
           }
-          User.findById(req.params.userId).then((user) => {
+          User.findById(req.params.id).then((user) => {
             if (!user) {
               return res.status(404).send({
                 message: 'User does not exist'
@@ -231,7 +231,7 @@ module.exports = {
       }
     } else {
       return User
-      .findById(req.params.userId)
+      .findById(req.params.id)
       .then((user) => {
         if (!user) {
           return res.status(404).send({
@@ -271,7 +271,7 @@ module.exports = {
    */
   deleteUser(req, res) {
     return User
-      .findById(req.params.userId)
+      .findById(req.params.id)
       .then((user) => {
         if (!user) {
           return res.status(404).send({

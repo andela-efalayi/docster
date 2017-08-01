@@ -25,9 +25,9 @@ export function getAllRoles() {
         const roles = response.data.roles;
         dispatch(getAllRolesSuccess(roles));
       })
-      .catch(response => {
-        const error = getServerError(response);
-        throw(error);
+      .catch(error => {
+        const serverError = getServerError(error);
+        throw(serverError);
       });
   }
 }

@@ -30,6 +30,9 @@ const serverData = {
     password: faker.internet.password(),
     roleId: 2
   },
+  userWithInvalidEmail: {
+    email: faker.date.month()
+  },
   administrator: {
     fullName: faker.name.findName(),
     userName: faker.internet.userName(),
@@ -51,7 +54,7 @@ const serverData = {
     userName: 'username',
     roleId: 1
   }),
-  newDocumentContent: faker.lorem.paragraph(),
+  newDocumentTitle: faker.lorem.sentence(),
   newFullName: faker.name.findName(),
   userRole: {
     roleType: "technical consultant"
@@ -60,6 +63,9 @@ const serverData = {
     title: faker.company.catchPhrase(),
     content: faker.lorem.paragraph(),
     access: 'public'
+  },
+  documentWithNoTitle: {
+    content: faker.lorem.paragraph()
   }
 };
 

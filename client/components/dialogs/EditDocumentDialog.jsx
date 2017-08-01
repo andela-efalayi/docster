@@ -91,9 +91,7 @@ export class EditDocumentDialog extends Component {
    * @returns {void}
    */
   openDialog() {
-    this.setState({open: true});    
-    // window.history
-    //   .pushState(null, null, `/my-documents/edit/${this.state.slug}`);   
+    this.setState({open: true});     
   }
 
   /**

@@ -63,13 +63,8 @@ module.exports = {
    * @returns {object} res
    */
   getRoleById(req, res) {
-    if(isNaN(req.params.roleId) === true) {
-      return res.status(400).send({
-        message: 'RoleId must be numeric'
-      });
-    }
     return Role
-      .findById(req.params.roleId)
+      .findById(req.params.id)
       .then((role) => {
         if (!role) {
           return res.status(404).send({

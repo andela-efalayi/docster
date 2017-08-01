@@ -18,22 +18,24 @@ module.exports = {
         slug: req.body.slug || req.body.title,
         content: req.body.content,
         access: req.body.access,
-        userId: req.currentUser.id
+        userId: req.currentUser.id,
+        roleId: req.currentUser.roleId
       })
-      .then(newDocument => res.status(200).send({
+      .then(newDocument => res.status(201).send({
         newDocument,
         message: 'Document created'
       }))
       .catch((error) => {
         const errorMessage = error.errors[0].message;
+        console.log(errorMessage);
         return res.status(400).send({
-          errorMessage
+          message: errorMessage
         });
       });
   },
 
   /**
-   * Get all docuemnts from database
+   * Get all documents from database
    * @param {object} req 
    * @param {object} res 
    * @returns {object} res
@@ -96,7 +98,8 @@ module.exports = {
     return Document
       .findAndCountAll({ 
         where: {
-          access: 'role'
+          access: 'role',
+          roleId: req.currentUser.roleId
         }
       })
       .then((documents) => {
@@ -119,13 +122,8 @@ module.exports = {
    * @returns {object} res
    */
   getDocumentById(req, res) {
-    if (isNaN(req.params.documentId) === true) {
-      return res.status(400).send({
-        message: 'DocumentId must be numeric'
-      });
-    }
     return Document
-      .findById(req.params.documentId)
+      .findById(req.params.id)
       .then((document) => {
         if (!document) {
           return res.status(404).send({
@@ -147,7 +145,7 @@ module.exports = {
    */
   updateDocument(req, res) {
     return Document
-      .findById(req.params.documentId)
+      .findById(req.params.id)
       .then((document) => {
         if (!document) {
           return res.status(404).send({
@@ -156,10 +154,16 @@ module.exports = {
         }
         return document
           .update(req.body)
-          .then(documentWithUpdate => res.status(201).send({
+          .then(documentWithUpdate => res.status(200).send({
             documentWithUpdate,
             message: 'Document updated'
           }));
+      })
+      .catch((error) => {
+        const errorMessage = error.errors[0].message;
+        return res.status(400).send({
+          message: errorMessage
+        });
       });
   },
 
@@ -170,13 +174,8 @@ module.exports = {
    * @returns {object} res
    */
   deleteDocument(req, res) {
-    if(isNaN(req.params.documentId) === true) {
-      return res.status(400).send({
-        message: 'DocumentId must be numeric'
-      });
-    }
     return Document
-      .findById(req.params.documentId)
+      .findById(req.params.id)
       .then((document) => {
         if (!document) {
           return res.status(404).send({

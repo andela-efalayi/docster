@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Parser from 'html-react-parser';
 import EditDocumentDialog from '../dialogs/EditDocumentDialog.jsx';
-import DeleteDcoumentAlert from '../dialogs/DeleteDocumentAlert.jsx';
+import DeleteDocumentAlert from '../dialogs/DeleteDocumentAlert.jsx';
 import AccessIcon from '../common/AccessIcon.jsx';
 import SetMaxCharacters from '../../utils/SetMaxCharacters';
 
 /*
-  Document component
+  Document component  
   Displays a single document
 */
 const Document = ({ document, userId }) => {
@@ -34,7 +34,7 @@ const Document = ({ document, userId }) => {
             userId === document.userId &&
             <div>
               <div className="two columns">
-                <DeleteDcoumentAlert document={document} />
+                <DeleteDocumentAlert document={document} />
               </div>
               <div className="two columns">
                 <EditDocumentDialog document={document} />

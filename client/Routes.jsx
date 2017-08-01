@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Index from './components/Index.jsx';
-import UserPage from './components/pages/UserPage.jsx';
+import DocumentsPage from './components/pages/DocumentsPage.jsx';
 import ProfilePage from './components/pages/ProfilePage.jsx';
 import AllUsersPage from './components//pages/AllUsersPage.jsx';
 import AllRolesPage from './components/pages/AllRolesPage.jsx';
@@ -48,9 +48,9 @@ const Routes = () => (
   <main>
     <Switch>
       <Route exact path="/" component={Index} />
-      <RequireToken exact path="/my-documents" component={UserPage} />
-      <RequireToken exact path="/public-documents" component={UserPage} />
-      <RequireToken exact path="/role-documents" component={UserPage} />      
+      <RequireToken exact path="/my-documents" component={DocumentsPage} />
+      <RequireToken exact path="/public-documents" component={DocumentsPage} />
+      <RequireToken exact path="/role-documents" component={DocumentsPage} />   
       <RequireToken path="/profile" component={ProfilePage} />        
       <AdminRoute exact path="/allusers" component={AllUsersPage} />
       <AdminRoute exact path="/allroles" component={AllRolesPage} /> 

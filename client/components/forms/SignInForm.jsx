@@ -45,7 +45,7 @@ class SignInForm extends Component {
   }
 
   /**
-   * Validate sigin form
+   * Validate SignIn form
    * @memberof SignInForm
    * @returns {bool} hasData
    */
@@ -70,7 +70,7 @@ class SignInForm extends Component {
     });
     if(this.validateForm() === true) {
       const errors = {};      
-      this.props.actions.loginUser(this.state)
+      this.props.auth.loginUser(this.state)
       .then(() => {
         this.context.router.history.push('/my-documents');
       })
@@ -133,7 +133,7 @@ class SignInForm extends Component {
 
 // Set SignInForm proptypes
 SignInForm.propTypes = {
-  actions: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 // Set SignInForm contectypes
@@ -144,14 +144,14 @@ SignInForm.contextTypes = {
 // Map state to this.props
 const mapStateToProps = (state) => {
   return {
-    payload: state.auth
+    auth: state.auth
   }
 }
 
 // Map dispatched action to this.props
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(authenticate, dispatch)
+    auth: bindActionCreators(authenticate, dispatch)
   }
 }
 

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
+import getServerError from '../utils/GetServerError';
 
 /**
  * @param {object} documents
@@ -28,9 +29,8 @@ export function getRoleDocuments() {
         }
       })
       .catch(error => {
-        let errorMessage = JSON.parse(JSON.stringify(error));
-        const message = errorMessage.response.data.message;
-        throw(message);
+        const serverError = getServerError(error);
+        throw(serverError);
       });
   }
 }

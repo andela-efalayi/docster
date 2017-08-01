@@ -35,7 +35,29 @@ describe(colors.green('DocumentRoutes'), () => {
   });
 
   // Test that route creates a document with the correct userId
-  describe(colors.underline('POST /api/v1/document'), () => {
+  describe(colors.underline('POST /api/v1/documents'), () => {
+    it('should give an error if no document details are provided', (done) => {
+      chai.request(server)
+      .post('/api/v1/documents')
+      .send({})
+      .set('Authorisation', 'Bearer '+serverResponse.token)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.message).to.equal('No document data provided');
+        done();
+      });
+    });
+    it('should give an error if no document title is provided', (done) => {
+      chai.request(server)
+      .post('/api/v1/documents')
+      .send(serverData.documentWithNoTitle)
+      .set('Authorisation', 'Bearer '+serverResponse.token)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.message).to.equal('Document must have a title');
+        done();
+      });
+    });
     it('should create a new document in database with userId', (done) => {
       chai.request(server)
       .post('/api/v1/documents')
@@ -43,7 +65,7 @@ describe(colors.green('DocumentRoutes'), () => {
       .set('Authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         createdDocument = res.body.newDocument;
-        expect(res.status).to.equal(200);
+        expect(res.status).to.equal(201);
         expect(res.body.newDocument.userId).to.equal(createdUser.id);
         done();
       });
@@ -103,7 +125,7 @@ describe(colors.green('DocumentRoutes'), () => {
   });
 
   //  Test that route can get documents by id
-  describe(colors.underline('GET /api/v1/documents/:documentId'),
+  describe(colors.underline('GET /api/v1/documents/:id'),
   () => {
     it('should get document with specified id from the database', (done) => {
       chai.request(server)
@@ -120,8 +142,8 @@ describe(colors.green('DocumentRoutes'), () => {
       .get('/api/v1/documents/-1')
       .set('Authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
-        expect(res.status).to.equal(404);
-        expect(res.body.message).to.equal('Document not found');
+        expect(res.status).to.equal(400);
+        expect(res.body.message).to.equal('Id must be greater than zero');
         done();
       });
     });
@@ -131,42 +153,41 @@ describe(colors.green('DocumentRoutes'), () => {
       .set('Authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.message).to.equal('DocumentId must be numeric');
+        expect(res.body.message).to.equal('Id must be numeric');
         done();
       });
     });
   });
 
   //  Test that a particular document can be edited
-  describe(colors.underline('PUT /api/v1/documents/:documentId'),
+  describe(colors.underline('PUT /api/v1/documents/:id'),
   () => {
-    it('should update a document with the id specified', (done) => {
-      const content = serverData.newDocumentContent;
-      chai.request(server)
-      .put(`/api/v1/documents/${createdDocument.id}`)
-      .send({ content })
-      .set('Authorisation', 'Bearer '+serverResponse.token)
-      .end((err, res) => {
-        expect(res.status).to.equal(201);
-        expect(res.body.message).to
-        .equal('Document updated');
-        done();
-      });
-    });
     it('should give an error if document does not exist', (done) => {
       chai.request(server)
       .put('/api/v1/documents/-1')
       .send({ content: 'content for an invalid document id' })
       .set('Authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
-        expect(res.body.message).to.equal('Document not found')
+        expect(res.body.message).to.equal('Id must be greater than zero')
+        done();
+      });
+    });
+    it('should update a document with the id specified', (done) => {
+      chai.request(server)
+      .put(`/api/v1/documents/${createdDocument.id}`)
+      .send({title: serverData.newDocumentTitle})
+      .set('Authorisation', 'Bearer '+serverResponse.token)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.message).to
+        .equal('Document updated');
         done();
       });
     });
   });
 
   //  Test that a particular document can be deleted
-  describe(colors.underline('DELETE /documents/:documentId'), () => {
+  describe(colors.underline('DELETE /documents/:id'), () => {
     it('should delete a user with the id specified', (done) => {
       chai.request(server)
       .delete(`/api/v1/documents/${createdDocument.id}`)
@@ -182,8 +203,8 @@ describe(colors.green('DocumentRoutes'), () => {
       .delete('/api/v1/documents/-1')
       .set('Authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
-        expect(res.status).to.equal(404);
-        expect(res.body.message).to.equal('Document not found');
+        expect(res.status).to.equal(400);
+        expect(res.body.message).to.equal('Id must be greater than zero');
         done();
       });
     });
@@ -193,7 +214,7 @@ describe(colors.green('DocumentRoutes'), () => {
       .set('Authorisation', 'Bearer '+serverResponse.token)      
       .end((err, res) => {
         expect(res.status).to.equal(400);  
-        expect(res.body.message).to.equal('DocumentId must be numeric');      
+        expect(res.body.message).to.equal('Id must be numeric');      
         done();
       });
     });

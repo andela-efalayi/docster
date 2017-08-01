@@ -24,9 +24,8 @@ export function deleteDocument(document){
       .then(() => {
         dispatch(deleteDocumentSuccess(document));
       })
-      .catch(response => {
-        const errorMessage = getServerError(response).data.message;
-        throw(errorMessage);
+      .catch(error => {
+        throw(error);
       });
   }
 }

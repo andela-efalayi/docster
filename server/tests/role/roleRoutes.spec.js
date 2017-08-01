@@ -73,7 +73,7 @@ describe(colors.green('RoleRoutes'), () => {
   });
 
   // Test that route can retrieve a role by id
-  describe(colors.underline('GET /api/v1/roles/:roleId'), () => {
+  describe(colors.underline('GET /api/v1/roles/:id'), () => {
     it('should get a role in the database', (done) => {
       chai.request(server)
       .get(`/api/v1/roles/${createdRole.id}`)
@@ -89,7 +89,7 @@ describe(colors.green('RoleRoutes'), () => {
       .get('/api/v1/roles/-1')
       .set('Authorisation', 'Bearer '+serverResponse.token)
       .end((err, res) => {
-        expect(res.status).to.equal(404);
+        expect(res.status).to.equal(400);
         done();
       });
     });

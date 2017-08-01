@@ -1,5 +1,6 @@
 import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
+import getServerError from '../utils/GetServerError';
 
 /**
  * @param {object} documents
@@ -33,7 +34,8 @@ export function getUserDocuments(userId, offset) {
         }
       })
       .catch(error => {
-        throw(error);
+        const serverError = getServerError(error);
+        throw(serverError);
       });
   }
 }

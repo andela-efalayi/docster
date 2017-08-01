@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Header from '../common/Header.jsx';
 import HomeTab from '../common/HomeTab.jsx';
 import Documents from '../common/Documents.jsx';
 import PageNavigation from '../common/PageNavigation.jsx';
-import { logoutUser } from '../../actions/Authenticate';
 import { getUserDocuments } from '../../actions/GetUserDocuments';
 import { getPublicDocuments } from '../../actions/GetPublicDocuments';
 import { getRoleDocuments } from '../../actions/GetRoleDocuments';
 import QueryConstants from '../../../constants/QueryConstants';
 
 /**
- * @class UserPage
+ * @class DocumentsPage
  * @extends {Component}
  */
-class UserPage extends Component {
+class DocumentsPage extends Component {
 
   /**
-   * Create an instance of UserPage.
+   * Create an instance of DocumentsPage.
    * @param {object} props 
    * @param {object} context
    * @memberof UserPage
@@ -33,26 +31,17 @@ class UserPage extends Component {
       documentsCount: 0,
       pageCount: 0
     };
-    this.logoutUser = this.logoutUser.bind(this);
     this.changePage = this.changePage.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
   }
 
   /**
-   * @memberof UserPage
+   * @memberof DocumentsPage
    * @return {void}
    */
   componentDidMount() {
     const access = this.props.match.url;
-    if( access === '/public-documents') {
-      this.props.getPublicDocuments();
-    }
-    if( access === '/role-documents') {
-      this.props.getRoleDocuments();
-    }
-    if( access === '/my-documents') {
-      this.props.getUserDocuments(this.state.user.id);   
-    }
+    this.getDocuments(access);
   }
 
   /**
@@ -63,15 +52,7 @@ class UserPage extends Component {
   componentWillReceiveProps(nextProps) {
     const access = nextProps.match.url;    
     if(nextProps.match.url !== this.props.match.url){
-      if( access === '/public-documents') {
-        this.props.getPublicDocuments();
-      }
-      if( access === '/role-documents') {
-        this.props.getRoleDocuments();
-      }
-      if( access === '/my-documents') {
-        this.props.getUserDocuments(this.state.user.id);   
-      }
+      this.getDocuments(access);
     }
     this.setState({
       documents: nextProps.documents.rows,
@@ -95,8 +76,25 @@ class UserPage extends Component {
   }
 
   /**
+   * @memberof DocumentsPage
+   * @param {string} accessUrl
+   * @return {void}
+   */
+  getDocuments(accessUrl){
+    if( accessUrl === '/public-documents') {
+      this.props.getPublicDocuments();
+    }
+    if( accessUrl === '/role-documents') {
+      this.props.getRoleDocuments();
+    }
+    if( accessUrl === '/my-documents') {
+      this.props.getUserDocuments(this.state.user.id);   
+    }
+  }
+
+  /**
    * @param {any} data 
-   * @memberof UserPage
+   * @memberof DocumentsPage
    * @returns {void}
    */
   changePage(data) {
@@ -106,19 +104,7 @@ class UserPage extends Component {
   }
 
   /**
-   * Log user out of app and redirect to index page
-   * @memberof UserPage
-   * @param {object} event
-   * @returns {void}
-   */
-  logoutUser(event) {
-    event.preventDefault();
-    this.props.logoutUser();
-    this.context.router.history.push('/');
-  }
-
-  /**
-   * Render UserPage in the DOM
+   * Render DocumentsPage in the DOM
    * @memberof UserPage
    * @returns {object} react-component
    */
@@ -135,7 +121,6 @@ class UserPage extends Component {
     
     return(
       <div id="user-page">
-        <Header currentUser={this.state.user} logoutUser={this.logoutUser} />
         <HomeTab
           numberOfDocuments={this.state.documentsCount}
           onInputChange={this.onInputChange}
@@ -159,10 +144,9 @@ class UserPage extends Component {
   }
 }
 
-// Set UserPage proptypes
-UserPage.propTypes = {
+// Set DocumentsPage proptypes
+DocumentsPage.propTypes = {
   auth: PropTypes.object.isRequired,
-  logoutUser: PropTypes.func.isRequired,
   getPublicDocuments: PropTypes.func.isRequired,
   getRoleDocuments: PropTypes.func.isRequired,
   getUserDocuments: PropTypes.func.isRequired,
@@ -170,8 +154,8 @@ UserPage.propTypes = {
   match: PropTypes.object.isRequired
 }
 
-// Set UserPage contexttypes
-UserPage.contextTypes = {
+// Set DocumentsPage contexttypes
+DocumentsPage.contextTypes = {
   router: PropTypes.object.isRequired
 }
 
@@ -183,8 +167,8 @@ const matchStateToProps = (state) => {
   }
 }
 
-// Connect UserPage to store
+// Connect DocumentsPage to store
 export default 
   connect(matchStateToProps,
-    { logoutUser, getPublicDocuments,
-      getRoleDocuments, getUserDocuments })(UserPage);
+    { getPublicDocuments,
+      getRoleDocuments, getUserDocuments })(DocumentsPage);

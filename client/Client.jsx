@@ -16,6 +16,7 @@ import './styles/main.scss';
 import Routes from './Routes.jsx';
 import setAuthorisationToken from './utils/SetAuthorisationToken';
 import { loginUserSuccess } from './actions/Authenticate';
+import Header from './components/common/Header.jsx';
 
 injectTapEventPlugin();
 
@@ -32,7 +33,10 @@ const App = () => {
     <main>
       <Provider store={store} >
         <BrowserRouter>
-          <Routes />
+          <div>
+            <Header />
+            <Routes />
+          </div>
         </BrowserRouter>
       </Provider>
       <footer className="container center">

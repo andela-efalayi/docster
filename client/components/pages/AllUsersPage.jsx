@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Header from '../common/Header.jsx';
 import UsersTable from '../tables/UsersTable.jsx';
-import { logoutUser } from '../../actions/Authenticate';
 import { muiTheme1 } from '../../muiTheme';
 import { getAllUsers } from '../../actions/GetAllUsers';
 import PageNavigation from '../common/PageNavigation.jsx';
@@ -30,7 +28,6 @@ class AllUsersPage extends Component {
       usersCount: 0,
       pageCount: 0
     };
-    this.logoutUser = this.logoutUser.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.editRole = this.editRole.bind(this);
     this.changePage = this.changePage.bind(this);
@@ -90,17 +87,6 @@ class AllUsersPage extends Component {
       edit: true
     });
   }
-  /**
-   * Log user out of app and redirect to index page
-   * @memberof AllUsersPage
-   * @param {object} event
-   * @returns {void}
-   */
-  logoutUser(event) {
-    event.preventDefault();
-    this.props.logoutUser()
-      this.context.router.history.push('/');
-  }
 
   /**
    * @memberof AllUsersPage
@@ -109,10 +95,6 @@ class AllUsersPage extends Component {
   render() {  
     return(
       <div>
-        <Header 
-          currentUser={this.state.currentUser}
-          logoutUser={this.logoutUser} 
-        />
         <div className="profile-body">
           <div className="container">
             <PageNavigation
@@ -138,7 +120,6 @@ class AllUsersPage extends Component {
 AllUsersPage.propTypes = {
   users: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  logoutUser: PropTypes.func.isRequired,
   getAllUsers: PropTypes.func.isRequired
 }
 
@@ -156,4 +137,4 @@ const matchStateToProps = (state) => {
 }
 
 export default 
-  connect(matchStateToProps, { logoutUser, getAllUsers })(AllUsersPage);
+  connect(matchStateToProps, {getAllUsers })(AllUsersPage);
