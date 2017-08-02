@@ -2,10 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-/*
-  TextInputField Component
-  Renders an input field
-*/
+/**
+ * TextInputField Component 
+ * Renders an input field
+ * @param {string} error
+ * @param {string} type
+ * @param {string} name
+ * @param {string} value
+ * @param {string} placeholder
+ * @param {func} onInputChange
+ */
+
 const TextInputField = ({ 
   error, type, name, value, placeholder, onInputChange }) => {
   return(

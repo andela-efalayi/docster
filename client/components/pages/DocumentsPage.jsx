@@ -7,6 +7,7 @@ import PageNavigation from '../common/PageNavigation.jsx';
 import { getUserDocuments } from '../../actions/GetUserDocuments';
 import { getPublicDocuments } from '../../actions/GetPublicDocuments';
 import { getRoleDocuments } from '../../actions/GetRoleDocuments';
+import { searchDocuments } from '../../actions/Search';
 import QueryConstants from '../../../constants/QueryConstants';
 
 /**
@@ -57,6 +58,7 @@ class DocumentsPage extends Component {
     this.setState({
       documents: nextProps.documents.rows,
       documentsCount: nextProps.documents.count,
+      errorMessage: '',
       pageTitle: access.split("/")[1].replace('-', ' '),
       pageCount: Math.ceil(
         nextProps.documents.count / QueryConstants.DEFAULT_LIMIT)
@@ -73,22 +75,35 @@ class DocumentsPage extends Component {
     this.setState({
       searchString
     });
+    this.props.searchDocuments(this.state.searchString).then(() => {
+      this.setState({
+        documents: this.props.searchResult.rows,
+        documentsCount: this.props.searchResult.count,
+        pageTitle: 'Search Result'
+      });
+    })
+    .catch((errorMessage) => {
+      this.setState({
+        errorMessage
+      });
+    });
   }
 
   /**
    * @memberof DocumentsPage
    * @param {string} accessUrl
+   * @param {number} offset
    * @return {void}
    */
-  getDocuments(accessUrl){
+  getDocuments(accessUrl, offset){
     if( accessUrl === '/public-documents') {
-      this.props.getPublicDocuments();
+      this.props.getPublicDocuments(offset);
     }
     if( accessUrl === '/role-documents') {
-      this.props.getRoleDocuments();
+      this.props.getRoleDocuments(offset);
     }
     if( accessUrl === '/my-documents') {
-      this.props.getUserDocuments(this.state.user.id);   
+      this.props.getUserDocuments(this.state.user.id, offset);   
     }
   }
 
@@ -100,7 +115,8 @@ class DocumentsPage extends Component {
   changePage(data) {
     event.preventDefault();    
     const offset = data.selected * QueryConstants.DEFAULT_LIMIT;
-    this.props.getUserDocuments(this.state.user.id, offset);
+    const accessUrl = this.props.match.url;
+    this.getDocuments(accessUrl, offset);
   }
 
   /**
@@ -110,9 +126,10 @@ class DocumentsPage extends Component {
    */
   render() {
     const documents = this.state.documents;
-    const displayDocuments = (typeof documents === 'undefined') ? 
+    const displayDocuments = (typeof documents === 'undefined'
+    || this.state.errorMessage) ? 
     (<div className="center no-documents">
-      <h4>no documents</h4>
+      <h4>{this.state.errorMessage}</h4>
     </div>) : 
     (<Documents
       documents={documents}
@@ -151,7 +168,9 @@ DocumentsPage.propTypes = {
   getRoleDocuments: PropTypes.func.isRequired,
   getUserDocuments: PropTypes.func.isRequired,
   documents: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  searchDocuments: PropTypes.func.isRequired,
+  searchResult: PropTypes.object.isRequired
 }
 
 // Set DocumentsPage contexttypes
@@ -163,7 +182,8 @@ DocumentsPage.contextTypes = {
 const matchStateToProps = (state) => {
   return{
     auth: state.auth,
-    documents: state.documents
+    documents: state.documents,
+    searchResult: state.search
   }
 }
 
@@ -171,4 +191,4 @@ const matchStateToProps = (state) => {
 export default 
   connect(matchStateToProps,
     { getPublicDocuments,
-      getRoleDocuments, getUserDocuments })(DocumentsPage);
+      getRoleDocuments, getUserDocuments, searchDocuments })(DocumentsPage);

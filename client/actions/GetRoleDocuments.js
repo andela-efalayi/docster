@@ -15,12 +15,16 @@ export function getRoleDocumentsSuccess(documents) {
 
 /**
  * Get all role documents from database
- * @param {number} userId 
+ * @param {number} offset 
  * @returns {func} dispatch
  */
-export function getRoleDocuments() {
+export function getRoleDocuments(offset) {
   return function(dispatch) {
-    return axios.get(`/api/v1/role-documents`)
+    return axios.get(`/api/v1/role-documents`, {
+      params: {
+        offset
+      }
+    })
       .then(response => {
         if(!response.data.documents){
           dispatch(getRoleDocumentsSuccess({}));

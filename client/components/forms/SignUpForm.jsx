@@ -161,7 +161,7 @@ SignUpForm.contextTypes = {
 }
 
 // Maps state to this.props
-const mapStateToProps = (state /*, ownProps*/) => {
+const mapStateToProps = (state) => {
   return {
     payload: state.auth
   };

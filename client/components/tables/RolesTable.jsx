@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import getDate from '../../utils/GetDate';
 
-/* 
-  Roles Table
- */
+/**
+ * Roles Table
+ * @param {array} roles
+ * @returns {object} react-component
+*/
 const RolesTable = ({ roles }) => {
   return(
     <table className="u-full-width">

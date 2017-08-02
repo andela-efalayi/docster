@@ -46,7 +46,7 @@ export class Header extends Component{
   }
 
   /**
-   * Log user out of app and redirect to index page
+   * Logs user out of app and redirect to index page
    * @memberof Header
    * @param {object} event
    * @returns {void}

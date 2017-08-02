@@ -3,22 +3,24 @@ import PropTypes from 'prop-types';
 import orderBy from 'lodash/orderBy';
 import Document from './Document.jsx';
 
-/*
-  Documents Component
-  Orders all documents in an array
-*/
+/**
+ * Documents Component
+ * Orders all documents in an array
+ * @param {object} props
+ * @returns {object} react-component
+ */
 const Documents = (props) => {
-    const orderedDocuments = orderBy(
-      props.documents, ['createdAt'], ['desc'])
-    return(
-      <div>
-        {orderedDocuments.map(document => (
-          <div className="three columns" key={document.id}>
-            <Document document={document} userId={props.userId} />
-          </div>
-        ))}
-      </div>
-    );
+  const orderedDocuments = orderBy(
+    props.documents, ['createdAt'], ['desc'])
+  return(
+    <div>
+      {orderedDocuments.map(document => (
+        <div className="three columns" key={document.id}>
+          <Document document={document} userId={props.userId} />
+        </div>
+      ))}
+    </div>
+  );
 };
 
 Documents.propTypes = {

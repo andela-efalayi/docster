@@ -8,7 +8,6 @@ import { muiTheme1 } from '../muiTheme';
 /**
  * @class Index
  * @extends {Component}
- * @param {string} tab
  */
 class Index extends Component {
 

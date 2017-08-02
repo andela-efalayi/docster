@@ -14,13 +14,13 @@ import { deleteDocument } from '../../actions/DeleteDocument';
 import showToast from '../../utils/ShowToast';
 
 /**
- * @class CreateDocumentDialog
+ * @class DeleteDocumentAlert
  * @extends {React.Component}
  */
 export class DeleteDocumentAlert extends Component {
 
   /**
-   * Creates an instance of CreateDocumentDialog.
+   * Creates an instance of DeleteDocumentAlert.
    * @param {any} props 
    * @memberof CreateDocumentDialog
    */
@@ -37,7 +37,7 @@ export class DeleteDocumentAlert extends Component {
 
   /**
    * Delete document
-   * @memberof CreateDocumentDialog
+   * @memberof DeleteDocumentAlert
    * @returns {void}
    */
   deleteDocument() {
@@ -55,7 +55,7 @@ export class DeleteDocumentAlert extends Component {
 
   /**
    * Close dialog
-   * @memberof CreateDocumentDialog
+   * @memberof DeleteDocumentAlert
    * @returns {void}
    */
   closeDialog() {
@@ -64,7 +64,7 @@ export class DeleteDocumentAlert extends Component {
 
   /**
    * Open dialog
-   * @memberof CreateDocumentDialog
+   * @memberof DeleteDocumentAlert
    * @returns {void}
    */
   openDialog() {

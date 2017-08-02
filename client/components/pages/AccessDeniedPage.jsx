@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-/* 
-  AccessDeniedPage
-  This page is shown when a regular user tries to access an admin route
+/**
+ * AccessDeniedPage
+ * This page is shown when a regular user
+ * tries to access an admin route
+ * @returns {object} react-component
 */
 const AccessDeniedPage = () => (
   <div className="container center">

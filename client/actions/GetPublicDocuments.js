@@ -15,12 +15,16 @@ export function getPublicDocumentsSuccess(documents) {
 
 /**
  * Get all public documents from database
- * @param {number} userId 
+ * @param {number} offset 
  * @returns {func} dispatch
  */
-export function getPublicDocuments() {
+export function getPublicDocuments(offset) {
   return function(dispatch) {
-    return axios.get(`/api/v1/public-documents`)
+    return axios.get(`/api/v1/public-documents`, {
+      params: {
+        offset
+      }
+    })
       .then(response => {
         if(!response.data.documents){
           dispatch(getPublicDocumentsSuccess({}));

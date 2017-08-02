@@ -4,7 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from '../reducers/RootReducer';
 
 
-/**
+/** Redux store for development
  * @param {object} initialState 
  * @returns {func} createStore
  */

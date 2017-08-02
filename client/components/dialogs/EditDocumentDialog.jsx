@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { blue600 } from 'material-ui/styles/colors';
-
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -15,15 +14,15 @@ import DocumentForm from '../forms/DocumentForm.jsx';
 import { updateDocument } from '../../actions/UpdateDocument';
 
 /**
- * @class CreateDocumentDialog
+ * @class EditDocumentDialog
  * @extends {React.Component}
  */
 export class EditDocumentDialog extends Component {
 
   /**
-   * Creates an instance of CreateDocumentDialog
+   * Creates an instance of EditDocumentDialog
    * @param {any} props 
-   * @memberof CreateDocumentDialog
+   * @memberof EditDocumentDialog
    */
   constructor(props) {
     super(props);
@@ -44,7 +43,7 @@ export class EditDocumentDialog extends Component {
 
   /**
    * @param {object} event 
-   * @memberof CreateDocumentDialog
+   * @memberof EditDocumentDialog
    * @returns {void}
    */
   onInputChange(event) {
@@ -54,7 +53,7 @@ export class EditDocumentDialog extends Component {
   }
   
   /** Get content from tinymce editor
-   * @memberof CreateDocumentDialog
+   * @memberof EditDocumentDialog
    * @returns {void}
    */
   onEditorChange() {
@@ -65,7 +64,7 @@ export class EditDocumentDialog extends Component {
 
   /**
    * Update document
-   * @memberof CreateDocumentDialog
+   * @memberof EditDocumentDialog
    * @returns {void}
    */
   updateDocument() {
@@ -79,7 +78,7 @@ export class EditDocumentDialog extends Component {
 
   /**
    * Close dialog
-   * @memberof CreateDocumentDialog
+   * @memberof EditDocumentDialog
    * @returns {void}
    */
   closeDialog() {
@@ -87,7 +86,7 @@ export class EditDocumentDialog extends Component {
   }
 
   /**
-   * @memberof CreateDocumentDialog
+   * @memberof EditDocumentDialog
    * @returns {void}
    */
   openDialog() {
@@ -95,7 +94,7 @@ export class EditDocumentDialog extends Component {
   }
 
   /**
-   * @memberof CreateDocumentDialog
+   * @memberof EditDocumentDialog
    * @returns {object} dialog
    */
   render() {

@@ -29,7 +29,7 @@ export default function DocumentReducer(state=InitialState.documents, action) {
     case ActionTypes.GET_PUBLIC_DOCUMENTS:
     case ActionTypes.GET_ROLE_DOCUMENTS:
     case ActionTypes.GET_USER_DOCUMENTS:
-      return action.documents;
+      return Object.assign({}, state, action.documents);
     case ActionTypes.UPDATE_DOCUMENT:
       update.count = state.count;    
       update.rows = [...state.rows.filter(

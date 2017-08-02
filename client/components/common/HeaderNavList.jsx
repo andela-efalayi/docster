@@ -7,10 +7,12 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Divider from 'material-ui/Divider';
 
-/*
-  Header Navigation List Component
-  Displays navigation links in a dropdown
-*/
+/**
+ * Header Navigation List Component
+ * Displays navigation links in a dropdown
+ * @param {object} props
+ * @returns {object} react-component
+ */
 const HeaderNavList = (props) => {
   const { logoutUser, roleId, ...style} = props;
   return(

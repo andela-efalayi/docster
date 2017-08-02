@@ -27,7 +27,6 @@ module.exports = {
       }))
       .catch((error) => {
         const errorMessage = error.errors[0].message;
-        console.log(errorMessage);
         return res.status(400).send({
           message: errorMessage
         });
@@ -68,11 +67,15 @@ module.exports = {
    * @returns {object} res
    */
   getPublicDocuments(req, res) {
+    const limit = req.query.limit || QueryConstants.DEFAULT_LIMIT,
+      offset = req.query.offset || QueryConstants.DEFAULT_OFFSET;
     return Document
       .findAndCountAll({ 
         where: {
           access: 'public'
-        }
+        },
+        offset,
+        limit
       })
       .then((documents) => {
         if (documents.count === 0) {
@@ -95,12 +98,16 @@ module.exports = {
    * @returns {object} res
    */
   getRoleDocuments(req, res) {
+    const limit = req.query.limit || QueryConstants.DEFAULT_LIMIT,
+      offset = req.query.offset || QueryConstants.DEFAULT_OFFSET;
     return Document
       .findAndCountAll({ 
         where: {
           access: 'role',
           roleId: req.currentUser.roleId
-        }
+        },
+        offset,
+        limit
       })
       .then((documents) => {
         if (documents.count === 0) {

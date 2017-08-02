@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import orderBy  from 'lodash/orderBy';
 import EditRole from '../common/EditRole.jsx';
 
+/**
+ * Users Table
+ * @param {array} users
+ * @returns {object} react-component
+*/
 const UsersTable = ({ users }) => {
   const orderedUsersList = orderBy(users, ['id'], ['asc']);
   return(
@@ -32,6 +37,5 @@ const UsersTable = ({ users }) => {
 UsersTable.propTypes = {
   users: PropTypes.array.isRequired
 }
-
 
 export default UsersTable;

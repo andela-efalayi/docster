@@ -5,11 +5,11 @@ import Header from '../common/Header.jsx';
 import Documents from '../common/Documents.jsx';
 
 import { logoutUser } from '../../actions/Authenticate';
-import { searchDocument } from '../../actions/SearchDocuments';
+import { searchDocument } from '../../actions/Search';
 import BackButton from '../common/BackButton.jsx';
 
 /**
- * @class ProfilePage
+ * @class SearchPage
  * @extends {Component}
  */
 class SearchPage extends Component {
@@ -73,7 +73,7 @@ class SearchPage extends Component {
   }
 
   /**
-   * Log user out of app and redirect to index page
+   * Logs the user out of app and redirect to index page
    * @memberof UserPage
    * @param {object} event
    * @returns {void}

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
-import getServerError from '../utils/GetServerError';
 
 /**
  * Delete Document

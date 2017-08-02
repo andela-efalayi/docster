@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-/*
-  Renders a Search text-input field
+/**
+ * Search Form
+ * Renders a Search text-input field
+ * @param {string} searchString
+ * @param {string} placeholder
+ * @param {func} onInpuChange
+ * @returns {object} react-component
 */
 const SearchForm = ( { onInputChange, searchString, placeholder } ) => {
   return(

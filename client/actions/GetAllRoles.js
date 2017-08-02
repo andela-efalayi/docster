@@ -2,9 +2,8 @@ import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
 import getServerError from '../utils/GetServerError';
 
-
 /**
- * @param {any} roles
+ * @param {object} roles
  * @returns {object} action
  */
 export function getAllRolesSuccess(roles) {

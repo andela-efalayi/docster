@@ -6,10 +6,13 @@ import DeleteDocumentAlert from '../dialogs/DeleteDocumentAlert.jsx';
 import AccessIcon from '../common/AccessIcon.jsx';
 import SetMaxCharacters from '../../utils/SetMaxCharacters';
 
-/*
-  Document component  
-  Displays a single document
-*/
+/**
+ * Document component 
+ * Displays a single document
+ * @param {object} document
+ * @param {number} userId
+ */
+
 const Document = ({ document, userId }) => {
   const title = SetMaxCharacters(`${document.title}`, 27, '...');
   const content = SetMaxCharacters(`${document.content}`, 170, '...');

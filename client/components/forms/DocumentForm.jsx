@@ -4,9 +4,13 @@ import DocumentAccessOptions from '../common/DocumentAccessOptions.jsx';
 import TextInputField from '../common/TextInputField.jsx';
 import Tinymce from './Tinymce.jsx';
 
-/*
-  Document Form
-  Renders a form for creating a document.
+/**
+ * Document Form
+ * Renders a form for creating a document
+ * @param {object} document
+ * @param {func} onInputChange
+ * @param {func} onEditorChange
+ * @returns {object} react-component
 */
 const DocumentForm = ({ document, onInputChange, onEditorChange }) => (
   <form action="">

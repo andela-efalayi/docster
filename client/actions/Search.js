@@ -41,8 +41,8 @@ export function searchDocuments(searchString) {
         dispatch(searchDocumentsSuccess(documents));
       })
       .catch(error => {
-        const serverError = getServerError(error);
-        throw(serverError);
+        const serverError = getServerError(error).data;
+        throw(serverError.message);
       });
   }
 }
