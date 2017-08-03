@@ -116,7 +116,7 @@ export class EditDocumentDialog extends Component {
       <div>
         <MuiThemeProvider muiTheme={muiTheme1}>
           <IconButton
-            className="open-edit-document-dialog"
+            className="open-edit-dialog"
             onClick={this.openDialog}
           >
             <ModeEdit color={blue600} />

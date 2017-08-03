@@ -50,11 +50,9 @@
 }
 
 /* Header */
-
 .header-items > div {
   line-height: 0px !important;
 }
-
 a[role="menuitem"], span[role="menuitem"] {
   font-size: 14px !important;
   line-height: 35px !important;
@@ -78,7 +76,6 @@ a[role="menuitem"], span[role="menuitem"] {
 }
 
 /* Home tabs*/
-
 .home-tab {
   background-color: #E1E2E1;
   padding-top: 15px;
@@ -107,7 +104,7 @@ a[role="menuitem"], span[role="menuitem"] {
     font-size: 1.2em;
     font-family: 'Carrois Gothic', sans-serif;
   }
-  span {
+  span:nth-child(2) {
     font-size: 1.5em;
     margin-left: 8px;
     /* color: #ff9800; */
@@ -242,7 +239,7 @@ button.access-icon {
 /* Profile and Access Pages */
 
 #profile {
-  .page-title span, .five, .two {
+  .page-title span:nth-child(2), .five, .two {
     display: none;
   }
   .home-tab {
@@ -272,25 +269,17 @@ button.access-icon {
   font-size: 1em !important;
   font-weight: 800 !important;
 }
-
-#edit {
-  cursor: pointer;
-  padding-bottom: 0px;
-  svg {
-    height: 12px;
-    width: 12px;
-  }
-  select{
-    margin-bottom: 0px;
-    padding: 0px;
-    height: 24px;
-    text-transform: capitalize;
-  }
+.role-menu > div > div, 
+div[role=menu] > div > span, div[role=menu] > div > a{
+  color: #1e1b38 !important;
+  font-family: 'Carrois Gothic', serif;
 }
-#role-type{
-  span {
-    margin-right: 8px;
-  }
+.role-menu > div > button:disabled > svg{
+  fill: red !important;
+}
+div[role=menu]{
+  background-color: #fff !important;
+  padding: 0 !important;
 }
 
 /* AppToolbar */

@@ -1,6 +1,5 @@
 import chai from 'chai';
 import colors from 'colors';
-
 import Models from '../../models';
 import testData from '../fakerData/model-data';
 
@@ -29,9 +28,16 @@ describe(colors.green('DocumentModel'), () => {
     });
   });
 
-  // Test if created document exists in database
   describe(colors.underline('Create function'), () => {
-    it('should create a document with complete fields', (done) => {
+    it('should fail if no title is provided', (done) => {
+        Document.create(testData.newDocumentWithoutTitle)
+        .catch((error) => {
+          expect(/notNull Violation: title cannot be null/
+          .test(error.message)).to.equal(true);
+          done();
+        });
+      });
+    it('should create a document', (done) => {
       Document.create(newDocument)
       .then((document) => {
         createdDocument = document.dataValues;
@@ -41,7 +47,6 @@ describe(colors.green('DocumentModel'), () => {
       });
     });
 
-    // Test if created document has a title, slug, and userId
     describe(colors.underline('Created document'), () => {
       it('should have a title', (done) => {
         expect(createdDocument.title).to.be.a('string');
@@ -56,14 +61,6 @@ describe(colors.green('DocumentModel'), () => {
       it('should have the correct userId', (done) => {
         assert.exists(createdDocument.userId);
         expect(createdDocument.userId).to.equal(currentUser.id);
-        done();
-      });
-    });
-    it('should require a title field to create a document', (done) => {
-      Document.create(testData.newDocumentWithoutTitle)
-      .catch((error) => {
-        expect(/notNull Violation: title cannot be null/
-        .test(error.message)).to.equal(true);
         done();
       });
     });

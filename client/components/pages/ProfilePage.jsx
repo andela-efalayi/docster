@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Header from '../common/Header.jsx';
 import HomeTab from '../common/HomeTab.jsx';
-
 import UserForm from '../forms/UserForm.jsx';
-import { logoutUser } from '../../actions/Authenticate';
-import updateUser from '../../actions/UpdateUser';
+import { updateUser } from '../../actions/UpdateUser';
 import showToast from '../../utils/ShowToast';
 
 /**
@@ -26,7 +23,6 @@ class ProfilePage extends Component {
     this.state = {
       user: this.props.auth.currentUser
     };
-    this.logoutUser = this.logoutUser.bind(this);
     this.updateProfile = this.updateProfile.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
   }
@@ -43,18 +39,6 @@ class ProfilePage extends Component {
     this.setState({
       user
     });
-  }
-
-  /**
-   * Log user out of app and redirect to index page
-   * @memberof UserPage
-   * @param {object} event
-   * @returns {void}
-   */
-  logoutUser(event) {
-    event.preventDefault();
-    this.props.logoutUser()
-      this.context.router.history.push('/');
   }
 
   /**
@@ -81,11 +65,7 @@ class ProfilePage extends Component {
   render() {
     return(
       <div id="profile">
-        <Header 
-          currentUser={this.state.user}
-          logoutUser={this.logoutUser} 
-        />
-        <HomeTab title="profile" />
+        <HomeTab title="user profile" />
         <div className="profile-body">
           <UserForm 
             userDetails={this.state.user} 
@@ -101,7 +81,6 @@ class ProfilePage extends Component {
 // Set UserPage proptypes
 ProfilePage.propTypes = {
   auth: PropTypes.object.isRequired,
-  logoutUser: PropTypes.func.isRequired,
   updateUser: PropTypes.func.isRequired
 }
 
@@ -118,4 +97,4 @@ const matchStateToProps = (state) => {
 }
 
 export default 
-  connect(matchStateToProps, { logoutUser, updateUser })(ProfilePage);
+  connect(matchStateToProps, { updateUser })(ProfilePage);

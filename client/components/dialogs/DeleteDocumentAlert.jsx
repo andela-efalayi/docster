@@ -3,14 +3,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 import {red500} from 'material-ui/styles/colors';
-import { muiTheme1, muiTheme2 } from '../../muiTheme';
+import { muiTheme1 } from '../../muiTheme';
 import { deleteDocument } from '../../actions/DeleteDocument';
+import ConfirmActionDialog from '../dialogs/ConfirmActionDialog.jsx';
 import showToast from '../../utils/ShowToast';
 
 /**
@@ -76,21 +74,6 @@ export class DeleteDocumentAlert extends Component {
    * @returns {object} dialog
    */
   render() {
-    const actions = [
-      <FlatButton
-        className="cancel-dialog-btn"
-        label="Cancel"
-        primary
-        onTouchTap={this.closeDialog}
-      />,
-      <RaisedButton
-        className="delete-document-btn"
-        label="delete document"
-        secondary
-        keyboardFocused
-        onTouchTap={this.deleteDocument}
-      />,
-    ];
     return (
       <div>
         <MuiThemeProvider muiTheme={muiTheme1}>
@@ -101,21 +84,15 @@ export class DeleteDocumentAlert extends Component {
             <ActionDelete color={red500} />
           </IconButton>
         </MuiThemeProvider>
-        <MuiThemeProvider muiTheme={muiTheme2}>
-          <div className="container">
-            <Dialog
-              className="delete-document-dialog"
-              title={`Delete document: ${this.state.document.title}`}
-              actions={actions}
-              modal={false}
-              open={this.state.open}
-              onRequestClose={this.handleClose}
-              autoScrollBodyContent
-            >
-              <h5>Are you sure you want to delete this document?</h5>
-            </Dialog>
-          </div>
-        </MuiThemeProvider>
+        <ConfirmActionDialog
+          open={this.state.open}
+          title={`Are you sure you want to delete ${this.state.document.title}`}
+          cancelText='cancel'
+          proceedText='continue'
+          buttonStyle={2}
+          cancelAction={this.closeDialog}
+          proceedAction={this.deleteDocument}
+        />
       </div>
     );
   }

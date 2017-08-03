@@ -30,6 +30,10 @@ const serverData = {
     password: faker.internet.password(),
     roleId: 2
   },
+  nonExistingUser: {
+    user: 'notauser@email.com',
+    password: 'doesnotexist'
+  },
   userWithInvalidEmail: {
     email: faker.date.month()
   },
@@ -38,13 +42,6 @@ const serverData = {
     userName: faker.internet.userName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
-    roleId: 1
-  },
-  dummyAdmin: {
-    fullName: "Dummy Admin",
-    userName: "da",
-    email: "admin@dummy.com",
-    password: "dummypassword",
     roleId: 1
   },
   adminToken: generateToken({

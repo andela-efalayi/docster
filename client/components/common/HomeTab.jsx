@@ -19,7 +19,8 @@ const HomeTab = ({ title, numberOfDocuments, onInputChange,
     <div className="home-tab">
       <div className="row">
         <div className="three columns page-title">
-          <p className="center">{title}
+          <p className="center">
+            <span>{title}</span>
             <span>{numberOfDocuments}</span>
           </p> 
         </div>

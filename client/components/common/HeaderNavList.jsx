@@ -24,21 +24,24 @@ const HeaderNavList = (props) => {
       targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
       anchorOrigin={{horizontal: 'left', vertical: 'top'}}
     >
-      <MenuItem 
+      <MenuItem
+        className="public-documents"
         primaryText="Public Documents"
         containerElement={<Link to={{
             pathname: `/public-documents`
           }}
         />}
       />
-      <MenuItem 
+      <MenuItem
+        className="role-documents"
         primaryText="Role Documents"
         containerElement={<Link to={{
             pathname: `/role-documents`,
           }}
         />}
       />
-      <MenuItem 
+      <MenuItem
+        className="private-documents"
         primaryText="Private Documents"
         containerElement={<Link to={{
           pathname: `/my-documents`,
@@ -48,18 +51,21 @@ const HeaderNavList = (props) => {
       {
         roleId === 1 &&
         <div>
-          <MenuItem 
+          <MenuItem
+            className="all-roles"
             primaryText="All Roles"
             containerElement={<Link to='/allroles' />}
           />
-          <MenuItem 
+          <MenuItem
+            className="all-users"
             primaryText="All Users"
             containerElement={<Link to='/allusers' />}
           />
         </div>
       }
       <Divider />
-      <MenuItem 
+      <MenuItem
+        className="profile"
         primaryText="Profile"
         containerElement={<Link to='/profile' />}
       />

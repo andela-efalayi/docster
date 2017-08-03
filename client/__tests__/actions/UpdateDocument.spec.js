@@ -14,7 +14,7 @@ describe('UpdateDocument.js', () =>{
   afterEach(() => {
     moxios.uninstall();
   });
-  it('should update a document when updateDocument function is called', () => {
+  it('should update a document', () => {
     moxios.stubRequest(`/api/v1/documents/${publicDocument.id}`, {
       status: 200,
       response: {

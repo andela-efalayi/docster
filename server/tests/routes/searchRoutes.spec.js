@@ -13,7 +13,7 @@ let serverResponse;
 /*
   Test Search Routes
 */
-describe(colors.green('SearchRoutes Demo test'), () => {
+describe(colors.green('SearchRoutes'), () => {
   // Create a user before tests are executed
   before((done) => {
     chai.request(server)
@@ -25,9 +25,8 @@ describe(colors.green('SearchRoutes Demo test'), () => {
     });
   });
 
-  // Test that token exists
-  describe(colors.underline('GET /api/v1/search/users'), () => {
-    it('should return a error if request has no authorisation header',
+  describe(colors.underline('SearchUsers function'), () => {
+    it('should return a error if token is provided',
     (done) => {
       chai.request(server)
       .get('/api/v1/search/users')
@@ -37,9 +36,7 @@ describe(colors.green('SearchRoutes Demo test'), () => {
       });
     });
 
-    // Test that route can serach for users using a querystring
-    it('should fetch users whose fullnames or usernames begin' +
-    "with 'esther'", (done) => {
+    it('should fetch users with username/fullname = esther ', (done) => {
       chai.request(server)
       .get('/api/v1/search/users/?q=esther')
       .set('Authorisation', 'Bearer '+serverResponse.token)
@@ -50,9 +47,8 @@ describe(colors.green('SearchRoutes Demo test'), () => {
     });
   });
 
-  //  Test that route can search for documents using a querystring
-  describe(colors.underline('GET /api/v1/search/documents'), () => {
-    it("should fetch documents whose titles begin with 'oyeendah'", (done) => {
+  describe(colors.underline('SearchDocuments function'), () => {
+    it("should fetch documents with title = oyeendah", (done) => {
       chai.request(server)
       .get('/api/v1/search/documents/?q=oyeendah')
       .set('Authorisation', 'Bearer '+serverResponse.token)

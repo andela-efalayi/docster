@@ -7,9 +7,8 @@ import server from '../../server';
 
 const expect = chai.expect;
 let newuser = serverData.newUser;
-let dummyAdmin = serverData.dummyAdmin;
+const adminToken = serverData.adminToken;
 let createdUser;
-let createdAdmin;
 let serverResponse;
 
 chai.use(chaiHttp);
@@ -18,19 +17,9 @@ chai.use(chaiHttp);
   Test User Routes
 */
 describe(colors.green('UserRoutes'), () => {
-  before((done) => {
-    chai.request(server)
-    .post('/api/v1/users')
-    .send(dummyAdmin)
-    .end((err, res) => {
-      createdAdmin = res.body;
-      done();
-    });
-  });
   
-  // Test that route can create a user
-  describe(colors.underline('POST /api/v1/users'), () => {
-    it('should give an error if user details are incomplete', (done) => {
+  describe(colors.underline('CreateUser function'), () => {
+    it('should return an error if user details are incomplete', (done) => {
       chai.request(server)
       .post('/api/v1/users')
       .send({})
@@ -41,7 +30,7 @@ describe(colors.green('UserRoutes'), () => {
         done();
       });
     });
-    it('should give an error if user email is invalid', (done) => {
+    it('should return an error if user email is invalid', (done) => {
       chai.request(server)
       .post('/api/v1/users')
       .send(serverData.userWithInvalidEmail)
@@ -66,9 +55,18 @@ describe(colors.green('UserRoutes'), () => {
     });
   });
 
-  //  Test that route can login a user
-  describe(colors.underline('POST /api/v1/users/login'), () => {
-    it('should check if user exists in the database', (done) => {
+  describe(colors.underline('AuthenticateUser function'), () => {
+    it('should return an error if user does not exist', (done) => {
+      chai.request(server)
+      .post('/api/v1/users/login')
+      .send(serverData.nonExistingUser)
+      .end((err, res) => {
+        expect(res.status).to.equal(401);
+        expect(res.body.message).to.equal('User does not exist');
+        done();
+      });
+    });
+    it('should log user into application', (done) => {
       const user = newuser.email;
       const password = newuser.password;
 
@@ -84,8 +82,7 @@ describe(colors.green('UserRoutes'), () => {
     });
   });
 
-  // Test that route can fetech users from database
-  describe(colors.underline('GET /users'), () => {
+  describe(colors.underline('GetAllUsers function'), () => {
     it('should return an error if no token is provided', (done) => {
       chai.request(server)
       .get('/api/v1/users')
@@ -95,8 +92,7 @@ describe(colors.green('UserRoutes'), () => {
         done();
       });
     });
-    it('should return an error if token is provided but user is not '+
-    'an admin', (done) => {
+    it('should return an error if user is not an admin', (done) => {
       chai.request(server)
       .get('/api/v1/users')
       .set('Authorisation', 'Bearer '+serverResponse.token)
@@ -106,11 +102,10 @@ describe(colors.green('UserRoutes'), () => {
         done();
       });
     });
-    it('should return all users if token is provided and user '+
-    'is an admin', (done) => {
+    it('should return all users if user is an admin', (done) => {
       chai.request(server)
       .get('/api/v1/users')
-      .set('Authorisation', 'Bearer '+createdAdmin.token)
+      .set('Authorisation', 'Bearer '+adminToken)
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.message).to.equal('Users retrieved');
@@ -119,8 +114,7 @@ describe(colors.green('UserRoutes'), () => {
     });
   });
 
-  // Test that route can fetch users by id
-  describe(colors.underline('GET /api/v1/users/:id'), () => {
+  describe(colors.underline('GetUserById function'), () => {
     it('should return an error if no token is provided', (done) => {
     chai.request(server)
     .get(`/api/v1/users/${createdUser.id}`)
@@ -140,7 +134,17 @@ describe(colors.green('UserRoutes'), () => {
       });
     });
   });
-  describe(colors.underline('GET /api/v1/users/:id/documents'), () => {
+  describe(colors.underline('GetUserDocuments function'), () => {
+    it("should return a message if user has no documents", (done) => {
+      chai.request(server)
+      .get('/api/v1/users/1000/documents')
+      .set('Authorisation', 'Bearer '+serverResponse.token)    
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.message).to.equal('No documents available');
+        done();
+      });
+    });
     it("should return user's documents", (done) => {
       chai.request(server)
       .get(`/api/v1/users/${createdUser.id}/documents`)
@@ -152,9 +156,8 @@ describe(colors.green('UserRoutes'), () => {
     });
   })
 
-  // Test that route can edit a user
-  describe(colors.underline('PUT /api/v1/users/:id'), () => {
-    it('should give an error if user does not exist', (done) => {
+  describe(colors.underline('UpdateUser function'), () => {
+    it('should return an error if user does not exist', (done) => {
       chai.request(server)
       .put('/api/v1/users/-1')
       .send({ userName: 'invalidUserId' })
@@ -165,7 +168,7 @@ describe(colors.green('UserRoutes'), () => {
         done();
       });
     });
-    it('should get a user with the id specified', (done) => {
+    it('should get a user with the specified id', (done) => {
       const fullName = serverData.newFullName;
       chai.request(server)
       .put(`/api/v1/users/${createdUser.id}`)
@@ -180,9 +183,8 @@ describe(colors.green('UserRoutes'), () => {
     });
   });
 
-    // Test that route can logout a user
-  describe(colors.underline('POST /api/v1/users/logout'), () => {
-    it('should log user out ot app', (done) => {
+  describe(colors.underline('LogoutUser function'), () => {
+    it('should log user out of application', (done) => {
       chai.request(server)
       .post('/api/v1/users/logout')
       .end((err, res) => {
@@ -194,22 +196,21 @@ describe(colors.green('UserRoutes'), () => {
     });
   });
 
-  // Test that route can delete a user
-  describe(colors.underline('DELETE /api/v1/users/:id'), () => {
-    it('should give an error if user does not exist', (done) => {
+  describe(colors.underline('DeleteUser function'), () => {
+    it('should return an error if user does not exist', (done) => {
       chai.request(server)
       .delete('/api/v1/users/-1')
-      .set('Authorisation', 'Bearer '+createdAdmin.token)
+      .set('Authorisation', 'Bearer '+adminToken)
       .end((err, res) => {
         expect(res.status).to.equal(400);
         expect(res.body.message).to.equal('Id must be greater than zero');
         done();
       });
     });
-    it('should delete a user with the id specified', (done) => {
+    it('should delete a user with the specified id', (done) => {
       chai.request(server)
       .delete(`/api/v1/users/${createdUser.id}`)
-      .set('Authorisation', 'Bearer '+createdAdmin.token)
+      .set('Authorisation', 'Bearer '+adminToken)
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.message).to.equal('User deleted');

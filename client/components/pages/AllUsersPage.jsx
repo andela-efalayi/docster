@@ -94,7 +94,7 @@ class AllUsersPage extends Component {
    */
   render() {  
     return(
-      <div>
+      <div id="all-users">
         <div className="profile-body">
           <div className="container">
             <PageNavigation

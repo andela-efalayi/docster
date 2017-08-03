@@ -3,61 +3,6 @@ import { newUser } from '../../__mocks__/mockData';
 const config = require('./config');
 
 module.exports = {
-  'User signin with empty fields': function (browser) {
-    browser
-      .url(config.url)
-      .waitForElementVisible('body',config.waitFor)
-      .waitForElementVisible('.intro', config.waitFor)
-      .assert.containsText('div.intro h2', 'Docster')
-      .pause(1000)
-      .setValue('div#username-or-email input[name=user]', '')
-      .pause(1000)
-      .setValue('div#password-field input', '')
-      .pause(1000)
-      .click('.signin-btn button[type="button"]')
-      .pause(1000)
-      .assert.containsText('div#username-or-email p',
-      'Username or email is required')
-      .assert.containsText('div#password-field p',
-      'password is required')            
-      .assert.urlEquals(config.url)    
-  },
-  'User signin with wrong details': function (browser) {
-    browser
-      .url(config.url)
-      .waitForElementVisible('body',config.waitFor)
-      .waitForElementVisible('.intro', config.waitFor)
-      .assert.containsText('div.intro h2', 'Docster')
-      .pause(1000)
-      .setValue('div#username-or-email input[name=user]', 'admin@docster.com')
-      .pause(1000)
-      .setValue('div#password-field input', 'wrongpassword')
-      .pause(1000)
-      .click('.signin-btn button[type="button"]')
-      .pause(1000)
-      .assert.containsText('div#username-or-email p',
-      'Invalid credentials')
-      .assert.containsText('div#password-field p',
-      'Invalid credentials')            
-      .assert.urlEquals(config.url)    
-  },
-  'User signin with correct details': function (browser) {
-    browser
-      .url(config.url)
-      .waitForElementVisible('body',config.waitFor)
-      .waitForElementVisible('.intro', config.waitFor)
-      .assert.containsText('div.intro h2', 'Docster')
-      .pause(1000)
-      .setValue('div#username-or-email input[name=user]', 'admin@docster.com')
-      .pause(1000)
-      .setValue('div#password-field input', 'docster')
-      .pause(1000)
-      .click('.signin-btn button[type="button"]')
-      .pause(1000)
-      .waitForElementVisible('#user-page', config.waitFor)
-      .pause(1000)
-      .assert.urlEquals(`${config.url}my-documents`)      
-  },
   'New user signup with no info': function (browser) {
     browser
       .url(config.url)
@@ -157,6 +102,65 @@ module.exports = {
       .setValue('input[name=confirmPassword]', newUser.password)
       .pause(1000)
       .click('.signup-btn button[type="button"]')
+      .pause(1000)
+      .waitForElementVisible('#user-page', config.waitFor)
+      .pause(1000)
+      .assert.urlEquals(`${config.url}my-documents`)
+      .pause(1000)
+      .click('.header-items button[type=button]')
+      .pause(1000)
+      .click('.signout')     
+  },
+  'User signin with empty fields': function (browser) {
+    browser
+      .url(config.url)
+      .waitForElementVisible('body',config.waitFor)
+      .waitForElementVisible('.intro', config.waitFor)
+      .assert.containsText('div.intro h2', 'Docster')
+      .pause(1000)
+      .setValue('div#username-or-email input[name=user]', '')
+      .pause(1000)
+      .setValue('div#password-field input', '')
+      .pause(1000)
+      .click('.signin-btn button[type="button"]')
+      .pause(1000)
+      .assert.containsText('div#username-or-email p',
+      'Username or email is required')
+      .assert.containsText('div#password-field p',
+      'password is required')            
+      .assert.urlEquals(config.url)    
+  },
+  'User signin with wrong details': function (browser) {
+    browser
+      .url(config.url)
+      .waitForElementVisible('body',config.waitFor)
+      .waitForElementVisible('.intro', config.waitFor)
+      .assert.containsText('div.intro h2', 'Docster')
+      .pause(1000)
+      .setValue('div#username-or-email input[name=user]', 'admin@docster.com')
+      .pause(1000)
+      .setValue('div#password-field input', 'wrongpassword')
+      .pause(1000)
+      .click('.signin-btn button[type="button"]')
+      .pause(1000)
+      .assert.containsText('div#username-or-email p',
+      'Invalid credentials')
+      .assert.containsText('div#password-field p',
+      'Invalid credentials')            
+      .assert.urlEquals(config.url)    
+  },
+  'User signin with correct details': function (browser) {
+    browser
+      .url(config.url)
+      .waitForElementVisible('body',config.waitFor)
+      .waitForElementVisible('.intro', config.waitFor)
+      .assert.containsText('div.intro h2', 'Docster')
+      .pause(1000)
+      .setValue('div#username-or-email input[name=user]', 'admin@docster.com')
+      .pause(1000)
+      .setValue('div#password-field input', 'docster')
+      .pause(1000)
+      .click('.signin-btn button[type="button"]')
       .pause(1000)
       .waitForElementVisible('#user-page', config.waitFor)
       .pause(1000)
