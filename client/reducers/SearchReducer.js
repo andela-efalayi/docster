@@ -13,7 +13,7 @@ export default function
       case ActionTypes.SEARCH_ALL_DOCUMENTS:
         return action.documents;
       case ActionTypes.SEARCH_ALL_USERS:
-        return action.documents;
+        return action.users;
       default:
         return state
     }

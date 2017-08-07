@@ -12,16 +12,18 @@ const RolesTable = ({ roles }) => {
     <table className="u-full-width">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>Serial No</th>
           <th>Role Type</th>
+          <th>Date Created</th>
         </tr>
       </thead>
       <tbody>
         {
-          roles.map(role => (
+          roles.map((role, index) => (
             <tr key={role.id}>
-              <td>{role.id}</td>
+              <td>{index + 1}</td>
               <td>{role.roleType}</td>
+              <td>{getDate(role.createdAt)}</td>
             </tr>
           ))
         }

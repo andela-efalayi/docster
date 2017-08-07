@@ -203,7 +203,9 @@ module.exports = {
       else {
         return Role.find({
           where: {
-            roleType: req.body.role
+            roleType: {
+              $iLike: `%${req.body.role}%`
+            }
           }
         }).then((role) => {
           if(!role) {

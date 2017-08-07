@@ -137,7 +137,7 @@ class DocumentsPage extends Component {
     />); 
     
     return(
-      <div id="user-page">
+      <div id="user-page" className="body">
         <HomeTab
           numberOfDocuments={this.state.documentsCount}
           onInputChange={this.onInputChange}

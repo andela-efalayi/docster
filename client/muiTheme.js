@@ -10,7 +10,7 @@ export const muiTheme1 = getMuiTheme({
     primary3Color: '#000013',
     textColor: '#ff9800', // text color
     alternateTextColor: '#ff9800', // tabs
-    canvasColor: '#474262',
+    canvasColor: '#ffffff',
     borderColor: '#1e1b38',
     disabledColor: '#88c6ff',
     pickerHeaderColor: '#4b96ff',
