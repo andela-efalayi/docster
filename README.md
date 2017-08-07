@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/andela-efalayi/docster.svg?branch=feedback-branch)](https://travis-ci.org/andela-efalayi/docster) [![Coverage Status](https://coveralls.io/repos/github/andela-efalayi/docster/badge.svg?branch=bug%2Ffix-travis-error)](https://coveralls.io/github/andela-efalayi/docster?branch=staging)
+[![Build Status](https://travis-ci.org/andela-efalayi/docster.svg?branch=feedback-branch)](https://travis-ci.org/andela-efalayi/docster) [![Coverage Status](https://coveralls.io/repos/github/andela-efalayi/docster/badge.svg?branch=bug%2Ffix-travis-error)](https://coveralls.io/github/andela-efalayi/docster?branch=staging) [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/andela-efalayi/docster?branch=master)
 
 ## Docster
 This is a react-redux based Document Management System (DMS) designed to manage text documents which 
