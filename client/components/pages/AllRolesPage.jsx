@@ -65,7 +65,7 @@ class AllRolesPage extends Component {
   render() {
     return(
       <div>
-        <div className="profile-body">
+        <div className="body profile-body">
           <div className="container">
             <h3 className="center">Docster Roles</h3>
             <MuiThemeProvider muiTheme={muiTheme1}> 

@@ -64,7 +64,7 @@ class ProfilePage extends Component {
    */
   render() {
     return(
-      <div id="profile">
+      <div id="profile" className="body">
         <HomeTab title="user profile" />
         <div className="profile-body">
           <UserForm 

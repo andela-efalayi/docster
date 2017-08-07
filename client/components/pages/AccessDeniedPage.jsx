@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
  * @returns {object} react-component
 */
 const AccessDeniedPage = () => (
-  <div className="container center">
+  <div className="body container center">
     <div className="not-found">
       <h1>403</h1>
       <h5>Oops! Sorry, you cannot access this page.</h5>

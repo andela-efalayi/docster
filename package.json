@@ -29,7 +29,6 @@
     "build:constants": "babel constants -d build/constants --copy-files",
     "prebuild": "rimraf build && mkdir build",
     "build": "npm run build:db && npm run build:constants && npm run build:client && npm run build:server",
-    "postinstall": "npm run prebuild && npm run build",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "jest": {

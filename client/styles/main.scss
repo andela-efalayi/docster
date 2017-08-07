@@ -16,12 +16,16 @@
     border: 1px solid #E53935;
   }
 }
-
+.body{
+  min-height: 78vh;
+}
 /* Index page */
-
-.index-page {
+#index-page {
   max-width: 350px;
   padding-top: 5.2em;
+  &.body{
+    min-height: 90.5vh;
+  }
 }
 
 .intro {
@@ -125,6 +129,9 @@ a[role="menuitem"], span[role="menuitem"] {
     font-weight: 600;
   }
   .three.columns {
+    margin-bottom: 1em;
+  }
+  .three.columns:last-child {
     margin-bottom: 1em;
   }
 }
@@ -253,9 +260,6 @@ button.access-icon {
 
 .profile-body {
   padding-top: 20px;
-  .back {
-    margin-bottom: 20px;
-  }
 }
 
 .center-btn {
@@ -345,7 +349,7 @@ ul.pagination {
 
 footer {
   &.container {
-    margin-top: 1.5em;
+    margin-top: 1em;
   }
   span {
     font-size: 11px;

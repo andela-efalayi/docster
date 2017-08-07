@@ -45,7 +45,7 @@ class Index extends Component {
    */
   render() {
     return (
-      <div className="index-page container">
+      <div id="index-page" className="body container">
         <div className="intro">
           <h2>Docster</h2>
           <h6>{this.state.message}</h6>
