@@ -32,7 +32,11 @@ export class EditDocumentDialog extends Component {
       content: this.props.document.content,
       access: this.props.document.access,
       id: this.props.document.id,
-      slug: this.props.document.slug
+      slug: this.props.document.slug,
+      editorContent: {
+        ops: []
+      },
+      events: []
     };
     this.openDialog = this.openDialog.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
@@ -52,15 +56,28 @@ export class EditDocumentDialog extends Component {
     });
   }
   
-  /** Get content from tinymce editor
-   * @memberof EditDocumentDialog
+  /**
+   * Get content from quill editor
+   * @memberof CreateDocumentDialog
+   * @param {string} value
+   * @param {object} delta
+   * @param {object} source
+   * @param {object} editor
    * @returns {void}
    */
-  onEditorChange() {
+  onEditorChange(value, delta, source, editor) {
     this.setState({
-      content: tinymce.activeEditor.getContent(),
-    })
+      editorContent: editor.getContents(),
+      events: [
+        'text-change(' + this.state.editorContent + ' -> ' + value + ')'
+      ].concat(this.state.events)
+    });
   }
+  // onEditorChange() {
+  //   this.setState({
+  //     content: tinymce.activeEditor.getContent(),
+  //   })
+  // }
 
   /**
    * Update document
@@ -137,6 +154,7 @@ export class EditDocumentDialog extends Component {
                 onInputChange={this.onInputChange}
                 document={this.state}
                 onEditorChange={this.onEditorChange}
+                editorContent={this.state.editorContent}
               />
             </Dialog>
           </div>

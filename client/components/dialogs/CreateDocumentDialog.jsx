@@ -33,6 +33,10 @@ class CreateDocumentDialog extends Component {
         content: '',
         title: ''
       },
+      editorContent: {
+        ops: []
+      },
+      events: [],
       errors: {}
     };
     this.openDialog = this.openDialog.bind(this);
@@ -61,16 +65,35 @@ class CreateDocumentDialog extends Component {
   /**
    * Get content from tinymce editor
    * @memberof CreateDocumentDialog
+   * @param {string} value
+   * @param {object} delta
+   * @param {object} source
+   * @param {object} editor
    * @returns {void}
    */
-  onEditorChange() {
+  onEditorChange(value, delta, source, editor) {
     const newDocument = this.state.newDocument;
     this.setState({
+      editorContent: editor.getContents(),
+      events: [
+        'text-change(' + this.state.editorContent + ' -> ' + value + ')'
+      ].concat(this.state.events),
       newDocument: {
         ...newDocument,
-        content: tinymce.activeEditor.getContent()
+        content: value
       }
     });
+  }
+
+  /**
+   * @param {any} range 
+   * @memberof CreateDocumentDialog
+   * @returns {Number} range
+   */
+  formatRange(range) {
+    return range
+      ? [range.index, range.index + range.length].join(',')
+      : 'none';
   }
 
   /**
@@ -164,7 +187,8 @@ class CreateDocumentDialog extends Component {
               <DocumentForm 
                 onInputChange={this.onInputChange} 
                 onEditorChange={this.onEditorChange}
-                document={this.state.newDocument} 
+                document={this.state.newDocument}
+                editorContent={this.state.editorContent}
               />
             </Dialog>
           </div>
