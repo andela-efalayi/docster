@@ -9,6 +9,7 @@ import configureStore from './store/ConfigureStore';
 import '../node_modules/jquery/dist/jquery.js';
 import '../node_modules/toastr/build/toastr.min.js';
 import '../node_modules/toastr/build/toastr.css';
+import '../node_modules/react-quill/dist/quill.snow.css';
 import './styles/normalize.scss';
 import './styles/skeleton.scss';
 import './styles/main.scss';

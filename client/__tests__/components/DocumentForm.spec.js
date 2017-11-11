@@ -6,12 +6,16 @@ import DocumentForm from '../../components/forms/DocumentForm.jsx';
 describe('DocumentForm.jsx', () => {
   const onInputChange = jest.fn();
   const onEditorChange = jest.fn();
+  const editorContent = {
+    ops: []
+  }
 
   const documentForm = shallow(
     <DocumentForm
       document={publicDocument}
       onInputChange={onInputChange}
       onEditorChange={onEditorChange}
+      editorContent={editorContent}
     />
   );
   it('should render a form for creating and editing a document', () => {

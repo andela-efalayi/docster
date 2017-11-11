@@ -20,9 +20,9 @@ describe('DeleteDocumentAlert.jsx', () => {
     });
   });
   it('should render a button which opens a modal when clicked', () => {
-    expect(editDocumentDialog.find('.open-edit-document-dialog').length)
+    expect(editDocumentDialog.find('.open-edit-dialog').length)
     .toEqual(1);
-    editDocumentDialog.find('.open-edit-document-dialog')
+    editDocumentDialog.find('.open-edit-dialog')
     .simulate('click', openDialogMock());
     expect(openDialogMock).toHaveBeenCalled();
   });
