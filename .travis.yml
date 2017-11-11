@@ -1,5 +1,9 @@
 language: node_js
 node_js:
   - "7"
-  after_success:
+env:
+  - NODE_ENV=test
+script:
+  - npm test
+after_success:
   - npm run coveralls

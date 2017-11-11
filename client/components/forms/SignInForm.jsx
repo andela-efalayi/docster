@@ -45,7 +45,7 @@ class SignInForm extends Component {
   }
 
   /**
-   * Validate sigin form
+   * Validate SignIn form
    * @memberof SignInForm
    * @returns {bool} hasData
    */
@@ -70,7 +70,7 @@ class SignInForm extends Component {
     });
     if(this.validateForm() === true) {
       const errors = {};      
-      this.props.actions.loginUser(this.state)
+      this.props.auth.loginUser(this.state)
       .then(() => {
         this.context.router.history.push('/my-documents');
       })
@@ -95,26 +95,31 @@ class SignInForm extends Component {
         <h5 className="center">Existing User</h5>
         <form>
           <div className="row">
-            <TextInputField
-              error={this.state.errors.user}
-              type="text"
-              name="user"
-              value={this.state.user}
-              placeholder="Username or Email"
-              onInputChange={this.onInputChange}
-            />
-            <TextInputField
-              error={this.state.errors.password}
-              type="password"
-              name="password"
-              value={this.state.password}
-              placeholder="Password"
-              onInputChange={this.onInputChange}
-            />
+            <div id="username-or-email">
+              <TextInputField
+                error={this.state.errors.user}
+                type="text"
+                name="user"
+                value={this.state.user}
+                placeholder="Username or Email"
+                onInputChange={this.onInputChange}
+              />
+            </div>
+            <div id="password-field">
+              <TextInputField
+                error={this.state.errors.password}
+                type="password"
+                name="password"
+                value={this.state.password}
+                placeholder="Password"
+                onInputChange={this.onInputChange}
+              />
+            </div>
           </div>
         </form>
         <MuiThemeProvider muiTheme={muiTheme1}>
           <RaisedButton
+            className="signin-btn"
             label="Sign In"
             fullWidth
             primary
@@ -128,7 +133,7 @@ class SignInForm extends Component {
 
 // Set SignInForm proptypes
 SignInForm.propTypes = {
-  actions: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 // Set SignInForm contectypes
@@ -139,14 +144,14 @@ SignInForm.contextTypes = {
 // Map state to this.props
 const mapStateToProps = (state) => {
   return {
-    payload: state.auth
+    auth: state.auth
   }
 }
 
 // Map dispatched action to this.props
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(authenticate, dispatch)
+    auth: bindActionCreators(authenticate, dispatch)
   }
 }
 

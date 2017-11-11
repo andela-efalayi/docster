@@ -1,5 +1,6 @@
 import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
+import getServerError from '../utils/GetServerError';
 
 /**
  * @param {object} documents
@@ -14,17 +15,26 @@ export function getPublicDocumentsSuccess(documents) {
 
 /**
  * Get all public documents from database
- * @param {number} userId 
+ * @param {number} offset 
  * @returns {func} dispatch
  */
-export function getPublicDocuments() {
+export function getPublicDocuments(offset) {
   return function(dispatch) {
-    return axios.get(`/api/v1/public-documents`)
+    return axios.get(`/api/v1/public-documents`, {
+      params: {
+        offset
+      }
+    })
       .then(response => {
-        dispatch(getPublicDocumentsSuccess(response.data.documents));
+        if(!response.data.documents){
+          dispatch(getPublicDocumentsSuccess({}));
+        } else {
+          dispatch(getPublicDocumentsSuccess(response.data.documents)); 
+        }
       })
       .catch(error => {
-        throw(error);
+        const serverError = getServerError(error);
+        throw(serverError);
       });
   }
 }

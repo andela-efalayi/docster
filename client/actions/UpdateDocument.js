@@ -1,6 +1,7 @@
 import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
 import showToast from '../utils/ShowToast';
+import getServerError from '../utils/GetServerError';
 
 /**
  * @param {object} document 
@@ -27,7 +28,8 @@ export function updateDocument(document) {
         showToast(response.data.message, 'success');
       })
       .catch(error => {
-        throw(error);
+        const serverError = getServerError(error);
+        throw(serverError);
       });
   }
 }

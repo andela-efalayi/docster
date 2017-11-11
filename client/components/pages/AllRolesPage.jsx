@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Header from '../common/Header.jsx';
 import RolesTable from '../tables/RolesTable.jsx';
-import { logoutUser } from '../../actions/Authenticate';
 import { muiTheme1 } from '../../muiTheme';
 import { getAllRoles } from '../../actions/GetAllRoles';
 
@@ -26,7 +24,6 @@ class AllRolesPage extends Component {
       currentUser: this.props.auth.currentUser,
       roles: []
     };
-    this.logoutUser = this.logoutUser.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
   }
 
@@ -62,29 +59,13 @@ class AllRolesPage extends Component {
   }
 
   /**
-   * Log user out of app and redirect to index page
-   * @memberof AllRolesPage
-   * @param {object} event
-   * @returns {void}
-   */
-  logoutUser(event) {
-    event.preventDefault();
-    this.props.logoutUser()
-      this.context.router.history.push('/');
-  }
-
-  /**
    * @memberof AllRolesPage
    * @returns {object} react-component
    */
   render() {
     return(
       <div>
-        <Header 
-          currentUser={this.state.currentUser}
-          logoutUser={this.logoutUser} 
-        />
-        <div className="profile-body">
+        <div className="body profile-body">
           <div className="container">
             <h3 className="center">Docster Roles</h3>
             <MuiThemeProvider muiTheme={muiTheme1}> 
@@ -101,7 +82,6 @@ class AllRolesPage extends Component {
 AllRolesPage.propTypes = {
   auth: PropTypes.object.isRequired,
   getAllRoles: PropTypes.func.isRequired,
-  logoutUser: PropTypes.func.isRequired,
   roles: PropTypes.object.isRequired
 }
 
@@ -119,4 +99,4 @@ const matchStateToProps = (state) => {
 }
 
 export default 
-  connect(matchStateToProps, { logoutUser, getAllRoles })(AllRolesPage);
+  connect(matchStateToProps, { getAllRoles })(AllRolesPage);

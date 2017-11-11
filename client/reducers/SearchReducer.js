@@ -3,7 +3,7 @@ import InitialState from './InitialState';
 
 
 /**
- * @param {array} [state=InitialState.searchResult] 
+ * @param {object} [state=InitialState.searchResult] 
  * @param {object} action 
  * @returns {any} state
  */
@@ -12,6 +12,8 @@ export default function
     switch(action.type){
       case ActionTypes.SEARCH_ALL_DOCUMENTS:
         return action.documents;
+      case ActionTypes.SEARCH_ALL_USERS:
+        return action.users;
       default:
         return state
     }

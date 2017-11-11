@@ -1,6 +1,5 @@
 import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
-import getServerError from '../utils/GetServerError';
 
 /**
  * Delete Document
@@ -15,7 +14,7 @@ export function deleteDocumentSuccess(document) {
 }
 
 /**
- * @param {any} document 
+ * @param {object} document 
  * @returns {func} dispatch
  */
 export function deleteDocument(document){
@@ -24,9 +23,8 @@ export function deleteDocument(document){
       .then(() => {
         dispatch(deleteDocumentSuccess(document));
       })
-      .catch(response => {
-        const errorMessage = getServerError(response).data.message;
-        throw(errorMessage);
+      .catch(error => {
+        throw(error);
       });
   }
 }

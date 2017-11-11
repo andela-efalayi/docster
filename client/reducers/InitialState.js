@@ -1,6 +1,6 @@
 export default {
-  documents: {},
-  searchResult: [],
+  documents: {rows:[], count: 0},
+  searchResult: {},
   users: {},
   roles: {}
 };

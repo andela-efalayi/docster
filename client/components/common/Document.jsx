@@ -2,14 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Parser from 'html-react-parser';
 import EditDocumentDialog from '../dialogs/EditDocumentDialog.jsx';
-import DeleteDcoumentAlert from '../dialogs/DeleteDocumentAlert.jsx';
+import DeleteDocumentAlert from '../dialogs/DeleteDocumentAlert.jsx';
 import AccessIcon from '../common/AccessIcon.jsx';
 import SetMaxCharacters from '../../utils/SetMaxCharacters';
 
-/*
-  Document component
-  Displays a single document
-*/
+/**
+ * Document component 
+ * Displays a single document
+ * @param {object} document
+ * @param {number} userId
+ */
+
 const Document = ({ document, userId }) => {
   const title = SetMaxCharacters(`${document.title}`, 27, '...');
   const content = SetMaxCharacters(`${document.content}`, 170, '...');
@@ -34,7 +37,7 @@ const Document = ({ document, userId }) => {
             userId === document.userId &&
             <div>
               <div className="two columns">
-                <DeleteDcoumentAlert document={document} />
+                <DeleteDocumentAlert document={document} />
               </div>
               <div className="two columns">
                 <EditDocumentDialog document={document} />

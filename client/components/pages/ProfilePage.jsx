@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Header from '../common/Header.jsx';
 import HomeTab from '../common/HomeTab.jsx';
-
 import UserForm from '../forms/UserForm.jsx';
-import { logoutUser } from '../../actions/Authenticate';
-import updateProfile from '../../actions/UpdateProfile';
-import { checkIfEmpty } from '../../utils/Validate';
+import { updateUser } from '../../actions/UpdateUser';
 import showToast from '../../utils/ShowToast';
 
 /**
@@ -25,13 +21,10 @@ class ProfilePage extends Component {
   constructor(props, context){
     super(props, context);
     this.state = {
-      user: this.props.auth.currentUser,
-      typedPassord: ''
+      user: this.props.auth.currentUser
     };
-    this.logoutUser = this.logoutUser.bind(this);
-    this.updateUser = this.updateUser.bind(this);
+    this.updateProfile = this.updateProfile.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
-    this.onPasswordFieldChange = this.onPasswordFieldChange.bind(this);
   }
 
   /**
@@ -47,41 +40,18 @@ class ProfilePage extends Component {
       user
     });
   }
-  
-  /**
-   * @param {object} event 
-   * @memberof ProfilePage
-   * @returns {void}
-   */
-  onPasswordFieldChange(event) {
-    const typedPassord = event.target.value;
-    this.setState({
-      typedPassord
-    });
-  }
-
-  /**
-   * Log user out of app and redirect to index page
-   * @memberof UserPage
-   * @param {object} event
-   * @returns {void}
-   */
-  logoutUser(event) {
-    event.preventDefault();
-    this.props.logoutUser()
-      this.context.router.history.push('/');
-  }
 
   /**
    * @memberof ProfilePage
    * @returns {void}
    */
-  updateUser() {
-    this.props.updateProfile(this.state.user)
+  updateProfile() {
+    this.props.updateUser(this.state.user)
     .then(() => {
       this.setState({
         state: this.props.auth.currentUser
       });
+      showToast('Profile updated', 'success');      
     })
     .catch(errorMessage => {
       showToast(errorMessage, 'error');
@@ -94,19 +64,13 @@ class ProfilePage extends Component {
    */
   render() {
     return(
-      <div id="profile">
-        <Header 
-          currentUser={this.state.user}
-          logoutUser={this.logoutUser} 
-        />
-        <HomeTab title="profile" />
+      <div id="profile" className="body">
+        <HomeTab title="user profile" />
         <div className="profile-body">
           <UserForm 
             userDetails={this.state.user} 
-            updateUser={this.updateUser}
+            updateProfile={this.updateProfile}
             onInputChange={this.onInputChange}
-            onPasswordFieldChange={this.onPasswordFieldChange}
-            disabled={checkIfEmpty(this.state.typedPassord)}
           />
         </div>
       </div>
@@ -117,8 +81,7 @@ class ProfilePage extends Component {
 // Set UserPage proptypes
 ProfilePage.propTypes = {
   auth: PropTypes.object.isRequired,
-  logoutUser: PropTypes.func.isRequired,
-  updateProfile: PropTypes.func.isRequired
+  updateUser: PropTypes.func.isRequired
 }
 
 // Set UserPage contexttypes
@@ -134,4 +97,4 @@ const matchStateToProps = (state) => {
 }
 
 export default 
-  connect(matchStateToProps, { logoutUser, updateProfile })(ProfilePage);
+  connect(matchStateToProps, { updateUser })(ProfilePage);

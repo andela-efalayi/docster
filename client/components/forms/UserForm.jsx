@@ -5,13 +5,17 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { muiTheme2 } from '../../muiTheme';
 import TextInputField from '../common/TextInputField.jsx';
 
-/*
-  User form
-  Renders a form for user profile information
+/**
+ * User Form
+ * Renders a form for user profile information
+ * @param {object} userDetails
+ * @param {func} onInputChange
+ * @param {func} updateProfile
+ * @returns {object} react-component
 */
 const UserForm = (
-  { disabled, onInputChange, onPasswordFieldChange,
-    userDetails, updateUser }) => {
+  { onInputChange,
+    userDetails, updateProfile}) => {
   return(
     <div className="container">
       <form action="">
@@ -46,16 +50,6 @@ const UserForm = (
               onInputChange={onInputChange}
             />
           </div>
-          <div className="twelve columns">
-            <label htmlFor="password">Password</label>
-            <input 
-              type="password" 
-              className="u-full-width"
-              name="typedPassword"
-              placeholder="Password"
-              onChange={onPasswordFieldChange}
-            />
-          </div>
         </div>
       </form>
       <div className="center-btn">
@@ -64,8 +58,7 @@ const UserForm = (
             label="update"
             primary
             fullWidth
-            onClick={updateUser}
-            disabled={disabled}
+            onClick={updateProfile}
           />
         </MuiThemeProvider>
       </div>
@@ -74,10 +67,8 @@ const UserForm = (
 };
 
 UserForm.propTypes = {
-  disabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
-  onPasswordFieldChange: PropTypes.func.isRequired,
-  updateUser: PropTypes.func.isRequired,
+  updateProfile: PropTypes.func.isRequired,
   userDetails: PropTypes.object.isRequired
 };
 

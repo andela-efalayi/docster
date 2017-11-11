@@ -26,10 +26,10 @@ export function createDocument(newDocument) {
       })
       .catch(error => {
         const serverError = getServerError(error).data;
-        if(serverError.error){
-          throw(serverError.error.errors[0].message);
+        if(serverError){
+          throw(serverError.message);
         }
-        throw(serverError.message);
+        throw(error);
       });
   }
 }

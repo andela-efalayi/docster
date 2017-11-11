@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { blue600 } from 'material-ui/styles/colors';
-
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -15,15 +14,15 @@ import DocumentForm from '../forms/DocumentForm.jsx';
 import { updateDocument } from '../../actions/UpdateDocument';
 
 /**
- * @class CreateDocumentDialog
+ * @class EditDocumentDialog
  * @extends {React.Component}
  */
-class EditDocumentDialog extends Component {
+export class EditDocumentDialog extends Component {
 
   /**
-   * Creates an instance of CreateDocumentDialog
+   * Creates an instance of EditDocumentDialog
    * @param {any} props 
-   * @memberof CreateDocumentDialog
+   * @memberof EditDocumentDialog
    */
   constructor(props) {
     super(props);
@@ -44,7 +43,7 @@ class EditDocumentDialog extends Component {
 
   /**
    * @param {object} event 
-   * @memberof CreateDocumentDialog
+   * @memberof EditDocumentDialog
    * @returns {void}
    */
   onInputChange(event) {
@@ -54,7 +53,7 @@ class EditDocumentDialog extends Component {
   }
   
   /** Get content from tinymce editor
-   * @memberof CreateDocumentDialog
+   * @memberof EditDocumentDialog
    * @returns {void}
    */
   onEditorChange() {
@@ -65,7 +64,7 @@ class EditDocumentDialog extends Component {
 
   /**
    * Update document
-   * @memberof CreateDocumentDialog
+   * @memberof EditDocumentDialog
    * @returns {void}
    */
   updateDocument() {
@@ -79,7 +78,7 @@ class EditDocumentDialog extends Component {
 
   /**
    * Close dialog
-   * @memberof CreateDocumentDialog
+   * @memberof EditDocumentDialog
    * @returns {void}
    */
   closeDialog() {
@@ -87,17 +86,15 @@ class EditDocumentDialog extends Component {
   }
 
   /**
-   * @memberof CreateDocumentDialog
+   * @memberof EditDocumentDialog
    * @returns {void}
    */
   openDialog() {
-    this.setState({open: true});    
-    // window.history
-    //   .pushState(null, null, `/my-documents/edit/${this.state.slug}`);   
+    this.setState({open: true});     
   }
 
   /**
-   * @memberof CreateDocumentDialog
+   * @memberof EditDocumentDialog
    * @returns {object} dialog
    */
   render() {
@@ -108,6 +105,7 @@ class EditDocumentDialog extends Component {
         onTouchTap={this.closeDialog}
       />,
       <RaisedButton
+        className="update-document-btn"
         label="update document"
         primary
         keyboardFocused
@@ -118,6 +116,7 @@ class EditDocumentDialog extends Component {
       <div>
         <MuiThemeProvider muiTheme={muiTheme1}>
           <IconButton
+            className="open-edit-dialog"
             onClick={this.openDialog}
           >
             <ModeEdit color={blue600} />
@@ -126,6 +125,7 @@ class EditDocumentDialog extends Component {
         <MuiThemeProvider muiTheme={muiTheme2}>
           <div className="container">
             <Dialog
+              className="edit-document-dialog"
               title={`Editing document: ${this.state.title}`}
               actions={actions}
               modal={false}
@@ -148,14 +148,11 @@ class EditDocumentDialog extends Component {
 
 EditDocumentDialog.propTypes = {
   document: PropTypes.object.isRequired,
-  updateDocument: PropTypes.func.isRequired
+  updateDocument: PropTypes.func
 }
-
-const mapStateToProps = (state) => {
-  return {
-    documents: state.documents
-  }
-};
+EditDocumentDialog.defaultProps = {
+  updateDocument: null
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -163,4 +160,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 export default 
-  connect(mapStateToProps, mapDispatchToProps)(EditDocumentDialog);
+  connect(null, mapDispatchToProps)(EditDocumentDialog);

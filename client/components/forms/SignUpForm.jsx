@@ -138,6 +138,7 @@ class SignUpForm extends Component {
         </form>
         <MuiThemeProvider muiTheme={muiTheme1}>
           <RaisedButton
+            className="signup-btn"
             label="Sign Up"
             fullWidth
             primary
@@ -160,7 +161,7 @@ SignUpForm.contextTypes = {
 }
 
 // Maps state to this.props
-const mapStateToProps = (state /*, ownProps*/) => {
+const mapStateToProps = (state) => {
   return {
     payload: state.auth
   };

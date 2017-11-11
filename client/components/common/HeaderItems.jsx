@@ -4,10 +4,13 @@ import { ListItem} from 'material-ui/List';
 import UserAvatar from '../common/UserAvatar.jsx';
 import HeaderNavList from '../common/HeaderNavList.jsx';
 
-/*
-  HeaderItems Component
-  Displays items in the header
-*/
+/**
+ * HeaderItems Component
+ * Displays items in the header
+ * @param {object} currentUser
+ * @param {func} logoutUser
+ * @returns {object} react-component
+ */
 const HeaderItems = ({ currentUser, logoutUser }) => (
   <ListItem 
     className="header-items"

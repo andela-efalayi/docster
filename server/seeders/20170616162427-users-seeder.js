@@ -1,4 +1,7 @@
 const  bcrypt = require('bcrypt-nodejs');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -23,7 +26,7 @@ module.exports = {
       fullName: 'Esther Falayi',
       userName: '@estherfalayi',
       email: 'admin@docster.com',
-      password: bcrypt.hashSync('docster', salt),
+      password: bcrypt.hashSync(process.env.API_SECRET, salt),
       roleId: 1,
       createdAt: new Date(),
       updatedAt: new Date()

@@ -29,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
         model: 'User',
         key: 'id'
       }
+    },
+    roleId: {
+      type: DataTypes.INTEGER
     }
   }, {
     classMethods: {

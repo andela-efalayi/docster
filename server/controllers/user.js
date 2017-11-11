@@ -2,10 +2,12 @@ import bcrypt from 'bcrypt-nodejs';
 import Models from '../models';
 import QueryConstants from '../../constants/QueryConstants';
 import ServerConstants from '../../constants/ServerConstants';
+import setPageMetaData from '../utils/setPageMetaData';
 import * as auth from '../auth/token';
 
 const User = Models.User;
 const Document = Models.Document;
+const Role = Models.Role;
 const attributes = ServerConstants.USER_ATTRIBUTES;
 
 module.exports = {
@@ -40,8 +42,7 @@ module.exports = {
         if (bcrypt.compareSync(req.body.password, user.password) === true) {
           user.password = undefined; // remove password from user attributes
           const token = auth.generateToken(user);
-          return res.status(201).send({
-            user,
+          return res.status(200).send({
             token,
             message: 'User is logged in'
           });
@@ -90,10 +91,14 @@ module.exports = {
         const token = auth.generateToken(user); 
         user.password = undefined;       
         return res.status(201).send({
-          user,
           token,
           created,
           message: 'User created'
+        });
+      })
+      .catch((error) => {
+        return res.status(500).send({
+          error
         });
       });
   },
@@ -119,8 +124,11 @@ module.exports = {
             message: 'No users available'
           });
         }
+        const pageMetaData = setPageMetaData(users.count,
+        limit, offset); 
         return res.status(200).send({
           users,
+          pageMetaData,
           message: 'Users retrieved'
         });
       });
@@ -135,7 +143,7 @@ module.exports = {
   getUserById(req, res) {
     return User
       .find({
-        where: { id: req.params.userId },
+        where: { id: req.params.id },
         attributes
       })
       .then((user) => {
@@ -159,7 +167,7 @@ module.exports = {
       offset = req.query.offset || QueryConstants.DEFAULT_OFFSET;
     return Document
     .findAndCountAll({
-      where: { userId: req.params.userId },
+      where: { userId: req.params.id },
       offset,
       limit,
     })
@@ -169,8 +177,11 @@ module.exports = {
           message: 'No documents available'
         });
       }
+      const pageMetaData = setPageMetaData(documents.count,
+        limit, offset); 
       return res.status(200).send({
         documents,
+        pageMetaData,
         message: "Documents retrieved"
       });
     });
@@ -183,8 +194,46 @@ module.exports = {
    * @returns {object} res
    */
   updateUser(req, res) {
-    return User
-      .findById(req.params.userId)
+    if(req.body.role) {
+      if(req.currentUser.roleId !== 1) {
+        res.status(403).send({
+          message: 'User is not an admin'
+        });
+      }
+      else {
+        return Role.find({
+          where: {
+            roleType: {
+              $iLike: `%${req.body.role}%`
+            }
+          }
+        }).then((role) => {
+          if(!role) {
+            return res.status(404).send({
+              message: 'Role does not exist'
+            });
+          }
+          User.findById(req.params.id).then((user) => {
+            if (!user) {
+              return res.status(404).send({
+                message: 'User does not exist'
+              });
+            }
+            return user.update({
+              roleId: role.id
+            }).then((userWithUpdate) => {
+                userWithUpdate.password = undefined;
+                res.status(200).send({
+                userWithUpdate,
+                message: 'User updated'
+              });
+            });
+         });
+        });
+      }
+    } else {
+      return User
+      .findById(req.params.id)
       .then((user) => {
         if (!user) {
           return res.status(404).send({
@@ -213,6 +262,7 @@ module.exports = {
             });
           });
       });
+    }
   },
 
   /**
@@ -223,7 +273,7 @@ module.exports = {
    */
   deleteUser(req, res) {
     return User
-      .findById(req.params.userId)
+      .findById(req.params.id)
       .then((user) => {
         if (!user) {
           return res.status(404).send({

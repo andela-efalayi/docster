@@ -7,10 +7,12 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Divider from 'material-ui/Divider';
 
-/*
-  Header Navigation List Component
-  Displays navigation links in a dropdown
-*/
+/**
+ * Header Navigation List Component
+ * Displays navigation links in a dropdown
+ * @param {object} props
+ * @returns {object} react-component
+ */
 const HeaderNavList = (props) => {
   const { logoutUser, roleId, ...style} = props;
   return(
@@ -22,21 +24,24 @@ const HeaderNavList = (props) => {
       targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
       anchorOrigin={{horizontal: 'left', vertical: 'top'}}
     >
-      <MenuItem 
+      <MenuItem
+        className="public-documents"
         primaryText="Public Documents"
         containerElement={<Link to={{
-            pathname: `/my-documents/public-documents`
+            pathname: `/public-documents`
           }}
         />}
       />
-      <MenuItem 
+      <MenuItem
+        className="role-documents"
         primaryText="Role Documents"
         containerElement={<Link to={{
-            pathname: `/my-documents/role-documents`,
+            pathname: `/role-documents`,
           }}
         />}
       />
-      <MenuItem 
+      <MenuItem
+        className="private-documents"
         primaryText="Private Documents"
         containerElement={<Link to={{
           pathname: `/my-documents`,
@@ -46,22 +51,29 @@ const HeaderNavList = (props) => {
       {
         roleId === 1 &&
         <div>
-          <MenuItem 
+          <MenuItem
+            className="all-roles"
             primaryText="All Roles"
             containerElement={<Link to='/allroles' />}
           />
-          <MenuItem 
+          <MenuItem
+            className="all-users"
             primaryText="All Users"
             containerElement={<Link to='/allusers' />}
           />
         </div>
       }
       <Divider />
-      <MenuItem 
+      <MenuItem
+        className="profile"
         primaryText="Profile"
         containerElement={<Link to='/profile' />}
       />
-      <MenuItem primaryText="Log out" onClick={logoutUser} />
+      <MenuItem
+        className="signout"
+        primaryText="Log out"
+        onClick={logoutUser}
+      />
     </IconMenu>
   );
 };

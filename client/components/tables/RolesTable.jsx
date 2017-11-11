@@ -2,25 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import getDate from '../../utils/GetDate';
 
+/**
+ * Roles Table
+ * @param {array} roles
+ * @returns {object} react-component
+*/
 const RolesTable = ({ roles }) => {
   return(
     <table className="u-full-width">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>Serial No</th>
           <th>Role Type</th>
-          <th>Created At</th>
-          <th>Update At</th>
+          <th>Date Created</th>
         </tr>
       </thead>
       <tbody>
         {
-          roles.map(role => (
+          roles.map((role, index) => (
             <tr key={role.id}>
-              <td>{role.id}</td>
+              <td>{index + 1}</td>
               <td>{role.roleType}</td>
-              <td>{getDate(role.updatedAt)}</td>
-              <td>{getDate(`${role.updatedAt}`)}</td>
+              <td>{getDate(role.createdAt)}</td>
             </tr>
           ))
         }

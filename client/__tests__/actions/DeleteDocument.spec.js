@@ -7,14 +7,14 @@ import { publicDocument } from '../../__mocks__/mockData'
 
 const configureMockStore = reduxStore([thunk]);
 
-describe('Authenticate.js', () =>{
+describe('DeleteDocument.js', () =>{
   beforeEach(() => {
     moxios.install();
   });
   afterEach(() => {
     moxios.uninstall();
   });
-  it('should login in a user when loginUser function is called', () => {
+  it('should delete a document', () => {
     moxios.stubRequest(`/api/v1/documents/${publicDocument.id}`, {
       status: 200,
       response: "Document deleted"

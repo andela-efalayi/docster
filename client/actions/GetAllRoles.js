@@ -2,9 +2,8 @@ import axios from 'axios';
 import ActionTypes from '../../constants/ActionTypes';
 import getServerError from '../utils/GetServerError';
 
-
 /**
- * @param {any} roles
+ * @param {object} roles
  * @returns {object} action
  */
 export function getAllRolesSuccess(roles) {
@@ -25,9 +24,9 @@ export function getAllRoles() {
         const roles = response.data.roles;
         dispatch(getAllRolesSuccess(roles));
       })
-      .catch(response => {
-        const error = getServerError(response);
-        throw(error);
+      .catch(error => {
+        const serverError = getServerError(error);
+        throw(serverError);
       });
   }
 }

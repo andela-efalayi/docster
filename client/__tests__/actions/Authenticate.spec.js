@@ -15,25 +15,24 @@ describe('Authenticate.js', () =>{
   afterEach(() => {
     moxios.uninstall();
   });
-  it('should login in a user when loginUser function is called', () => {
+  it('should log user into application', () => {
     moxios.stubRequest('/api/v1/users/login', {
       status: 200,
       response: {
-        user: currentUser,
         token
       }
     });
     const expectedAction = [{
-      currentUser,      
+      currentUser,    
       type: ActionTypes.SET_CURRENT_USER,
     }];
-    const store = configureMockStore();
+    const store = configureMockStore({});
     return store.dispatch(Authenticate.loginUser(dummyUser))
     .then(() => { 
       expect(store.getActions()).toEqual(expectedAction);
     });
   });
-  it('should logout a user when logoutUser function is called', () => {
+  it('should log user out of application', () => {
     const expectedAction = [{
       currentUser: {},      
       type: ActionTypes.SET_CURRENT_USER,

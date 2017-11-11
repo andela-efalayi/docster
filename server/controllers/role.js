@@ -1,6 +1,5 @@
 import Models from '../models';
 import QueryConstants from '../../constants/QueryConstants';
-import * as checkParam from '../validations/checkParam';
 
 const Role = Models.Role;
 
@@ -64,13 +63,8 @@ module.exports = {
    * @returns {object} res
    */
   getRoleById(req, res) {
-    if(checkParam.isString(req.params.roleId)) {
-      return res.status(400).send({
-        message: 'RoleId must be numeric'
-      });
-    }
     return Role
-      .findById(req.params.roleId)
+      .findById(req.params.id)
       .then((role) => {
         if (!role) {
           return res.status(404).send({
